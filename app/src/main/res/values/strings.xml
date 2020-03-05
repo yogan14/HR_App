@@ -11,4 +11,14 @@
     <string name="end_absence_field">End of absence</string>
     <string name="to_field">to</string>
     <string name="send_request_button">Send request</string>
+
+    <string-array name="cause_of_absence">
+        <item>Sickness</item>
+        <item>Vacation</item>
+        <item>Army</item>
+        <item>Maternity</item>
+        <item>Paternity</item>
+        <item>Accident</item>
+        <item>Other</item>
+    </string-array>
 </resources>

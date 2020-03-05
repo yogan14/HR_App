@@ -42,26 +42,35 @@
         app:layout_constraintTop_toBottomOf="@+id/to" />
 
     <Button
-        android:id="@+id/send_request_buton"
-        android:layout_width="wrap_content"
+        android:id="@+id/update_button"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/update_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cause_of_absences_spinner" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="@string/send_request_button"
+        android:layout_marginEnd="52dp"
+        android:text="@string/delete_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cause_of_absence_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/cause_of_absences_spinner" />
 
     <Spinner
-        android:id="@+id/cause_of_absence_spinner"
+        android:id="@+id/cause_of_absences_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="100dp"
         android:entries="@array/cause_of_absence"
-        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/end_date" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
