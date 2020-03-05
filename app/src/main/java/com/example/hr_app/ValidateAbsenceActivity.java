@@ -2,7 +2,9 @@ package com.example.hr_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class ValidateAbsenceActivity extends AppCompatActivity {
 
@@ -10,5 +12,15 @@ public class ValidateAbsenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validate_absence);
+    }
+
+    public void validateAccepted(View view){
+        Intent intent = new Intent(this, HRMenuActivity.class);
+        startActivity(intent);
+    }
+
+    public void validateDenied(View view){
+        Intent intent = new Intent(this, HRMenuActivity.class);
+        startActivity(intent);
     }
 }

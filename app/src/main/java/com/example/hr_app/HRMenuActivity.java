@@ -17,4 +17,9 @@ public class HRMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PersonListActivity.class);
         startActivity(intent);
     }
+
+    public void absenceValidate(View view){
+        Intent intent = new Intent(this, ValidateAbsenceActivity.class);
+        startActivity(intent);
+    }
 }

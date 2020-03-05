@@ -11,9 +11,11 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
+        android:onClick="validateDenied"
+        app:layout_constraintEnd_toEndOf="@+id/textContainer"
         app:layout_constraintTop_toBottomOf="@+id/date_field"
-        app:srcCompat="@android:drawable/ic_delete"
-        tools:layout_editor_absoluteX="258dp" />
+        app:srcCompat="@android:drawable/ic_delete" />
 
     <TextView
         android:id="@+id/textContainer"
@@ -60,9 +62,10 @@
         android:id="@+id/imageButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="100dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        android:onClick="validateAccepted"
+        app:layout_constraintStart_toStartOf="@+id/textContainer"
         app:layout_constraintTop_toBottomOf="@+id/date_field"
         app:srcCompat="@android:drawable/checkbox_on_background" />
 </androidx.constraintlayout.widget.ConstraintLayout>

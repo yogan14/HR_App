@@ -22,4 +22,9 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void myAbsences(View view){
+        Intent intent = new Intent(this, MyAbsencesActivity.class);
+        startActivity(intent);
+    }
+
 }
