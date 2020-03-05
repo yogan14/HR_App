@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity {
@@ -16,4 +17,9 @@ public class MenuActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         Button button3 = findViewById(R.id.button3);
     }
+    public void requestAbsences(View view){
+        Intent intent = new Intent(this, RequestAbsencesActivity.class);
+        startActivity(intent);
+    }
+
 }

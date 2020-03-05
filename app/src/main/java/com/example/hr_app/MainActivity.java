@@ -20,4 +20,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
+
+    public void registerHR(View view){
+        Intent intent = new Intent(this, HRMenuActivity.class);
+        startActivity(intent);
+    }
+
+
+
 }
