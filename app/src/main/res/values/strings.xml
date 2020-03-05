@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">HR_App</string>
+    <string name="app_name">HR App</string>
+    <string name="name_field">Name</string>
+    <string name="service_field">Service</string>
+    <string name="mail_field">E-mail</string>
+    <string name="password_field">Password</string>
+    <string name="add_button">Add</string>
+    <string name="update_button">Update</string>
+    <string name="delete_button">Delete</string>
+    <string name="beginning_absence_field">Start of absence</string>
+    <string name="end_absence_field">End of absence</string>
+    <string name="to_field">to</string>
+    <string name="send_request_button">Send request</string>
 </resources>
