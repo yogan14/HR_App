@@ -22,7 +22,10 @@ public interface AbcencesDao {
     @Delete
     void delete(Absences absences);
 
-    @Query("SELECT * FROM absences_table ORDER BY startAbsence")
-    LiveData<List<Absences>> getAllAbsences();
+    @Query("SELECT * FROM absences_table WHERE idCollaborator = :idCollaborator ORDER BY startAbsence")
+    LiveData<List<Absences>> getAbsencesForOneCollaborator(int idCollaborator);
+
+    @Query("SELECT * FROM absences_table WHERE validate = 'false' ORDER BY startAbsence")
+    LiveData<List<Absences>> getAllAbsencesNotValidate();
 
 }
