@@ -25,7 +25,7 @@ public class PersonListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personlist);
 
-        CollaboratorViewModel.Factory factory = new CollaboratorViewModel.Factory(getApplication());
+        /*CollaboratorViewModel.Factory factory = new CollaboratorViewModel.Factory(getApplication());
 
         viewModel = ViewModelProviders.of(this, factory).get(CollaboratorViewModel.class);
         viewModel.getAllCollaborators().observe(this, new Observer<List<Collaborator>>() {
@@ -33,7 +33,7 @@ public class PersonListActivity extends AppCompatActivity {
             public void onChanged(List<Collaborator> collaborators) {
                 Toast.makeText(PersonListActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     public void addPerson(View view){
