@@ -3,23 +3,25 @@ package com.example.hr_app.entity;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.text.DateFormat;
 import java.util.Date;
 
-@Entity(tableName = "absences_table", foreignKeys = @ForeignKey(entity = Collaborator.class,
-                                                                parentColumns = "idCollaborator",
-                                                                childColumns = "IdCollaborator"))
+@Entity(tableName = "absencesTable", foreignKeys =
+    @ForeignKey(entity = Collaborator.class, parentColumns = "idCollaborator", childColumns = "idCollaborator", onDelete = ForeignKey.CASCADE),indices = @Index(value = {"idCollaborator"}))
+
 public class Absences {
 
     @PrimaryKey(autoGenerate = true)
     private  int idAbsence;
 
     @ColumnInfo(name = "startAbsence")
-    private Date startAbsence;
+    private String startAbsence;
 
     @ColumnInfo(name = "endAbsence")
-    private Date endAbsence;
+    private String endAbsence;
 
     @ColumnInfo(name = "reason")
     private String reason;
@@ -30,7 +32,7 @@ public class Absences {
     @ColumnInfo(name = "validate")
     private boolean validate;
 
-    public Absences(Date startAbsence, Date endAbsence, String reason, int idCollaborator) {
+    public Absences(String startAbsence, String endAbsence, String reason, int idCollaborator) {
         this.startAbsence = startAbsence;
         this.endAbsence = endAbsence;
         this.reason = reason;
@@ -46,19 +48,19 @@ public class Absences {
         this.idAbsence = idAbsence;
     }
 
-    public Date getStartAbsence() {
+    public String getStartAbsence() {
         return startAbsence;
     }
 
-    public void setStartAbsence(Date startAbsence) {
+    public void setStartAbsence(String startAbsence) {
         this.startAbsence = startAbsence;
     }
 
-    public Date getEndAbsence() {
+    public String getEndAbsence() {
         return endAbsence;
     }
 
-    public void setEndAbsence(Date endAbsence) {
+    public void setEndAbsence(String endAbsence) {
         this.endAbsence = endAbsence;
     }
 

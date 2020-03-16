@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "collaborator_table")
+@Entity(tableName = "collaboratorTable")
 public class Collaborator {
 
     @PrimaryKey

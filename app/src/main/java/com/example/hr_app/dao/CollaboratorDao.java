@@ -23,7 +23,7 @@ public interface CollaboratorDao {
     @Delete
     void delete(Collaborator collaborator);
 
-    @Query("SELECT * FROM collaborator_table ORDER BY name")
+    @Query("SELECT * FROM collaboratorTable ORDER BY name")
     LiveData<List<Collaborator>> getAllCollaborators();
 
 }

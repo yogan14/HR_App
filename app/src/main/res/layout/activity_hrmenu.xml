@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
     app:layout_constraintHorizontal_bias="0.5"
-    tools:context=".HRMenuActivity">
+    tools:context=".ui.HRMenuActivity">
 
     <Button
         android:id="@+id/button7"
