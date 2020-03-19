@@ -1,4 +1,4 @@
-package com.example.hr_app;
+package com.example.hr_app.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,26 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.hr_app.R;
 
-public class MainActivity extends AppCompatActivity {
-
+public class ValidateAbsenceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_validate_absence);
     }
 
-    public void register(View view){
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
-    }
-
-    public void registerHR(View view){
+    public void validateAccepted(View view){
         Intent intent = new Intent(this, HRMenuActivity.class);
         startActivity(intent);
     }
 
-
-
+    public void validateDenied(View view){
+        Intent intent = new Intent(this, HRMenuActivity.class);
+        startActivity(intent);
+    }
 }

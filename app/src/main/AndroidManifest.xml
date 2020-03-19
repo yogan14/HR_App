@@ -10,52 +10,52 @@
         android:supportsRtl="true"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".ValidateAbsenceActivity"
-            android:parentActivityName=".HRMenuActivity">
+        <activity android:name=".ui.ValidateAbsenceActivity"
+            android:parentActivityName=".ui.HRMenuActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HRMenuActivity"/>
+                android:value=".ui.HRMenuActivity"/>
         </activity>
-        <activity android:name=".MyAbsencesActivity"
-            android:parentActivityName=".MenuActivity">
+        <activity android:name=".ui.MyAbsencesActivity"
+            android:parentActivityName=".ui.MenuActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity"/>
+                android:value=".ui.MenuActivity"/>
         </activity>
-        <activity android:name=".HRMenuActivity" />
+        <activity android:name=".ui.HRMenuActivity" />
         <activity
-            android:name=".MenuActivity"
-            android:parentActivityName=".MainActivity">
+            android:name=".ui.MenuActivity"
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".ModifyRequestAbsenceActivity"/>
+        <activity android:name=".ui.ModifyRequestAbsenceActivity"/>
         <activity
-            android:name=".ModifyPersonActivity"
-            android:parentActivityName=".PersonListActivity">
+            android:name=".ui.ModifyPersonActivity"
+            android:parentActivityName=".ui.PersonListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PersonListActivity" />
+                android:value=".ui.PersonListActivity" />
         </activity>
         <activity
-            android:name=".AddPersonActivity"
-            android:parentActivityName=".PersonListActivity">
+            android:name=".ui.AddPersonActivity"
+            android:parentActivityName=".ui.PersonListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PersonListActivity" />
+                android:value=".ui.PersonListActivity" />
         </activity>
-        <activity android:name=".PersonListActivity"
-            android:parentActivityName=".HRMenuActivity">
+        <activity android:name=".ui.PersonListActivity"
+            android:parentActivityName=".ui.HRMenuActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HRMenuActivity"/>
+                android:value=".ui.HRMenuActivity"/>
         </activity>
         <activity
-            android:name=".RequestAbsencesActivity"
-            android:parentActivityName=".MenuActivity">
+            android:name=".ui.RequestAbsencesActivity"
+            android:parentActivityName=".ui.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
+                android:value=".ui.MenuActivity" />
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
