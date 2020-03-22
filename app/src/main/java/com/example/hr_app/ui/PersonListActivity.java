@@ -9,10 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.hr_app.Adapter.CollaboratorAdapter;
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.Collaborator;
-import com.example.hr_app.viewmodel.CollaboratorViewModel;
+import com.example.hr_app.viewmodel.collaborator.CollaboratorViewModel;
 
 import java.util.List;
 
@@ -31,9 +30,7 @@ public class PersonListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        CollaboratorAdapter adapter = new CollaboratorAdapter();
-        recyclerView.setAdapter(adapter);
-
+/*
         CollaboratorViewModel.Factory factory = new CollaboratorViewModel.Factory(getApplication());
 
         viewModel = ViewModelProviders.of(this, factory).get(CollaboratorViewModel.class);
@@ -45,9 +42,9 @@ public class PersonListActivity extends AppCompatActivity {
                         adapter.setCollaborators(collaborators);
                     }
                 }
-        );
+        );*/
     }
-
+/*
     public void addPerson(View view){
         Intent intent = new Intent(this, AddPersonActivity.class);
         startActivity(intent);
@@ -56,5 +53,5 @@ public class PersonListActivity extends AppCompatActivity {
     public void modifyPerson(View view){
         Intent intent = new Intent(this, ModifyPersonActivity.class);
         startActivity(intent);
-    }
+    }*/
 }
