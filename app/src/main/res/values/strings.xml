@@ -11,6 +11,9 @@
     <string name="end_absence_field">End of absence</string>
     <string name="to_field">to</string>
     <string name="send_request_button">Send request</string>
+    <string name="pref_about_text">This Application is created by Nicolas Constantin and Diogo D Almeida, 2 students of the HES-SO in IT section. This app allows the managment of absences for a compagny.
+        With this app, you can add delete or modify some absences or collaborator if you are an HR staff, and you can submit absences or see your absences if you are not an HR staff.</string>
+    <string name="title_activity_settings">Settings</string>
 
     <string-array name="cause_of_absence">
         <item>Sickness</item>
