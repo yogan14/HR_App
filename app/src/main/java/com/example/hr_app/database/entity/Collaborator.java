@@ -1,28 +1,23 @@
-package com.example.hr_app.entity;
+package com.example.hr_app.database.entity;
 
-import androidx.room.ColumnInfo;
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "collaboratorTable")
-public class Collaborator {
+@Entity(tableName = "collaborator")
+public class Collaborator implements Comparable {
 
     @PrimaryKey
     private int idCollaborator;
 
-    @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "service")
     private String service;
 
-    @ColumnInfo(name = "email")
     private String email;
 
-    @ColumnInfo(name = "password")
     private String password;
 
-    @ColumnInfo(name = "isHR")
     private boolean isHR;
 
     public Collaborator(String name, String service, String email, String password) {
@@ -86,4 +81,24 @@ public class Collaborator {
     public void setHR(boolean HR) {
         isHR = HR;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (!(obj instanceof Collaborator)) return false;
+        Collaborator o = (Collaborator) obj;
+        return o.getIdCollaborator() == this.getIdCollaborator();
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + service;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        return toString().compareTo(o.toString());
+    }
+
 }

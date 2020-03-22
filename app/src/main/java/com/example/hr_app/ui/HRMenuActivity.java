@@ -16,6 +16,7 @@ public class HRMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hrmenu);
     }
     public void collaborator(View view){
+        System.out.println("Nate's >> ");
         Intent intent = new Intent(this, PersonListActivity.class);
         startActivity(intent);
     }
