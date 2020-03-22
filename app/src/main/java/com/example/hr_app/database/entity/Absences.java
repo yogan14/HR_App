@@ -1,35 +1,36 @@
-package com.example.hr_app.entity;
+package com.example.hr_app.database.entity;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.text.DateFormat;
-import java.util.Date;
-
-@Entity(tableName = "absencesTable", foreignKeys =
-    @ForeignKey(entity = Collaborator.class, parentColumns = "idCollaborator", childColumns = "idCollaborator", onDelete = ForeignKey.CASCADE),indices = @Index(value = {"idCollaborator"}))
-
+@Entity(tableName = "Absences",
+        foreignKeys =
+        @ForeignKey(
+                entity = Collaborator.class,
+                parentColumns = "idCollaborator",
+                childColumns = "idCollaborator",
+                onDelete = ForeignKey.CASCADE
+        ),
+        indices = {
+                @Index(
+                        value = {"idCollaborator"}
+                )}
+)
 public class Absences {
 
     @PrimaryKey(autoGenerate = true)
-    private  int idAbsence;
+    private int idAbsence;
 
-    @ColumnInfo(name = "startAbsence")
     private String startAbsence;
 
-    @ColumnInfo(name = "endAbsence")
     private String endAbsence;
 
-    @ColumnInfo(name = "reason")
     private String reason;
 
-    @ColumnInfo(name = "idCollaborator")
     private int idCollaborator;
 
-    @ColumnInfo(name = "validate")
     private boolean validate;
 
     public Absences(String startAbsence, String endAbsence, String reason, int idCollaborator) {
@@ -86,5 +87,19 @@ public class Absences {
 
     public void setValidate(boolean validate) {
         this.validate = validate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (!(obj instanceof Absences)) return false;
+        Absences o = (Absences) obj;
+        return o.getIdCollaborator() == this.getIdCollaborator();
+    }
+
+    @Override
+    public String toString() {
+        return startAbsence + " to " + endAbsence + " " + reason;
     }
 }
