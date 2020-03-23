@@ -8,13 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hr_app.R;
 
-public class RequestAbsencesActivity extends AppCompatActivity {
+public class RequestAbsencesActivity extends BaseHRActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_requestabsences);
+        getLayoutInflater().inflate(R.layout.activity_requestabsences, frameLayout);
+
+        navigationView.setCheckedItem(position);
     }
     public void sendAbsence(View view){
         Intent intent = new Intent(this, MenuActivity.class);

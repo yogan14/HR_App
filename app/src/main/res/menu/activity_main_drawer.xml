@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_request_absences"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/title_activity_request_absences" />
+        <item
+            android:id="@+id/nav_my_absences"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/title_activity_my_absences" />
+        <item
+            android:id="@+id/nav_accept_absences"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/title_activity_accept_absences"/>
+        <item
+            android:id="@+id/nav_collaborators"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/title_activity_collaborators"/>
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="@string/action_logout"/>
+        <item
+            android:id="@+id/nav_none"
+            android:title=""
+            android:visible="false"/>
+    </group>
+
+</menu>

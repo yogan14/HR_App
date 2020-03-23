@@ -35,7 +35,7 @@ public class CollaboratorViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableCollaborator.setValue(null);
 
-        LiveData<Collaborator> collaborator = repository.getOneCollaborator(application, idCollaborator);
+        LiveData<Collaborator> collaborator = repository.getOneCollaborator(idCollaborator, application);
 
         // observe the changes of the client entity from the database and forward them
         observableCollaborator.addSource(collaborator, observableCollaborator::setValue);

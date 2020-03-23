@@ -11,8 +11,7 @@ import android.widget.EditText;
 
 import com.example.hr_app.R;
 import com.example.hr_app.database.repository.CollaboratorRepository;
-import com.example.hr_app.ui.HRMenuActivity;
-import com.example.hr_app.ui.MainActivity;
+import com.example.hr_app.ui.BaseHRActivity;
 import com.example.hr_app.ui.MenuActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -53,9 +52,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
         int test  =1;
-        CR.getOneCollaborator(test, getApplication().observe(LoginActivity.this, collaborator -> {
+        CR.getOneCollaborator(test, getApplication()).observe(LoginActivity.this, collaborator -> {
 
-        }));
+        });
 
     }
 
@@ -65,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void registerHR(View view){
-        Intent intent = new Intent(this, HRMenuActivity.class);
+        Intent intent = new Intent(this, BaseHRActivity.class);
         startActivity(intent);
     }
 }

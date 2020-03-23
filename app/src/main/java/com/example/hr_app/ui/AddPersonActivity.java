@@ -8,13 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hr_app.R;
 
-public class AddPersonActivity extends AppCompatActivity {
+public class AddPersonActivity extends BaseHRActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addperson);
+        getLayoutInflater().inflate(R.layout.activity_addperson, frameLayout);
+
+        navigationView.setCheckedItem(position);
     }
 
     public void returnToList(View view){

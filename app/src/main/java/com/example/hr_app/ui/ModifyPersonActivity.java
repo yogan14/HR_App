@@ -8,13 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hr_app.R;
 
-public class ModifyPersonActivity extends AppCompatActivity {
+public class ModifyPersonActivity extends BaseHRActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modifyperson);
+        getLayoutInflater().inflate(R.layout.activity_modifyperson, frameLayout);
+
+        navigationView.setCheckedItem(position);
     }
     public void updatePerson(View view){
         Intent intent = new Intent(this, PersonListActivity.class);

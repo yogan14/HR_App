@@ -15,7 +15,7 @@ import com.example.hr_app.viewmodel.collaborator.CollaboratorViewModel;
 
 import java.util.List;
 
-public class PersonListActivity extends AppCompatActivity {
+public class PersonListActivity extends BaseHRActivity {
 
     private CollaboratorViewModel viewModel;
     private List<Collaborator> collaborators;
@@ -24,7 +24,9 @@ public class PersonListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personlist);
+        getLayoutInflater().inflate(R.layout.activity_personlist, frameLayout);
+
+        navigationView.setCheckedItem(position);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

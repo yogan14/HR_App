@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "collaborator")
 public class Collaborator implements Comparable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int idCollaborator;
 
     private String name;
