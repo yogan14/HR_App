@@ -27,8 +27,8 @@ public class DatabaseInitializer {
     }
 
     private static void addAbsences(final AppDatabase db, final String startAbsence, final String endAbsence,
-                                    final String reason, final int idCollaborator) {
-        Absences absence = new Absences(startAbsence, endAbsence, reason, idCollaborator);
+                                    final String reason, final String email) {
+        Absences absence = new Absences(startAbsence, endAbsence, reason, email);
         db.absencesDao().insert(absence);
     }
 
@@ -56,22 +56,22 @@ public class DatabaseInitializer {
         }
 
         addAbsences(db,
-                "16.03.2020", "17.03.2020", "sickness", 0
+                "16.03.2020", "17.03.2020", "sickness", "isAldini@gmail.com"
         );
         addAbsences(db,
-                "18.03.2020", "19.03.2020", "sickness", 1
+                "18.03.2020", "19.03.2020", "sickness", "akHayama@gmail.com"
         );
         addAbsences(db,
-                "19.03.2020", "21.03.2020", "vacation", 1
+                "19.03.2020", "21.03.2020", "vacation", "akHayama@gmail.com"
         );
         addAbsences(db,
-                "20.04.2020", "28.04.2020", "vacation", 2
+                "20.04.2020", "28.04.2020", "vacation", "ryoKuro@gmail.com"
         );
         addAbsences(db,
-                "13.03.2020", "17.03.2020", "paternity", 2
+                "13.03.2020", "17.03.2020", "paternity", "ryoKuro@gmail.com"
         );
         addAbsences(db,
-                "28.03.2020", "30.03.2020", "vacation", 3
+                "28.03.2020", "30.03.2020", "vacation", "saIsshiki@gmail.com"
         );
 
     }

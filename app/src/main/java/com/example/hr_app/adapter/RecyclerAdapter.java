@@ -92,8 +92,8 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                         return ((Absences) mData.get(oldItemPosition)).getIdAbsence() == ((Absences) data.get(newItemPosition)).getIdAbsence();
                     }
                     if (mData instanceof Collaborator) {
-                        return ((Collaborator) mData.get(oldItemPosition)).getIdCollaborator() ==
-                                ((Collaborator) data.get(newItemPosition)).getIdCollaborator();
+                        return ((Collaborator) mData.get(oldItemPosition)).getEmail() ==
+                                ((Collaborator) data.get(newItemPosition)).getEmail();
                     }
                     return false;
                 }
@@ -107,12 +107,12 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                                 && Objects.equals(newAccount.getStartAbsence(), oldAccount.getStartAbsence())
                                 && Objects.equals(newAccount.getEndAbsence(), oldAccount.getEndAbsence())
                                 && newAccount.getReason().equals(oldAccount.getReason())
-                                && Objects.equals(newAccount.getIdCollaborator(), oldAccount.getIdCollaborator());
+                                && Objects.equals(newAccount.getEmail(), oldAccount.getEmail());
                     }
                     if (mData instanceof Collaborator) {
                         Collaborator newClient = (Collaborator) data.get(newItemPosition);
                         Collaborator oldClient = (Collaborator) mData.get(newItemPosition);
-                        return Objects.equals(newClient.getIdCollaborator(), oldClient.getIdCollaborator())
+                        return Objects.equals(newClient.getEmail(), oldClient.getEmail())
                                 && Objects.equals(newClient.getName(), oldClient.getName())
                                 && Objects.equals(newClient.getService(), oldClient.getService())
                                 && newClient.getEmail().equals(oldClient.getEmail())

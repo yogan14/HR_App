@@ -9,13 +9,13 @@ import androidx.room.PrimaryKey;
         foreignKeys =
         @ForeignKey(
                 entity = Collaborator.class,
-                parentColumns = "idCollaborator",
-                childColumns = "idCollaborator",
+                parentColumns = "email",
+                childColumns = "email",
                 onDelete = ForeignKey.CASCADE
         ),
         indices = {
                 @Index(
-                        value = {"idCollaborator"}
+                        value = {"email"}
                 )}
 )
 public class Absences {
@@ -29,15 +29,15 @@ public class Absences {
 
     private String reason;
 
-    private int idCollaborator;
+    private String email;
 
     private boolean validate;
 
-    public Absences(String startAbsence, String endAbsence, String reason, int idCollaborator) {
+    public Absences(String startAbsence, String endAbsence, String reason, String email) {
         this.startAbsence = startAbsence;
         this.endAbsence = endAbsence;
         this.reason = reason;
-        this.idCollaborator = idCollaborator;
+        this.email = email;
         this.validate = false;
     }
 
@@ -73,12 +73,12 @@ public class Absences {
         this.reason = reason;
     }
 
-    public int getIdCollaborator() {
-        return idCollaborator;
+    public String getEmail() {
+        return email;
     }
 
-    public void setIdCollaborator(int idCollaborator) {
-        this.idCollaborator = idCollaborator;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public boolean isValidate() {
@@ -95,7 +95,7 @@ public class Absences {
         if (obj == this) return true;
         if (!(obj instanceof Absences)) return false;
         Absences o = (Absences) obj;
-        return o.getIdCollaborator() == this.getIdCollaborator();
+        return o.getEmail() == this.getEmail();
     }
 
     @Override

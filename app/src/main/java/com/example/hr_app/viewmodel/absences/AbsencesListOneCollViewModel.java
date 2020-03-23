@@ -26,7 +26,7 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
     private final MediatorLiveData<List<Absences>> observableAbsencesForOneCollaborator;
 
     public AbsencesListOneCollViewModel(@NonNull Application application,
-                                        final int idCollaborator,
+                                        final String email,
                                         AbsencesRepository absencesRepository) {
         super(application);
 
@@ -38,7 +38,7 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableAbsencesForOneCollaborator.setValue(null);
 
-        LiveData<List<Absences>> AbsencesOneColl = repository.getAbsencesForOneCollaborator(application, idCollaborator);
+        LiveData<List<Absences>> AbsencesOneColl = repository.getAbsencesForOneCollaborator(application, email);
 
         // observe the changes of the entities from the database and forward them
         observableAbsencesForOneCollaborator.addSource(AbsencesOneColl, observableAbsencesForOneCollaborator::setValue);
@@ -52,20 +52,20 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final int idCollaborator;
+        private final String email;
 
         private final AbsencesRepository absenceRepository;
 
-        public Factory(@NonNull Application application, int idCollaborator) {
+        public Factory(@NonNull Application application, String email) {
             this.application = application;
-            this.idCollaborator = idCollaborator;
+            this.email = email;
             absenceRepository = ((BaseApp) application).getAbsenceRepository();
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new AbsencesListOneCollViewModel(application, idCollaborator, absenceRepository);
+            return (T) new AbsencesListOneCollViewModel(application, email, absenceRepository);
         }
     }
 

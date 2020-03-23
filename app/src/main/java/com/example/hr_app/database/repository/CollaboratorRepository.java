@@ -31,8 +31,8 @@ public class CollaboratorRepository {
         return instance;
     }
 
-    public LiveData<Collaborator> getOneCollaborator(final int idCollaborator, Application application) {
-        return ((BaseApp) application).getDatabase().collaboratorDao().getOneCollaborator(idCollaborator);
+    public LiveData<Collaborator> getOneCollaborator(final String email, Application application) {
+        return ((BaseApp) application).getDatabase().collaboratorDao().getOneCollaborator(email);
     }
 
     public LiveData<List<Collaborator>> getAll(Application application) {

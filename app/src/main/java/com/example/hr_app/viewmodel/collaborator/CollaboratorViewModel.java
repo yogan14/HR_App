@@ -24,7 +24,7 @@ public class CollaboratorViewModel extends AndroidViewModel {
     private final MediatorLiveData<Collaborator> observableCollaborator;
 
     public CollaboratorViewModel(@NonNull Application application,
-                                 final int idCollaborator, CollaboratorRepository collaboratorRepository) {
+                                 final String email, CollaboratorRepository collaboratorRepository) {
         super(application);
 
         this.application = application;
@@ -35,7 +35,7 @@ public class CollaboratorViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableCollaborator.setValue(null);
 
-        LiveData<Collaborator> collaborator = repository.getOneCollaborator(idCollaborator, application);
+        LiveData<Collaborator> collaborator = repository.getOneCollaborator(email, application);
 
         // observe the changes of the client entity from the database and forward them
         observableCollaborator.addSource(collaborator, observableCollaborator::setValue);
@@ -49,20 +49,20 @@ public class CollaboratorViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final int idCollaborator;
+        private final String email;
 
         private final CollaboratorRepository repository;
 
-        public Factory(@NonNull Application application, int idCollaborator) {
+        public Factory(@NonNull Application application, String email) {
             this.application = application;
-            this.idCollaborator = idCollaborator;
+            this.email = email;
             repository = ((BaseApp) application).getCollaboratorRepository();
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new CollaboratorViewModel(application, idCollaborator, repository);
+            return (T) new CollaboratorViewModel(application, email, repository);
         }
     }
 

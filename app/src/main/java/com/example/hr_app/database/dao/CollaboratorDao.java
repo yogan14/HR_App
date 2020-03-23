@@ -20,8 +20,8 @@ import java.util.List;
 @Dao
 public interface CollaboratorDao {
 
-    @Query("SELECT * FROM Collaborator WHERE idCollaborator = :id")
-    LiveData<Collaborator> getOneCollaborator(int id);
+    @Query("SELECT * FROM Collaborator WHERE email = :id")
+    LiveData<Collaborator> getOneCollaborator(String id);
 
     @Query("SELECT * FROM collaborator")
     LiveData<List<Collaborator>> getAll();

@@ -5,18 +5,17 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "collaborator")
+@Entity(tableName = "collaborator", primaryKeys = {"email"})
 public class Collaborator implements Comparable {
 
-    @PrimaryKey(autoGenerate = true)
-    private int idCollaborator;
+    @NonNull
+    private String email;
 
     private String name;
 
     private String service;
 
-    @NonNull
-    private String email;
+
 
     @NonNull
     private String password;
@@ -41,13 +40,6 @@ public class Collaborator implements Comparable {
 
     }
 
-    public int getIdCollaborator() {
-        return idCollaborator;
-    }
-
-    public void setIdCollaborator(int idCollaborator) {
-        this.idCollaborator = idCollaborator;
-    }
 
     public String getName() {
         return name;
@@ -95,7 +87,7 @@ public class Collaborator implements Comparable {
         if (obj == this) return true;
         if (!(obj instanceof Collaborator)) return false;
         Collaborator o = (Collaborator) obj;
-        return o.getIdCollaborator() == this.getIdCollaborator();
+        return o.getEmail() == this.getEmail();
     }
 
     @Override

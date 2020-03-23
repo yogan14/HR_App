@@ -34,8 +34,8 @@ public class AbsencesRepository {
         return instance;
     }
 
-    public LiveData<List<Absences>> getAbsencesForOneCollaborator(Application application, int idCollaborator) {
-        return ((BaseApp) application).getDatabase().absencesDao().getAbsencesForOneCollaborator(idCollaborator);
+    public LiveData<List<Absences>> getAbsencesForOneCollaborator(Application application, String email) {
+        return ((BaseApp) application).getDatabase().absencesDao().getAbsencesForOneCollaborator(email);
     }
 
     public LiveData<List<Absences>> getAbsencesNotValidate(Application application) {
