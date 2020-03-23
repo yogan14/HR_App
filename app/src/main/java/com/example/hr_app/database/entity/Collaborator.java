@@ -2,6 +2,7 @@ package com.example.hr_app.database.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "collaborator")
@@ -14,13 +15,19 @@ public class Collaborator implements Comparable {
 
     private String service;
 
+    @NonNull
     private String email;
 
+    @NonNull
     private String password;
 
     private boolean isHR;
 
-    public Collaborator(String name, String service, String email, String password) {
+    @Ignore
+    public Collaborator(){
+    }
+
+    public Collaborator(String name, String service, @NonNull String email, @NonNull String password) {
         this.name = name;
         this.service = service;
         this.email = email;

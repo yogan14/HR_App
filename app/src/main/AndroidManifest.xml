@@ -19,7 +19,8 @@
         <activity android:name=".ui.PersonListActivity"/>
         <activity android:name=".ui.RequestAbsencesActivity"/>
         <activity android:name=".ui.mgmt.SettingsActivity"/>
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.mgmt.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
