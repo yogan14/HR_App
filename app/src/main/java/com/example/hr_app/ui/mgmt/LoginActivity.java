@@ -49,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        ((BaseApp) this.getApplication()).setTheMail("Nobody connected");
+
         login = findViewById(R.id.editText2);
         pwd = findViewById(R.id.editText);
         registerButton = findViewById(R.id.button2);
@@ -60,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     public void register() {
         login.setError(null);
         pwd.setError(null);
-        CR = CollaboratorRepository.getInstance();
+        CR = ((BaseApp) getApplication()).getCollaboratorRepository();
         String loginCase = login.getText().toString();
         String pwdCase = pwd.getText().toString();
         View focusView = null;
@@ -101,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             CR.getOneCollaborator(loginCase, getApplication()).observe(LoginActivity.this, collaborator -> {
                 if (collaborator != null) {
                     if (collaborator.getPassword().equals(pwdCase)) {
+                        ((BaseApp) this.getApplication()).setTheMail(collaborator.getEmail());
                         if(collaborator.getService().equals("HR")){
                             Intent intent = new Intent(this, MainActivity.class);
                             startActivity(intent);

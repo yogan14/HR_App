@@ -12,6 +12,16 @@ import com.example.hr_app.database.repository.CollaboratorRepository;
  */
 public class BaseApp extends Application {
 
+    private String someVariable;
+
+    public String getTheMail() {
+        return someVariable;
+    }
+
+    public void setTheMail(String variable) {
+        this.someVariable = variable;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

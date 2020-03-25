@@ -1,24 +1,22 @@
-package com.example.hr_app.ui.mgmt;
+package com.example.hr_app.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.adapter.RecyclerDD;
 import com.example.hr_app.database.entity.Collaborator;
-import com.example.hr_app.ui.BaseHRActivity;
-import com.example.hr_app.ui.MyAbsencesActivity;
 import com.example.hr_app.util.RecyclerViewItemClickListener;
 import com.example.hr_app.viewmodel.collaborator.DiogoVM;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +26,15 @@ public class CollaboratorsActivity extends BaseHRActivity {
     private List<Collaborator> collaborators;
     private RecyclerDD<Collaborator> adapter;
     private DiogoVM viewModel;
+    private FloatingActionButton addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_collaborators, frameLayout);
 
-        setTitle("je veux pleurer");
+        addButton = findViewById(R.id.addButton);
+        addButton.setOnClickListener(view -> add());
 
         RecyclerView recyclerView = findViewById(R.id.collaboratorsRecyclerView);
 
@@ -44,10 +44,10 @@ public class CollaboratorsActivity extends BaseHRActivity {
         SharedPreferences settings = getSharedPreferences(BaseHRActivity.PREFS_NAME, 0);
         String user = settings.getString(BaseHRActivity.PREFS_NAME, null);
 
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
+
 
         collaborators = new ArrayList<>();
         adapter = new RecyclerDD<>(new RecyclerViewItemClickListener() {
@@ -73,5 +73,10 @@ public class CollaboratorsActivity extends BaseHRActivity {
         });
 
         recyclerView.setAdapter(adapter);
+    }
+
+    public void add() {
+        Intent intent = new Intent(this, AddPersonActivity.class);
+        startActivity(intent);
     }
 }

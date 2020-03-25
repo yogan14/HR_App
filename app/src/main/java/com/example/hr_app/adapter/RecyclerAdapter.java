@@ -41,7 +41,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_personlist, parent, false);
+                .inflate(R.layout.activity_addperson, parent, false);
         final ViewHolder viewHolder = new ViewHolder(v);
         v.setOnClickListener(view -> mListener.onItemClick(view, viewHolder.getAdapterPosition()));
         v.setOnLongClickListener(view -> {

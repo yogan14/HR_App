@@ -53,7 +53,7 @@ public class AbsenceListNotValidateViewModel extends AndroidViewModel {
 
         private final AbsencesRepository absenceRepository;
 
-        public Factory(@NonNull Application application, int idCollaborator) {
+        public Factory(@NonNull Application application) {
             this.application = application;
             absenceRepository = ((BaseApp) application).getAbsenceRepository();
         }

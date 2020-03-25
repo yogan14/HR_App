@@ -26,6 +26,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="logout_msg">Do you really want to logout ?</string>
     <string name="action_cancel">Cancel</string>
+    <string name="empty_field">Field empty !</string>
+    <string name="invalid_mail">Invalid Email</string>
 
     <string-array name="cause_of_absence">
         <item>Sickness</item>

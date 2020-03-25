@@ -19,12 +19,12 @@ public class ModifyPersonActivity extends BaseHRActivity {
         navigationView.setCheckedItem(position);
     }
     public void updatePerson(View view){
-        Intent intent = new Intent(this, PersonListActivity.class);
+        Intent intent = new Intent(this, CollaboratorsActivity.class);
         startActivity(intent);
     }
 
     public void deletePerson(View view){
-        Intent intent = new Intent(this, PersonListActivity.class);
+        Intent intent = new Intent(this, CollaboratorsActivity.class);
         startActivity(intent);
     }
 }

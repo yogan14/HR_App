@@ -75,16 +75,4 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
     public LiveData<List<Absences>> getAbsencesForOneCollaborator() {
         return observableAbsencesForOneCollaborator;
     }
-
-    public void delete(Absences absences, OnAsyncEventListener callback) {
-        repository.delete(absences, callback, application);
-    }
-
-    public void insert(Absences absences, OnAsyncEventListener callback) {
-        repository.insert(absences, callback, application);
-    }
-
-    public void update(Absences absences, OnAsyncEventListener callback) {
-        repository.update(absences, callback, application);
-    }
 }

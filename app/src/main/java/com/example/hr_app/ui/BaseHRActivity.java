@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
+import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
-import com.example.hr_app.ui.mgmt.CollaboratorsActivity;
 import com.example.hr_app.ui.mgmt.LoginActivity;
 import com.example.hr_app.ui.mgmt.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -131,6 +131,7 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
         editor.remove(BaseHRActivity.PREFS_USER);
         editor.apply();
 
+        ((BaseApp) this.getApplication()).setTheMail("Nobody connected");
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
