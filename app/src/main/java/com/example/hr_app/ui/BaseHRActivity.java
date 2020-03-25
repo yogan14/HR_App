@@ -112,7 +112,7 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
         } else if (id == R.id.nav_accept_absences) {
             intent = new Intent(this, ValidateAbsenceActivity.class);
         } else if (id == R.id.nav_collaborators) {
-            intent = new Intent(this, PersonListActivity.class);
+            intent = new Intent(this, LoginActivity.class);
         } else if (id == R.id.nav_logout) {
             logout();
         }
