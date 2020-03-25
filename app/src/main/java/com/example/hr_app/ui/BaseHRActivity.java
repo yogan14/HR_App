@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.example.hr_app.R;
+import com.example.hr_app.ui.mgmt.CollaboratorsActivity;
 import com.example.hr_app.ui.mgmt.LoginActivity;
 import com.example.hr_app.ui.mgmt.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -112,7 +113,7 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
         } else if (id == R.id.nav_accept_absences) {
             intent = new Intent(this, ValidateAbsenceActivity.class);
         } else if (id == R.id.nav_collaborators) {
-            intent = new Intent(this, LoginActivity.class);
+            intent = new Intent(this, CollaboratorsActivity.class);
         } else if (id == R.id.nav_logout) {
             logout();
         }
