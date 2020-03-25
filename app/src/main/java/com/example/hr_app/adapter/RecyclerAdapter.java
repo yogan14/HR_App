@@ -40,7 +40,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        /*TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view, parent, false);
         final ViewHolder viewHolder = new ViewHolder(v);
         v.setOnClickListener(view -> mListener.onItemClick(view, viewHolder.getAdapterPosition()));
@@ -48,8 +48,8 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             mListener.onItemLongClick(view, viewHolder.getAdapterPosition());
             return true;
         });
-        return viewHolder;*/
-        return null; //à supprimer
+        return viewHolder;
+       // return null; //à supprimer
     }
 
     @Override
@@ -115,7 +115,6 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                         return Objects.equals(newClient.getEmail(), oldClient.getEmail())
                                 && Objects.equals(newClient.getName(), oldClient.getName())
                                 && Objects.equals(newClient.getService(), oldClient.getService())
-                                && newClient.getEmail().equals(oldClient.getEmail())
                                 && newClient.getPassword().equals(oldClient.getPassword());
                     }
                     return false;

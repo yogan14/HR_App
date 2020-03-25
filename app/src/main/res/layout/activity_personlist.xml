@@ -5,12 +5,14 @@
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ui.PersonListActivity"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/collaborator_item"/>
+
+        tools:listitem="@layout/collaborator_item" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
