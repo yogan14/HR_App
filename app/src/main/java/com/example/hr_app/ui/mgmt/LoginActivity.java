@@ -20,6 +20,7 @@ import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.database.repository.CollaboratorRepository;
 import com.example.hr_app.ui.BaseHRActivity;
 
+import com.example.hr_app.ui.MainActivity;
 import com.example.hr_app.ui.MenuActivity;
 
 import java.util.ArrayList;
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (collaborator != null) {
                     if (collaborator.getPassword().equals(pwdCase)) {
                         if(collaborator.getService().equals("HR")){
-                            Intent intent = new Intent(this, BaseHRActivity.class);
+                            Intent intent = new Intent(this, MainActivity.class);
                             startActivity(intent);
                         } else {
                             Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
@@ -132,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
     }*/
 
     public void registerHR(View view){
-        Intent intent = new Intent(this, BaseHRActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
