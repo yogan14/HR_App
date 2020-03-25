@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hr_app.R;
+import com.example.hr_app.database.entity.Absences;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.util.RecyclerViewItemClickListener;
 
@@ -48,7 +49,12 @@ public class RecyclerDD<T> extends RecyclerView.Adapter<RecyclerDD.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerDD.ViewHolder holder, int position) {
         T item =mData.get(position);
-        holder.tv.setText(((Collaborator) item).getName());
+        if(item.getClass().equals(Collaborator.class)){
+            holder.tv.setText(((Collaborator) item).getName());
+        } else {
+            holder.tv.setText(((Absences) item).getStartAbsence() + " - " + ((Absences) item).getEndAbsence());
+        }
+
     }
 
     @Override
@@ -81,6 +87,8 @@ public class RecyclerDD<T> extends RecyclerView.Adapter<RecyclerDD.ViewHolder> {
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
                     if(mData instanceof Collaborator){
                         return ((Collaborator) mData.get(oldItemPosition)).getEmail().equals(((Collaborator) data.get(newItemPosition)).getEmail());
+                    } else if(mData instanceof Absences){
+                        return ((Absences) mData.get(oldItemPosition)).getIdAbsence() == ((Absences) mData.get(newItemPosition)).getIdAbsence();
                     }
                     return false;
                 }
@@ -94,6 +102,15 @@ public class RecyclerDD<T> extends RecyclerView.Adapter<RecyclerDD.ViewHolder> {
                                 && Objects.equals(newCollabo.getName(), oldCollabo.getName())
                                 && Objects.equals(newCollabo.getService(), oldCollabo.getService())
                                 && Objects.equals(newCollabo.getPassword(), oldCollabo.getPassword());
+                    } else if(mData instanceof Absences){
+                        Absences newAbs = (Absences) data.get(newItemPosition);
+                        Absences oldAbs = (Absences) data.get(oldItemPosition);
+                        return newAbs.getIdAbsence() == oldAbs.getIdAbsence()
+                                && Objects.equals(newAbs.getEmail(), oldAbs.getEmail())
+                                && Objects.equals(newAbs.getReason(), oldAbs.getReason())
+                                && Objects.equals(newAbs.getStartAbsence(), oldAbs.getStartAbsence())
+                                && Objects.equals(newAbs.getEndAbsence(),oldAbs.getEndAbsence())
+                                && Objects.equals(newAbs.isValidate(), oldAbs.isValidate());
                     }
                     return false;
                 }
