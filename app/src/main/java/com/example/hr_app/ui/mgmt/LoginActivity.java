@@ -64,22 +64,24 @@ public class LoginActivity extends AppCompatActivity {
         String pwdCase = pwd.getText().toString();
         View focusView = null;
         boolean error = false;
-        int id = 1;
+
         if (TextUtils.isEmpty(loginCase)) {
             login.setError("Login is empty");
             login.setText("");
             focusView = login;
             error = true;
 
+        } else {
+            if (TextUtils.isEmpty(pwdCase)) {
+                pwd.setError("Password is empty");
+                pwd.setText("");
+                focusView = pwd;
+
+                error = true;
+            }
         }
 
-        if (TextUtils.isEmpty(pwdCase)) {
-            pwd.setError("Password is empty");
-            pwd.setText("");
-            focusView = pwd;
 
-            error = true;
-        }
 
 
        /* name = CR.getTest(getApplication());
@@ -98,15 +100,23 @@ public class LoginActivity extends AppCompatActivity {
             CR.getOneCollaborator(loginCase, getApplication()).observe(LoginActivity.this, collaborator -> {
                 if (collaborator != null) {
                     if (collaborator.getPassword().equals(pwdCase)) {
-                        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-                        startActivity(intent);
+                        if(collaborator.getService().equals("HR")){
+                            Intent intent = new Intent(this, BaseHRActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                            startActivity(intent);
+                        }
+
                     } else {
                         pwd.setError("Password incorrect");
                         pwd.requestFocus();
                         pwd.setText("");
                     }
 
-                    login.setError("Unknown error");
+
+                } else {
+                    login.setError("Non-existent login");
                     login.requestFocus();
                     login.setText("");
                 }
