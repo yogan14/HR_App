@@ -18,6 +18,16 @@ public class BaseApp extends Application {
         return someVariable;
     }
 
+    private int test;
+
+    public int getTheAbsenceID(){
+        return test;
+    }
+
+    public void setTheAbsenceID(int id){
+        this.test = id;
+    }
+
     public void setTheMail(String variable) {
         this.someVariable = variable;
     }

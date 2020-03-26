@@ -1,5 +1,6 @@
 package com.example.hr_app.database.repository;
 
+import android.app.ActionBar;
 import android.app.Application;
 import androidx.lifecycle.LiveData;
 import android.util.Pair;
@@ -40,6 +41,10 @@ public class AbsencesRepository {
 
     public LiveData<List<Absences>> getAbsencesNotValidate(Application application) {
         return ((BaseApp) application).getDatabase().absencesDao().getAbsencesNotValidate();
+    }
+
+    public LiveData<Absences> getAbsence(Application application, int id){
+        return ((BaseApp) application).getDatabase().absencesDao().getAbsenceByID(id);
     }
 
     public void insert(final Absences absences, OnAsyncEventListener callback,

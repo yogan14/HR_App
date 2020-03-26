@@ -23,6 +23,9 @@ public interface AbsencesDao {
     @Query("SELECT * FROM Absences WHERE email = :idCollaborator")
     LiveData<List<Absences>> getAbsencesForOneCollaborator(String idCollaborator);
 
+    @Query("SELECT * FROM Absences WHERE idAbsence =:absencesID")
+    LiveData<Absences> getAbsenceByID(int absencesID);
+
     @Insert
     void insert(Absences absences);
 

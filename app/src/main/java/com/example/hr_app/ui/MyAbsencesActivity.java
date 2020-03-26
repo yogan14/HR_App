@@ -3,6 +3,7 @@ package com.example.hr_app.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -24,12 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyAbsencesActivity extends BaseHRActivity {
-
     private List<Absences> absences;
-
     private RecyclerDD<Absences> adapter;
-
     private AbsencesListOneCollViewModel viewModel;
+    private static final int EDIT_ACCOUNT = 1;
+    private Absences absence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,8 @@ public class MyAbsencesActivity extends BaseHRActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Intent intent = new Intent(MyAbsencesActivity.this, ModifyRequestAbsenceActivity.class);
-
+                setID(absences.get(position).getIdAbsence());
+                intent.putExtra("abscenceID", absences.get(position).getIdAbsence());
                 startActivity(intent);
             }
 
@@ -77,5 +78,12 @@ public class MyAbsencesActivity extends BaseHRActivity {
 
         recyclerView.setAdapter(adapter);
 
+
+
     }
+
+    public void setID(int id){
+        ((BaseApp) this.getApplication()).setTheAbsenceID(id);
+    }
+
 }
