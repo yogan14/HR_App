@@ -24,8 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyAbsencesActivity extends BaseHRActivity {
+
     private List<Absences> absences;
+
     private RecyclerDD<Absences> adapter;
+
     private AbsencesListOneCollViewModel viewModel;
 
     @Override
@@ -53,6 +56,7 @@ public class MyAbsencesActivity extends BaseHRActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Intent intent = new Intent(MyAbsencesActivity.this, ModifyRequestAbsenceActivity.class);
+
                 startActivity(intent);
             }
 

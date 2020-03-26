@@ -42,7 +42,6 @@ public class CollaboratorsActivity extends BaseHRActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         SharedPreferences settings = getSharedPreferences(BaseHRActivity.PREFS_NAME, 0);
-        String user = settings.getString(BaseHRActivity.PREFS_NAME, null);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 LinearLayoutManager.VERTICAL);
@@ -63,9 +62,9 @@ public class CollaboratorsActivity extends BaseHRActivity {
             }
         });
 
-        DiogoVM.Factory factory = new DiogoVM.Factory(getApplication(),user);
+        DiogoVM.Factory factory = new DiogoVM.Factory(getApplication());
         viewModel = ViewModelProviders.of(this,factory).get(DiogoVM.class);
-        viewModel.getAllCollabo().observe(this, collaborators1 -> {
+        viewModel.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
             if(collaborators1!=null){
                 collaborators = collaborators1;
                 adapter.setData(collaborators);

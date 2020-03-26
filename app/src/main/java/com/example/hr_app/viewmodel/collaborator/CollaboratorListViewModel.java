@@ -38,10 +38,10 @@ public class CollaboratorListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableAllCollaborators.setValue(null);
 
-        LiveData<List<Collaborator>> AbsencesOneColl = repository.getAll(application);
+        LiveData<List<Collaborator>> allCollabo = repository.getAll(application);
 
         // observe the changes of the entities from the database and forward them
-        observableAllCollaborators.addSource(AbsencesOneColl, observableAllCollaborators::setValue);
+        observableAllCollaborators.addSource(allCollabo, observableAllCollaborators::setValue);
     }
 
     /**

@@ -28,6 +28,10 @@
     <string name="action_cancel">Cancel</string>
     <string name="empty_field">Field empty !</string>
     <string name="invalid_mail">Invalid Email</string>
+    <string name="error_password">This password is too short (min. 5 characters)</string>
+    <string name="mail_exist">This mail already exist</string>
+    <string name="error_used_email">Email already in use</string>
+    <string name="collaborator_created">Collaborator successfully created</string>
 
     <string-array name="cause_of_absence">
         <item>Sickness</item>

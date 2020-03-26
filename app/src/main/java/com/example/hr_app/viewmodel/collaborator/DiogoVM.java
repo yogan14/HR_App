@@ -40,12 +40,10 @@ public class DiogoVM extends AndroidViewModel {
         @NonNull
         private final Application appli;
 
-        private final String ownerId;
         private final CollaboratorRepository cr;
 
-        public Factory(@NonNull Application application, String ownerId){
+        public Factory(@NonNull Application application){
             this.appli = application;
-            this.ownerId = ownerId;
             cr =((BaseApp) application).getCollaboratorRepository();
         }
 

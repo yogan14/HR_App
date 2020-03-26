@@ -73,16 +73,4 @@ public class CollaboratorViewModel extends AndroidViewModel {
         return observableCollaborator;
     }
 
-    public void insert(Collaborator collaborator, OnAsyncEventListener callback) {
-        repository.insert(collaborator, callback, application);
-    }
-
-    public void update(Collaborator collaborator, OnAsyncEventListener callback) {
-        repository.update(collaborator, callback, application);
-    }
-
-    public void delete(Collaborator collaborator, OnAsyncEventListener callback) {
-        repository.delete(collaborator, callback, application);
-
-    }
 }

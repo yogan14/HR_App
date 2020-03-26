@@ -1,21 +1,27 @@
 package com.example.hr_app.ui;
 
+import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
+import com.example.hr_app.adapter.RecyclerDD;
+import com.example.hr_app.database.async.absences.CreateAbsences;
+import com.example.hr_app.database.async.collaborator.CreateCollaborator;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.database.repository.CollaboratorRepository;
 import com.example.hr_app.util.OnAsyncEventListener;
-import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 
 public class AddPersonActivity extends BaseHRActivity {
@@ -32,7 +38,6 @@ public class AddPersonActivity extends BaseHRActivity {
 
     private OnAsyncEventListener callback;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,11 @@ public class AddPersonActivity extends BaseHRActivity {
         bAdd = findViewById(R.id.addCollaborator);
 
         bAdd.setOnClickListener(view -> addCollaborator());
+
+        cr = ((BaseApp) getApplication()).getCollaboratorRepository();
+
+        CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
+        viewModel = ViewModelProviders.of(this, factory).get(CollaboratorListViewModel.class);
     }
 
     public void addCollaborator() {
@@ -99,6 +109,14 @@ public class AddPersonActivity extends BaseHRActivity {
                             focusView = tvPassword;
 
                             error = true;
+                        } else {
+                           if (password.length() < 5) {
+                               tvPassword.setError(getString(R.string.error_password));
+                               tvPassword.setText("");
+                               focusView = tvPassword;
+
+                               error = true;
+                           }
                         }
                     }
                 }
@@ -110,17 +128,34 @@ public class AddPersonActivity extends BaseHRActivity {
         } else {
 
             Collaborator collaborator = new Collaborator(name, service, mail, password);
-            cr = ((BaseApp) getApplication()).getCollaboratorRepository();
 
-            CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
-            viewModel = ViewModelProviders.of(this, factory).get(CollaboratorListViewModel.class);
+            new CreateCollaborator(getApplication(), new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+                    setResponse(true);
+                }
 
-            viewModel.insert(collaborator, callback);
+                @Override
+                public void onFailure(Exception e) {
+                    setResponse(false);
+                }
+            }).execute(collaborator);
 
-            Toast toast = Toast.makeText(this, "request created", Toast.LENGTH_LONG);
+
+
+
+        }
+    }
+
+    private void setResponse(Boolean response) {
+        if (response) {
+            Toast toast = Toast.makeText(this, (getString(R.string.collaborator_created)), Toast.LENGTH_LONG);
             toast.show();
-            Intent intent = new Intent(this, CollaboratorsActivity.class);
+            Intent intent = new Intent(AddPersonActivity.this, CollaboratorsActivity.class);
             startActivity(intent);
+        } else {
+            tvMail.setError(getString(R.string.error_used_email));
+            tvMail.requestFocus();
         }
     }
 }
