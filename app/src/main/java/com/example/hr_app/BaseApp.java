@@ -12,24 +12,23 @@ import com.example.hr_app.database.repository.CollaboratorRepository;
  */
 public class BaseApp extends Application {
 
-    private String someVariable;
+    private String mail;
+    private int id;
 
     public String getTheMail() {
-        return someVariable;
-    }
-
-    private int test;
-
-    public int getTheAbsenceID(){
-        return test;
-    }
-
-    public void setTheAbsenceID(int id){
-        this.test = id;
+        return mail;
     }
 
     public void setTheMail(String variable) {
-        this.someVariable = variable;
+        this.mail = variable;
+    }
+
+    public int getTheID(){
+        return id;
+    }
+
+    public void setTheID(int id){
+        this.id = id;
     }
 
     @Override

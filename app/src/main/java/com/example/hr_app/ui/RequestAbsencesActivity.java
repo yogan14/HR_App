@@ -16,7 +16,11 @@ import com.example.hr_app.database.entity.Absences;
 import com.example.hr_app.database.repository.AbsencesRepository;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
-import com.example.hr_app.viewmodel.absences.AbsencesListOneCollViewModel;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class RequestAbsencesActivity extends BaseHRActivity {
 
@@ -65,8 +69,8 @@ public class RequestAbsencesActivity extends BaseHRActivity {
             etStartAbsence.setError(getString(R.string.empty_field));
             etStartAbsence.setText("");
             focusView = etStartAbsence;
-            error = true;
 
+            error = true;
         } else {
             if (TextUtils.isEmpty(endAbsence)) {
                 etEndAbsence.setError(getString(R.string.empty_field));
@@ -74,6 +78,30 @@ public class RequestAbsencesActivity extends BaseHRActivity {
                 focusView = etEndAbsence;
 
                 error = true;
+            } else {
+                if(!isDateValid(startAbsence)) {
+                    etStartAbsence.setError(getString(R.string.date_not_valid));
+                    etStartAbsence.setText(startAbsence);
+                    focusView = etStartAbsence;
+
+                    error = true;
+                } else {
+                    if(!isDateValid(endAbsence)) {
+                        etEndAbsence.setError(getString(R.string.date_not_valid));
+                        etEndAbsence.setText(endAbsence);
+                        focusView = etEndAbsence;
+
+                        error = true;
+                    } else {
+                        if(!isDateOneBeforeDateTwo(startAbsence, endAbsence)) {
+                            etEndAbsence.setError(getString(R.string.date_error_time));
+                            etEndAbsence.setText(endAbsence);
+                            focusView = etEndAbsence;
+
+                            error = true;
+                        }
+                    }
+                }
             }
         }
 
@@ -97,4 +125,39 @@ public class RequestAbsencesActivity extends BaseHRActivity {
         }
 
     }
+
+    public boolean isDateValid(String date) {
+        // Définir le format date
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        format.setLenient(false);
+        try {
+            Date d = format.parse(date);
+        }
+        // Date invalide
+        catch (ParseException e) {
+            return false;
+        }
+        // Renvoie true si la date est valide
+        return true;
+    }
+
+    public boolean isDateOneBeforeDateTwo (String start, String end) {
+
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+
+        try {
+            Date time1 = format.parse(start);
+            Date time2 = format.parse(end);
+
+            if (time1.compareTo(time2) < 0) {
+                return true;
+            }
+
+            return false;
+
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
 }

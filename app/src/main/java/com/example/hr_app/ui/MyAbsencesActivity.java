@@ -57,7 +57,6 @@ public class MyAbsencesActivity extends BaseHRActivity {
             public void onItemClick(View v, int position) {
                 Intent intent = new Intent(MyAbsencesActivity.this, ModifyRequestAbsenceActivity.class);
                 setID(absences.get(position).getIdAbsence());
-                intent.putExtra("abscenceID", absences.get(position).getIdAbsence());
                 startActivity(intent);
             }
 
@@ -83,7 +82,7 @@ public class MyAbsencesActivity extends BaseHRActivity {
     }
 
     public void setID(int id){
-        ((BaseApp) this.getApplication()).setTheAbsenceID(id);
+        ((BaseApp) this.getApplication()).setTheID(id);
     }
 
 }

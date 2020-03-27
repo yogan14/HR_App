@@ -1,104 +1,218 @@
 package com.example.hr_app.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
+import com.example.hr_app.database.async.absences.DeleteAbsences;
+import com.example.hr_app.database.async.absences.UpdateAbsences;
 import com.example.hr_app.database.entity.Absences;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.absences.OneAbsenceViewModel;
 
-import org.w3c.dom.Text;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.SplittableRandom;
 
 
 public class ModifyRequestAbsenceActivity extends BaseHRActivity {
-    private TextView startDate;
-    private TextView endDate;
-    private Spinner cause;
+    private TextView tvStartDate;
+    private TextView tvEndDate;
+    private Spinner sCause;
     private Toast toast;
-    private Absences absences;
+    private Absences absence;
     private OneAbsenceViewModel viewModel;
+    private String startAbsence, endAbsence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_modifyrequestabsences, frameLayout);
-        int absenceID = getIntent().getIntExtra("absenceID",-1);
 
-
-
-        int test = ((BaseApp) this.getApplication()).getTheAbsenceID();
         navigationView.setCheckedItem(position);
 
-        cause = findViewById(R.id.cause_of_absences_spinner);
-        startDate = findViewById(R.id.begining_date);
-        endDate = findViewById(R.id.end_date);
+        int absenceID = ((BaseApp)this.getApplication()).getTheID();
 
-        //startDate.setText(absences.getStartAbsence());
+        sCause = findViewById(R.id.cause_of_absences_spinner);
+        tvStartDate = findViewById(R.id.begining_date);
+        tvEndDate = findViewById(R.id.end_date);
+
 
         Button update = findViewById(R.id.update_button);
         update.setOnClickListener(view -> {
-            update(startDate.getText().toString(), endDate.getText().toString(),cause.getSelectedItem().toString());
-            onBackPressed();
-            toast.show();
+            update(tvStartDate.getText().toString(), tvEndDate.getText().toString(), sCause.getSelectedItem().toString());
         });
-        toast = Toast.makeText(this, "Abscence updated", Toast.LENGTH_LONG);
 
-        OneAbsenceViewModel.Factory factory = new OneAbsenceViewModel.Factory(getApplication(), test);
+        Button delete = findViewById(R.id.delete_button);
+        delete.setOnClickListener(view -> {
+            deleteButton();
+        });
+
+        OneAbsenceViewModel.Factory factory = new OneAbsenceViewModel.Factory(getApplication(), absenceID);
         viewModel = ViewModelProviders.of(this,factory).get(OneAbsenceViewModel.class);
-        viewModel.getAbsence().observe(this, absences1 -> {
-            if(absences1!=null){
-                absences = absences1;
-                startDate.setText(absences.getStartAbsence());
-                endDate.setText(absences.getEndAbsence());
-                //setSpinText(cause, cause.getSelectedItem().toString());
+
+        viewModel.getAbsence().observe(this, absences ->  {
+            if(absences!=null) {
+                absence = absences;
+                findData();
             }
         });
 
+
+
     }
 
-    public void update(String beginning, String end, String newCause){
 
-        if(!beginning.equals(startDate.toString())){
-            absences.setStartAbsence(beginning);
-        }
-        if(!end.equals(endDate.toString())){
-            absences.setEndAbsence(end);
-        }
-        if(!newCause.equals(cause.getSelectedItem().toString())){
-            absences.setReason(newCause);
+
+    private void findData() {
+        startAbsence = absence.getStartAbsence();
+        endAbsence = absence.getEndAbsence();
+        String reason = absence.getReason();
+
+        tvStartDate.setText(startAbsence);
+        tvEndDate.setText(endAbsence);
+        sCause.setSelection(((ArrayAdapter<String>)sCause.getAdapter()).getPosition(reason));
+    }
+
+    public void update(String beginning, String end, String newCause) {
+
+        tvStartDate.setError(null);
+        tvEndDate.setError(null);
+        View focusView = null;
+
+        boolean error = false;
+
+                if(!isDateValid(beginning)) {
+                    tvStartDate.setError(getString(R.string.date_not_valid));
+                    tvStartDate.setText(startAbsence);
+                    focusView = tvStartDate;
+
+                    error = true;
+                } else {
+                    if(!isDateValid(end)) {
+                        tvEndDate.setError(getString(R.string.date_not_valid));
+                        tvEndDate.setText(endAbsence);
+                        focusView = tvEndDate;
+
+                        error = true;
+                    } else {
+                        if(!isDateOneBeforeDateTwo(beginning, end)) {
+                            tvEndDate.setError(getString(R.string.date_error_time));
+                            tvEndDate.setText(endAbsence);
+                            focusView = tvEndDate;
+
+                            error = true;
+                        }
+                    }
+                }
+
+        if (error) {
+            focusView.requestFocus();
+        } else {
+
+            if(!beginning.equals(tvStartDate.toString())){
+                absence.setStartAbsence(beginning);
+            }
+            if(!end.equals(tvEndDate.toString())){
+                absence.setEndAbsence(end);
+            }
+            if(!newCause.equals(sCause.getSelectedItem().toString())){
+                absence.setReason(newCause);
+            }
+
+            new UpdateAbsences(getApplication(), new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+                    setResponse(true, "update");
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    setResponse(false, "update");
+                }
+            }).execute(absence);
         }
 
-        viewModel.updateAbsence(absences, new OnAsyncEventListener() {
+    }
+
+    private void deleteButton() {
+
+        new DeleteAbsences(getApplication(), new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
-
+                setResponse(true, "delete");
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                setResponse(false, "delete");
             }
-        });
+        }).execute(absence);
     }
 
-    public void setSpinText(Spinner spin, String text)
-    {
-        for(int i= 0; i < spin.getAdapter().getCount(); i++)
-        {
-            if(spin.getAdapter().getItem(i).toString().contains(text))
-            {
-                spin.setSelection(i);
+
+    private void setResponse(Boolean response, String type) {
+        if (response) {
+            if(type.equals("update")) {
+                toast = Toast.makeText(this, (getString(R.string.absence_updated)), Toast.LENGTH_LONG);
+            } else {
+                toast = Toast.makeText(this, (getString(R.string.absence_deleted)), Toast.LENGTH_LONG);
             }
+
+            toast.show();
+            Intent intent = new Intent(ModifyRequestAbsenceActivity.this, MyAbsencesActivity.class);
+            startActivity(intent);
+        } else {
+            toast = Toast.makeText(this, (getString(R.string.error)), Toast.LENGTH_LONG);
+            toast.show();
+            Intent intent = new Intent(ModifyRequestAbsenceActivity.this, MyAbsencesActivity.class);
+            startActivity(intent);
         }
-
     }
+
+    public static boolean isDateValid (String date) {
+        // Définir le format date
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        format.setLenient(false);
+        try {
+            Date d = format.parse(date);
+        }
+        // Date invalide
+        catch (ParseException e) {
+            return false;
+        }
+        // Renvoie true si la date est valide
+        return true;
+    }
+
+    public boolean isDateOneBeforeDateTwo (String start, String end) {
+
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+
+        try {
+            Date time1 = format.parse(start);
+            Date time2 = format.parse(end);
+
+            if (time1.compareTo(time2) < 0) {
+                return true;
+            }
+
+            return false;
+
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
 }

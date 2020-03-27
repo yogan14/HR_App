@@ -7,8 +7,8 @@
     <string name="add_button">Add</string>
     <string name="update_button">Update</string>
     <string name="delete_button">Delete</string>
-    <string name="beginning_absence_field">Start of absence</string>
-    <string name="end_absence_field">End of absence</string>
+    <string name="beginning_absence_field">Start of absence (dd.mm.yyyy)</string>
+    <string name="end_absence_field">End of absence (dd.mm.yyyy)</string>
     <string name="to_field">to</string>
     <string name="send_request_button">Send request</string>
     <string name="pref_about_text">This Application is created by Nicolas Constantin and Diogo D Almeida, 2 students of the HES-SO in IT section. This app allows the managment of absences for a compagny.
@@ -17,7 +17,7 @@
     <string name="action_logout">Logout</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_collaborators">Collaborators</string>
-    <string name="title_activity_accept_absences">Accept abcences</string>
+    <string name="title_activity_accept_absences">Accept absences</string>
     <string name="title_activity_my_absences">My absences</string>
     <string name="title_activity_request_absences">Request absences</string>
     <string name="impressum">HR Diogo - Nicolas</string>
@@ -32,6 +32,11 @@
     <string name="mail_exist">This mail already exist</string>
     <string name="error_used_email">Email already in use</string>
     <string name="collaborator_created">Collaborator successfully created</string>
+    <string name="absence_updated">Absence updated</string>
+    <string name="error">An error has occurred</string>
+    <string name="absence_deleted">Absence deleted</string>
+    <string name="date_not_valid">Please, enter a valid date</string>
+    <string name="date_error_time">Put a date after the Start of absence</string>
 
     <string-array name="cause_of_absence">
         <item>Sickness</item>

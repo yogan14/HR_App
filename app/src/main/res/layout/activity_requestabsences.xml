@@ -9,9 +9,11 @@
 
     <EditText
         android:id="@+id/begining_date"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="65dp"
         android:ems="10"
         android:hint="@string/beginning_absence_field"
         android:inputType="date"
@@ -31,9 +33,11 @@
 
     <EditText
         android:id="@+id/end_date"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="65dp"
         android:ems="10"
         android:hint="@string/end_absence_field"
         android:inputType="date"
