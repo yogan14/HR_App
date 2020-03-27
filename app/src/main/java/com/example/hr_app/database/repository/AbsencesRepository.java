@@ -40,7 +40,7 @@ public class AbsencesRepository {
     }
 
     public LiveData<List<Absences>> getAbsencesNotValidate(Application application) {
-        return ((BaseApp) application).getDatabase().absencesDao().getAbsencesNotValidate();
+        return ((BaseApp) application).getDatabase().absencesDao().getAbsencesNotValidate(true);
     }
 
     public LiveData<Absences> getAbsence(Application application, int id){

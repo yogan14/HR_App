@@ -74,6 +74,8 @@ public class DatabaseInitializer {
                 "28.03.2020", "30.03.2020", "vacation", "saIsshiki@gmail.com"
         );
 
+
+
     }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {

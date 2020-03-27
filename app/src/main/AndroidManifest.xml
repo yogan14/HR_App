@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ValidateAbsenceActivity"/>
+
         <activity android:name=".ui.MyAbsencesActivity"/>
         <activity android:name=".ui.BaseHRActivity" />
         <activity android:name=".ui.MenuActivity"/>
@@ -21,6 +21,7 @@
         <activity android:name=".ui.CollaboratorsActivity"/>
         <activity android:name=".ui.mgmt.SettingsActivity"/>
         <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.ValidateAbsenceActivity"/>
         <activity android:name=".ui.mgmt.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

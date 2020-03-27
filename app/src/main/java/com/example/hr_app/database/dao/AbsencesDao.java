@@ -17,8 +17,8 @@ import java.util.List;
 public interface AbsencesDao {
 
 
-    @Query("SELECT * FROM Absences WHERE validate = 'false' ORDER BY startAbsence")
-    LiveData<List<Absences>> getAbsencesNotValidate();
+    @Query("SELECT * FROM Absences WHERE validate != :vrai ORDER BY startAbsence")
+    LiveData<List<Absences>> getAbsencesNotValidate(boolean vrai);
 
     @Query("SELECT * FROM Absences WHERE email = :idCollaborator")
     LiveData<List<Absences>> getAbsencesForOneCollaborator(String idCollaborator);
