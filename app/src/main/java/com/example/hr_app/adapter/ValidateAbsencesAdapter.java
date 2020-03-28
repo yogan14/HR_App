@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,11 +23,13 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
     private List<Absences> absencesList = new ArrayList<>();
     private List<T> mData;
     private RecyclerViewItemClickListener mListener;
+    public int absenceID;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView name;
         private TextView date;
         private TextView cause;
+        private Button accept;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +70,7 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
         holder.name.setText(((Absences) item).getEmail());
         holder.date.setText(((Absences) item).getStartAbsence() + " to " + ((Absences) item).getEndAbsence());
         holder.cause.setText(((Absences) item).getReason());
+
 
 
     }
@@ -129,5 +131,7 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
         }
     }
 
-
+    public T getAbsenceAt(int position){
+        return mData.get(position);
+    }
 }

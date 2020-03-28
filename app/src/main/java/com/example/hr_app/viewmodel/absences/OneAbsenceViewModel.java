@@ -55,4 +55,7 @@ public class OneAbsenceViewModel extends AndroidViewModel {
         return observableAbsence;
     }
 
+    public void updateAbsence(Absences abs, OnAsyncEventListener callback){
+        repository.update(abs,callback,application);
+    }
 }
