@@ -77,6 +77,7 @@ public class CollaboratorsActivity extends BaseHRActivity {
     }
 
     public void add() {
+
         Intent intent = new Intent(this, AddPersonActivity.class);
         startActivity(intent);
     }
