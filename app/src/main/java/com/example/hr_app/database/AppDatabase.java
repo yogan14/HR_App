@@ -18,7 +18,7 @@ import com.example.hr_app.database.entity.Collaborator;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {Absences.class, Collaborator.class}, version = 1, exportSchema = false)
+@Database(entities = {Absences.class, Collaborator.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String TAG = "AppDatabase";

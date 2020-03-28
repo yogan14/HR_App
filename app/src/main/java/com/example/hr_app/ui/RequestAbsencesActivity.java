@@ -120,7 +120,7 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
             toast = Toast.makeText(this, "request created", Toast.LENGTH_LONG);
             toast.show();
-            Intent intent = new Intent(this, MenuActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
 

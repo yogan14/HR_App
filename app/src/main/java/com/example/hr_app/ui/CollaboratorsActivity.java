@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.adapter.RecyclerDD;
 import com.example.hr_app.database.entity.Collaborator;
@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class CollaboratorsActivity extends BaseHRActivity {
 
@@ -52,7 +53,8 @@ public class CollaboratorsActivity extends BaseHRActivity {
         adapter = new RecyclerDD<>(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Intent intent = new Intent(CollaboratorsActivity.this, MyAbsencesActivity.class);
+                Intent intent = new Intent(CollaboratorsActivity.this, ModifyPersonActivity.class);
+                ((BaseApp) getApplication()).setMailCollaborator(collaborators.get(position).getEmail());
                 startActivity(intent);
             }
 

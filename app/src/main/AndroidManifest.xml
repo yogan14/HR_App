@@ -13,7 +13,6 @@
 
         <activity android:name=".ui.MyAbsencesActivity"/>
         <activity android:name=".ui.BaseHRActivity" />
-        <activity android:name=".ui.MenuActivity"/>
         <activity android:name=".ui.ModifyRequestAbsenceActivity"/>
         <activity android:name=".ui.ModifyPersonActivity"/>
         <activity android:name=".ui.AddPersonActivity"/>

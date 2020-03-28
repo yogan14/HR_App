@@ -12,8 +12,10 @@ import com.example.hr_app.database.repository.CollaboratorRepository;
  */
 public class BaseApp extends Application {
 
+    private String mailCollaborator;
     private String mail;
     private int id;
+    private boolean isHR = true;
 
     public String getTheMail() {
         return mail;
@@ -29,6 +31,22 @@ public class BaseApp extends Application {
 
     public void setTheID(int id){
         this.id = id;
+    }
+
+    public String getMailCollaborator() {
+        return mailCollaborator;
+    }
+
+    public void setMailCollaborator(String variable) {
+        this.mailCollaborator = variable;
+    }
+
+    public boolean getIsHR() {
+        return isHR;
+    }
+
+    public void setHR(boolean HR) {
+        isHR = HR;
     }
 
     @Override

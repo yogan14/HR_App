@@ -3,7 +3,6 @@ package com.example.hr_app.database.entity;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
 @Entity(tableName = "collaborator", primaryKeys = {"email"})
 public class Collaborator implements Comparable {
@@ -15,12 +14,8 @@ public class Collaborator implements Comparable {
 
     private String service;
 
-
-
     @NonNull
     private String password;
-
-    private boolean isHR;
 
     @Ignore
     public Collaborator(){
@@ -31,13 +26,6 @@ public class Collaborator implements Comparable {
         this.service = service;
         this.email = email;
         this.password = password;
-
-        if(service.equals("HR")){
-            this.isHR = true;
-        } else {
-            this.isHR = false;
-        }
-
     }
 
 
@@ -71,14 +59,6 @@ public class Collaborator implements Comparable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isHR() {
-        return isHR;
-    }
-
-    public void setHR(boolean HR) {
-        isHR = HR;
     }
 
     @Override

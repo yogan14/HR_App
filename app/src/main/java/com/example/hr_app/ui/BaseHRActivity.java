@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
+import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.ui.mgmt.LoginActivity;
 import com.example.hr_app.ui.mgmt.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -41,7 +42,14 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hrmenu);
+
+        if(((BaseApp)this.getApplication()).getIsHR()== true) { //HR
+            setContentView(R.layout.activity_hrmenu);
+        } else {
+            setContentView(R.layout.activity_menu);
+        }
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -27,13 +27,12 @@ import java.util.SplittableRandom;
 
 
 public class ModifyRequestAbsenceActivity extends BaseHRActivity {
-    private TextView tvStartDate;
-    private TextView tvEndDate;
+    private TextView tvStartDate, tvEndDate;
     private Spinner sCause;
     private Toast toast;
     private Absences absence;
     private OneAbsenceViewModel viewModel;
-    private String startAbsence, endAbsence;
+    private String startAbsence, endAbsence, reason;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,6 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         sCause = findViewById(R.id.cause_of_absences_spinner);
         tvStartDate = findViewById(R.id.begining_date);
         tvEndDate = findViewById(R.id.end_date);
-
 
         Button update = findViewById(R.id.update_button);
         update.setOnClickListener(view -> {
@@ -78,7 +76,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
     private void findData() {
         startAbsence = absence.getStartAbsence();
         endAbsence = absence.getEndAbsence();
-        String reason = absence.getReason();
+        reason = absence.getReason();
 
         tvStartDate.setText(startAbsence);
         tvEndDate.setText(endAbsence);
@@ -121,13 +119,13 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
             focusView.requestFocus();
         } else {
 
-            if(!beginning.equals(tvStartDate.toString())){
+            if(!startAbsence.equals(beginning)){
                 absence.setStartAbsence(beginning);
             }
-            if(!end.equals(tvEndDate.toString())){
+            if(!endAbsence.equals(end)){
                 absence.setEndAbsence(end);
             }
-            if(!newCause.equals(sCause.getSelectedItem().toString())){
+            if(!reason.equals(newCause)){
                 absence.setReason(newCause);
             }
 

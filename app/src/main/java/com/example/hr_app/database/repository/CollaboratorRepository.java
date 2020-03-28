@@ -39,10 +39,6 @@ public class CollaboratorRepository {
         return ((BaseApp) application).getDatabase().collaboratorDao().getAll();
     }
 
-    public List<Collaborator> getTest(Application application){
-        return ((BaseApp) application).getDatabase().collaboratorDao().getTest();
-    }
-
     public void insert(final Collaborator client, OnAsyncEventListener callback,
                        Application application) {
         new CreateCollaborator(application, callback).execute(client);
