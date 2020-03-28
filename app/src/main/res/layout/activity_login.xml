@@ -41,17 +41,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="127dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="40dp"
-        android:onClick="registerHR"
-        android:text="HR"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.943"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

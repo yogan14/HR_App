@@ -1,63 +1,61 @@
 package com.example.hr_app.ui;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
-
 import com.example.hr_app.R;
 import com.example.hr_app.adapter.ValidateAbsencesAdapter;
 import com.example.hr_app.database.entity.Absences;
 import com.example.hr_app.util.OnAsyncEventListener;
-import com.example.hr_app.util.RecyclerViewItemClickListener;
 import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
-import com.example.hr_app.viewmodel.absences.OneAbsenceViewModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ValidateAbsenceActivity extends BaseHRActivity {
+    /**
+     * Declaration of variables
+     */
     private AbsenceListNotValidateViewModel viewModel;
-
     private List<Absences> absencesList;
     private ValidateAbsencesAdapter adapter;
     private Absences absence;
 
 
+    /**
+     * on create
+     * On the creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**
+         * Get the layout from the xml file
+         */
         getLayoutInflater().inflate(R.layout.activity_validate_absence_v2,frameLayout);
 
+        /**
+         * Get the recyclerView and set in a vertical layout
+         */
         RecyclerView recyclerView = findViewById(R.id.recycler_view_absences);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+        /**
+         * Creation of the list of absences and the relative adapter
+         */
         absencesList = new ArrayList<>();
-        adapter = new ValidateAbsencesAdapter<>(/*new RecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
+        adapter = new ValidateAbsencesAdapter<>();
 
-            }
-
-            @Override
-            public void onItemLongClick(View v, int position) {
-
-            }
-        }*/);
-
+        /**
+         * Filling the list
+         */
         AbsenceListNotValidateViewModel.Factory factory = new AbsenceListNotValidateViewModel.Factory(getApplication());
         viewModel = ViewModelProviders.of(this,factory).get(AbsenceListNotValidateViewModel.class);
         viewModel.getAbsencesNotValidate().observe(this, absences -> {
@@ -67,6 +65,9 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
             }
         });
 
+        /**
+         * Creation of the swipe feature
+         */
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
@@ -74,11 +75,22 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
                 return false;
             }
 
+            /**
+             * onSwiped
+             * Actions carried out according to the direction
+             * @param viewHolder the viewHolder from the View Model
+             * @param direction left or right
+             */
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                /**
+                 * Swipping left delete the absence
+                 */
                 if(direction==ItemTouchHelper.LEFT){
                     viewModel.delete((Absences)adapter.getAbsenceAt(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
-
+                        /**
+                         * A toast will pop up if the absence is correctly deleted
+                         */
                         @Override
                         public void onSuccess() {
                             Toast.makeText(ValidateAbsenceActivity.this, "Absence refused", Toast.LENGTH_SHORT).show();
@@ -89,10 +101,19 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
 
                         }
                     });
+                    /**
+                     * Swipping right accept the absence
+                      */
                 } else {
+                    /**
+                     * Get the absence according to the ID
+                     */
                     absence = (Absences) adapter.getAbsenceAt(viewHolder.getAdapterPosition());
                     absence.setValidate(true);
                     viewModel.update(absence, new OnAsyncEventListener() {
+                        /**
+                         * A toast will pop up if the absence is correctly updated
+                         */
                        @Override
                        public void onSuccess() {
                            Toast.makeText(ValidateAbsenceActivity.this, "Absence accepted", Toast.LENGTH_SHORT).show();
@@ -107,15 +128,12 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
 
 
             }
-        }).attachToRecyclerView(recyclerView);
+        }).attachToRecyclerView(recyclerView); //link the swipe feature to the recycler view
 
-        viewModel.getAbsencesNotValidate().observe(this, new Observer<List<Absences>>() {
-            @Override
-            public void onChanged(List<Absences> absences) {
 
-            }
-        });
-
+        /**
+         * Link the adapter to the recycler view
+         */
         recyclerView.setAdapter(adapter);
 
     }
