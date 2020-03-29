@@ -38,6 +38,8 @@
     <string name="date_error_time">Put a date after the Start of absence</string>
     <string name="collaborator_updated">Collaborator updated</string>
     <string name="collaborator_deleted">Collaborator deleted</string>
+    <string name="pref_english_text">English</string>
+    <string name="pref_french_text" >Français</string>
 
     <string-array name="cause_of_absence">
         <item>Sickness</item>

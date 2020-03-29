@@ -2,7 +2,6 @@ package com.example.hr_app.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,7 +22,6 @@ import com.example.hr_app.viewmodel.absences.OneAbsenceViewModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.SplittableRandom;
 
 
 public class ModifyRequestAbsenceActivity extends BaseHRActivity {
