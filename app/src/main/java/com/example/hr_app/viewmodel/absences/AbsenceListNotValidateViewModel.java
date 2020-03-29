@@ -17,16 +17,20 @@ import java.util.List;
 
 
 public class AbsenceListNotValidateViewModel extends AndroidViewModel {
-
+    /**
+     * Declaration of the variables
+     */
     private Application application;
-
     private AbsencesRepository repository;
-
-    // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<List<Absences>> observableAbsencesNotValidate;
 
+    /**
+     * Constructor of the view model (ValidateAbsenceActivity and RequesAbsenceActivity)
+     * @param application our application
+     * @param absencesRepository the absence repository
+     */
     public AbsenceListNotValidateViewModel(@NonNull Application application,
-                                   AbsencesRepository absencesRepository) {
+                                           AbsencesRepository absencesRepository) {
         super(application);
 
         this.application = application;
@@ -34,12 +38,9 @@ public class AbsenceListNotValidateViewModel extends AndroidViewModel {
         repository = absencesRepository;
 
         observableAbsencesNotValidate = new MediatorLiveData<>();
-        // set by default null, until we get data from the database.
         observableAbsencesNotValidate.setValue(null);
 
         LiveData<List<Absences>> AbsenceNotValidate = repository.getAbsencesNotValidate(application);
-
-        // observe the changes of the entities from the database and forward them
         observableAbsencesNotValidate.addSource(AbsenceNotValidate, observableAbsencesNotValidate::setValue);
     }
 
@@ -60,7 +61,7 @@ public class AbsenceListNotValidateViewModel extends AndroidViewModel {
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
-            //noinspection unchecked
+
             return (T) new AbsenceListNotValidateViewModel(application, absenceRepository);
         }
     }

@@ -18,7 +18,7 @@ import com.example.hr_app.database.async.collaborator.UpdateCollaborator;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorViewModel;
-import com.example.hr_app.viewmodel.collaborator.DiogoVM;
+import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
     private String mailCollaborator, name, service, password;
     private CollaboratorViewModel viewModel;
     private Collaborator oneCollaborator;
-    private DiogoVM dvm;
+    private CollaboratorListViewModel dvm;
     private List<Collaborator> collaboList;
 
 
@@ -224,8 +224,8 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
         collaboList = new ArrayList<>();
 
-        DiogoVM.Factory factory = new DiogoVM.Factory(getApplication());
-        dvm = ViewModelProviders.of(this,factory).get(DiogoVM.class);
+        CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
+        dvm = ViewModelProviders.of(this,factory).get(CollaboratorListViewModel.class);
         dvm.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
             if(collaborators1!=null){
                 collaboList = collaborators1;

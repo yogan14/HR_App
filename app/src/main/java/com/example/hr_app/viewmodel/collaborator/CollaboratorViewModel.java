@@ -16,13 +16,19 @@ import com.example.hr_app.util.OnAsyncEventListener;
 
 public class CollaboratorViewModel extends AndroidViewModel {
 
+    /**
+     * Declaration of the variables
+     */
     private CollaboratorRepository repository;
-
     private Application application;
-
-    // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<Collaborator> observableCollaborator;
 
+    /**
+     * Constructor for the view model (ModifyPersonActivity)
+     * @param application
+     * @param email
+     * @param collaboratorRepository
+     */
     public CollaboratorViewModel(@NonNull Application application,
                                  final String email, CollaboratorRepository collaboratorRepository) {
         super(application);
@@ -32,17 +38,14 @@ public class CollaboratorViewModel extends AndroidViewModel {
         repository = collaboratorRepository;
 
         observableCollaborator = new MediatorLiveData<>();
-        // set by default null, until we get data from the database.
         observableCollaborator.setValue(null);
 
         LiveData<Collaborator> collaborator = repository.getOneCollaborator(email, application);
-
-        // observe the changes of the client entity from the database and forward them
         observableCollaborator.addSource(collaborator, observableCollaborator::setValue);
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used to inject the email into the ViewModel
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 

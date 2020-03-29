@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
-import com.example.hr_app.adapter.RecyclerDD;
+import com.example.hr_app.adapter.ListAdapter;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.util.RecyclerViewItemClickListener;
-import com.example.hr_app.viewmodel.collaborator.DiogoVM;
+import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -24,16 +24,30 @@ import java.util.List;
 
 public class CollaboratorsActivity extends BaseHRActivity {
 
+    /**
+     * Declaration of the variables
+     */
     private List<Collaborator> collaborators;
-    private RecyclerDD<Collaborator> adapter;
-    private DiogoVM viewModel;
+    private ListAdapter<Collaborator> adapter;
+    private CollaboratorListViewModel viewModel;
     private FloatingActionButton addButton;
 
+    /**
+     * onCreate
+     * On the creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        /**
+         * Get the layout from the xml file
+         */
         getLayoutInflater().inflate(R.layout.activity_collaborators, frameLayout);
 
+        /**
+         * Creation of the button and the recycler view and set the relative settings
+         */
         addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(view -> add());
 
@@ -48,9 +62,17 @@ public class CollaboratorsActivity extends BaseHRActivity {
                 LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-
+        /**
+         * Creation of the list of collaborators and the relative adapter
+         */
         collaborators = new ArrayList<>();
-        adapter = new RecyclerDD<>(new RecyclerViewItemClickListener() {
+        adapter = new ListAdapter<>(new RecyclerViewItemClickListener() {
+            /**
+             * onItemClick
+             * Action according the collaborator selected
+             * @param v the current view
+             * @param position the position in the list
+             */
             @Override
             public void onItemClick(View v, int position) {
                 Intent intent = new Intent(CollaboratorsActivity.this, ModifyPersonActivity.class);
@@ -64,8 +86,11 @@ public class CollaboratorsActivity extends BaseHRActivity {
             }
         });
 
-        DiogoVM.Factory factory = new DiogoVM.Factory(getApplication());
-        viewModel = ViewModelProviders.of(this,factory).get(DiogoVM.class);
+        /**
+         * Filling the list
+         */
+        CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
+        viewModel = ViewModelProviders.of(this,factory).get(CollaboratorListViewModel.class);
         viewModel.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
             if(collaborators1!=null){
                 collaborators = collaborators1;
@@ -76,6 +101,9 @@ public class CollaboratorsActivity extends BaseHRActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Method which will sent to the creation of a collaborator activity
+     */
     public void add() {
 
         Intent intent = new Intent(this, AddPersonActivity.class);

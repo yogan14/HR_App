@@ -7,24 +7,27 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
-
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.database.entity.Absences;
 import com.example.hr_app.database.repository.AbsencesRepository;
-import com.example.hr_app.util.OnAsyncEventListener;
-
 import java.util.List;
 
 
 public class AbsencesListOneCollViewModel extends AndroidViewModel {
 
+    /**
+     * Declaration of the variables
+     */
     private Application application;
-
     private AbsencesRepository repository;
-
-    // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<List<Absences>> observableAbsencesForOneCollaborator;
 
+    /**
+     * Constructor of the view model (MyAbsenceActivity)
+     * @param application our application
+     * @param email the email of the connected collaborator
+     * @param absencesRepository the absence repository
+     */
     public AbsencesListOneCollViewModel(@NonNull Application application,
                                         final String email,
                                         AbsencesRepository absencesRepository) {
@@ -35,17 +38,16 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
         repository = absencesRepository;
 
         observableAbsencesForOneCollaborator = new MediatorLiveData<>();
-        // set by default null, until we get data from the database.
         observableAbsencesForOneCollaborator.setValue(null);
 
         LiveData<List<Absences>> AbsencesOneColl = repository.getAbsencesForOneCollaborator(application, email);
 
-        // observe the changes of the entities from the database and forward them
+
         observableAbsencesForOneCollaborator.addSource(AbsencesOneColl, observableAbsencesForOneCollaborator::setValue);
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used to inject the email into the view model
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
@@ -70,7 +72,8 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
     }
 
     /**
-     * Expose the LiveData AccountEntities query so the UI can observe it.
+     * Method which will return all absences for the current collaborator
+     * @return the list of absences
      */
     public LiveData<List<Absences>> getAbsencesForOneCollaborator() {
         return observableAbsencesForOneCollaborator;
