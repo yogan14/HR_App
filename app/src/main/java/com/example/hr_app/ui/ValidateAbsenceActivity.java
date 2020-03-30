@@ -15,8 +15,10 @@ import android.widget.Toast;
 import com.example.hr_app.R;
 import com.example.hr_app.adapter.ValidateAbsencesAdapter;
 import com.example.hr_app.database.entity.Absences;
+import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
+import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,8 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
      */
     private AbsenceListNotValidateViewModel viewModel;
     private List<Absences> absencesList;
+    private List<Collaborator> collaboratorList;
+    private CollaboratorListViewModel collaboVm;
     private ValidateAbsencesAdapter adapter;
     private Absences absence;
 
@@ -72,8 +76,24 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
         /**
          * Creation of the list of absences and the relative adapter
          */
+
+
+        collaboratorList = new ArrayList<>();
         absencesList = new ArrayList<>();
-        adapter = new ValidateAbsencesAdapter<>();
+
+        CollaboratorListViewModel.Factory fact = new CollaboratorListViewModel.Factory(getApplication());
+        collaboVm = ViewModelProviders.of(this,fact).get(CollaboratorListViewModel.class);
+        collaboVm.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
+            System.out.println("in the observe");
+            if(collaborators1!=null){
+                System.out.println("in the if");
+                collaboratorList = collaborators1;
+                adapter.setDataChanged(collaboratorList);
+            }
+        });
+
+
+        adapter = new ValidateAbsencesAdapter<>(collaboratorList);
 
         /**
          * Filling the list

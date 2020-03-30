@@ -20,10 +20,7 @@ import com.example.hr_app.database.async.collaborator.UpdateCollaborator;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorViewModel;
-import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -37,8 +34,6 @@ public class ModifyPersonActivity extends BaseHRActivity {
     private String mailCollaborator, name, service, password;
     private CollaboratorViewModel viewModel;
     private Collaborator oneCollaborator;
-    private CollaboratorListViewModel dvm;
-    private List<Collaborator> collaboList;
 
     /**
      * Create the activity
@@ -51,7 +46,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
 
         navigationView.setCheckedItem(position);
-        setData();
+        setDisplay();
 
 
     }
@@ -64,10 +59,10 @@ public class ModifyPersonActivity extends BaseHRActivity {
     {
         super.onResume();
 
-        setData();
+        setDisplay();
     }
 
-    public void setData(){
+    public void setDisplay(){
         mailCollaborator = ((BaseApp)this.getApplication()).getMailCollaborator();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -80,7 +75,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
         Button update = findViewById(R.id.update_button);
         update.setOnClickListener(view -> {
-            update(tvName.getText().toString(), tvService.getText().toString(), tvMail.getText().toString(), tvPassword.getText().toString());
+            update(tvName.getText().toString(), tvService.getText().toString(), tvPassword.getText().toString());
         });
 
         Button delete = findViewById(R.id.delete_button);
@@ -117,14 +112,12 @@ public class ModifyPersonActivity extends BaseHRActivity {
      * verify the fields, and if all is ok, modify the collaborator in the database
      * @param newName - the content of the name field
      * @param newService - the content of the service field
-     * @param newMail - the content of the mail field
      * @param newPassword - the content of the password field
      */
-    private void update(String newName, String newService, String newMail, String newPassword) {
+    private void update(String newName, String newService, String newPassword) {
 
         tvName.setError(null);
         tvService.setError(null);
-        tvMail.setError(null);
         tvPassword.setError(null);
 
         View focusView = null;
@@ -146,43 +139,19 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
                 error = true;
             } else {
-                if (TextUtils.isEmpty(newMail)) {
-                    tvMail.setError(getString(R.string.empty_field));
-                    tvMail.setText("");
-                    focusView = tvMail;
+                if (TextUtils.isEmpty(newPassword)) {
+                    tvPassword.setError(getString(R.string.empty_field));
+                    tvPassword.setText("");
+                    focusView = tvPassword;
 
                     error = true;
                 } else {
-                    if (!android.util.Patterns.EMAIL_ADDRESS.matcher(newMail).matches()) {
-                        tvMail.setError(getString(R.string.invalid_mail));
-                        tvMail.setText(newMail);
-                        focusView = tvMail;
+                    if (newPassword.length() < 5) {
+                        tvPassword.setError(getString(R.string.error_password));
+                        tvPassword.setText("");
+                        focusView = tvPassword;
 
                         error = true;
-                    } else {
-                        if(mailExist(newMail)) {
-                            tvMail.setError(getString(R.string.error_used_email));
-                            tvMail.setText(newMail);
-                            focusView = tvMail;
-
-                            error = true;
-                        } else {
-                            if (TextUtils.isEmpty(newPassword)){
-                                tvPassword.setError(getString(R.string.empty_field));
-                                tvPassword.setText("");
-                                focusView = tvPassword;
-
-                                error = true;
-                            } else {
-                                if (newPassword.length() < 5) {
-                                    tvPassword.setError(getString(R.string.error_password));
-                                    tvPassword.setText("");
-                                    focusView = tvPassword;
-
-                                    error = true;
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -199,9 +168,6 @@ public class ModifyPersonActivity extends BaseHRActivity {
             }
             if(!service.equals(newService)){
                 oneCollaborator.setService(newService);
-            }
-            if(!mailCollaborator.equals(newMail)) {
-                oneCollaborator.setEmail(newMail);
             }
             if(!password.equals(newPassword)) {
                 oneCollaborator.setPassword(newPassword);
@@ -267,33 +233,6 @@ public class ModifyPersonActivity extends BaseHRActivity {
         }
     }
 
-    /**
-     * check if the mail exist already in the database
-     * @param email - the mail for the check
-     * @return
-     */
-    private boolean mailExist(String email) {
-
-        collaboList = new ArrayList<>();
-
-        //get a list of all the collaborators
-        CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
-        dvm = ViewModelProviders.of(this,factory).get(CollaboratorListViewModel.class);
-        dvm.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
-            if(collaborators1!=null){
-                collaboList = collaborators1;
-            }
-        });
-
-        //if the mail exist, return true, else, return false
-        for (Collaborator collaborator: collaboList) {
-            if(collaborator.getEmail().equals(email)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
     /**
      * setLanguage
      * Set the language from the settings

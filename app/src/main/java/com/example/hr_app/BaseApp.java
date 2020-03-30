@@ -8,16 +8,18 @@ import com.example.hr_app.database.repository.CollaboratorRepository;
 
 
 /**
- * Android Application class. Used for accessing singletons.
+ * Android Application class. Used for accessing singletons and stock some variables usefull
  */
 public class BaseApp extends Application {
 
+    //stock of the variables mail(the user connected), mailCollaborator(for go to the details of a specific collaborator),
+    //id(for go to a specific absence), idHR(for display the good menu if the user is HR or not)
     private String mailCollaborator;
     private String mail;
     private int id;
     private boolean isHR;
-    private boolean isDarkMode = false;
 
+    //getters and setters
     public String getTheMail() {
         return mail;
     }
@@ -50,6 +52,9 @@ public class BaseApp extends Application {
         isHR = HR;
     }
 
+    /**
+     * the methods for call the singletons.
+     */
     @Override
     public void onCreate() {
         super.onCreate();

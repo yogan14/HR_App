@@ -1,9 +1,9 @@
 package com.example.hr_app.adapter;
 
+import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.Absences;
-import com.example.hr_app.util.RecyclerViewItemClickListener;
+import com.example.hr_app.database.entity.Collaborator;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -21,8 +22,8 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
      * Declaration of the variables
      */
     private List<T> mData;
-    private RecyclerViewItemClickListener mListener;
 
+    private List<Collaborator> collaboList;
     /**
      * The view holder which will contain the view according its content
      */
@@ -30,7 +31,6 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
         private TextView name;
         private TextView date;
         private TextView cause;
-        private Button accept;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -44,8 +44,13 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
      * Empty constructor for the adapter since we don't
      * ask a listener
      */
-    public ValidateAbsencesAdapter(){
+    public ValidateAbsencesAdapter(List<Collaborator> collaboList){
+        this.collaboList = collaboList;
+    }
 
+    public void setDataChanged(List<Collaborator> collaboList) {
+        this.collaboList = collaboList;
+        notifyItemRangeInserted(0, collaboList.size());
     }
 
     /**
@@ -70,7 +75,14 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
     @Override
     public void onBindViewHolder(@NonNull ValidateAbsencesAdapter.ViewHolder holder, int position) {
         T item = mData.get(position);
-        holder.name.setText(((Absences) item).getEmail());
+
+
+        for (Collaborator c : collaboList) {
+            if(c.getEmail().equals(((Absences) item).getEmail())) {
+                holder.name.setText(c.getName());
+            }
+        }
+
         holder.date.setText(((Absences) item).getStartAbsence() + " to " + ((Absences) item).getEndAbsence());
         holder.cause.setText(((Absences) item).getReason());
     }
