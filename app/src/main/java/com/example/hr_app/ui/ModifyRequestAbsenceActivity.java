@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
     private Absences absence;
     private OneAbsenceViewModel viewModel;
     private String startAbsence, endAbsence, reason;
+    SharedPreferences sharedPreferences;
 
     /**
      * onCreate
@@ -72,7 +74,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         Button update = findViewById(R.id.update_button);
         update.setOnClickListener(view -> update(tvStartDate.getText().toString(), tvEndDate.getText().toString(), sCause.getSelectedItem().toString()));
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language","English"));
 
         Button delete = findViewById(R.id.delete_button);
@@ -102,6 +104,60 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
 
         tvStartDate.setText(startAbsence);
         tvEndDate.setText(endAbsence);
+
+        if(sharedPreferences.getString("pref_language", "English").equals("en-rUS")) {
+            switch(reason) {
+
+                case "Maladie":
+                    reason = "Sickness";
+                    break;
+                case "Vacances":
+                    reason = "Vacation";
+                    break;
+                case "Accident":
+                    reason = "Accident";
+                    break;
+                case "Armée":
+                    reason = "Army";
+                    break;
+                case "Maternité":
+                    reason = "Maternity";
+                    break;
+                case "Paternité":
+                    reason = "Paternity";
+                    break;
+                case "Autre":
+                    reason = "Other";
+                    break;
+            }
+        }
+        if(sharedPreferences.getString("pref_language", "English").equals("fr")) {
+            switch(reason) {
+
+                case "Sickness":
+                    reason = "Maladie";
+                    break;
+                case "Vacation":
+                    reason = "Vacances";
+                    break;
+                case "Accident":
+                    reason = "Accident";
+                    break;
+                case "Army":
+                    reason = "Armée";
+                    break;
+                case "Maternity":
+                    reason = "Maternité";
+                    break;
+                case "Paternity":
+                    reason = "Paternité";
+                    break;
+                case "Other":
+                    reason = "Autre";
+                    break;
+            }
+        }
+
         sCause.setSelection(((ArrayAdapter<String>)sCause.getAdapter()).getPosition(reason));
     }
 

@@ -48,7 +48,7 @@
     <string name="about">About</string>
     <string name="pref_title">Information</string>
     <string name="pref_deco_text">To apply this setting, you will be logged out.</string>
-    <string name="register">Register</string>
+    <string name="register">Login</string>
 
     <string name="login_empty">Login is empty</string>
     <string name="password_empty">Password is empty</string>
@@ -70,7 +70,7 @@
 
     <string-array name="lang_entries">
         <item>English</item>
-        <item>Francais</item>
+        <item>Français</item>
     </string-array>
     <string-array name="language">
         <item>en</item>
