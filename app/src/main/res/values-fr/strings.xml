@@ -46,6 +46,9 @@
     <string name="choose_your_language">Choisir le langage</string>
     <string name="order_summary">Trier les collaborateurs par service</string>
     <string name="about">À propos</string>
+    <string name="pref_title">Information</string>
+    <string name="pref_deco_text">Pour appliquer ce paramètre, vous allez être déconnecté.</string>
+    <string name="register">Connexion</string>
 
 
     <string-array name="cause_of_absence">

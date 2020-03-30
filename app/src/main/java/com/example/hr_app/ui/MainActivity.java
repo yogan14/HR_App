@@ -10,6 +10,8 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.hr_app.R;
 
 import java.util.Locale;
+import java.util.prefs.PreferenceChangeEvent;
+import java.util.prefs.PreferenceChangeListener;
 
 
 /**
@@ -72,11 +74,13 @@ public class MainActivity extends BaseHRActivity {
      * @param langue the language the user want
      */
     public void setLanguage(String langue){
+
         Locale locale = new Locale(langue);
         Locale.setDefault(locale);
         android.content.res.Configuration config = new android.content.res.Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+
     }
 
 

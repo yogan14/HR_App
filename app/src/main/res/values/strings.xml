@@ -46,6 +46,9 @@
     <string name="choose_your_language">Choose your language</string>
     <string name="order_summary">Order the Collaborator by service</string>
     <string name="about">About</string>
+    <string name="pref_title">Information</string>
+    <string name="pref_deco_text">To apply this setting, you will be logged out.</string>
+    <string name="register">Register</string>
 
 
 
