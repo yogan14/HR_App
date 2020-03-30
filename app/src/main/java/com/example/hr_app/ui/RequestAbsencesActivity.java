@@ -21,10 +21,13 @@ import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * RequestAbsenceActivity
+ * the users can request their absences here
+ */
 public class RequestAbsencesActivity extends BaseHRActivity {
 
     private Toast toast;
@@ -41,7 +44,11 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
     private OnAsyncEventListener callback;
 
-
+    /**
+     * onCreate
+     * On the creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +61,19 @@ public class RequestAbsencesActivity extends BaseHRActivity {
         navigationView.setCheckedItem(position);
     }
 
+    /**
+     * onResume
+     * State when we return in the app
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+    }
+
+    /**
+     * check if the request is valid and if yes, add it in the database
+     */
     public void sendAbsence(View view){
 
         etStartAbsence = findViewById(R.id.begining_date);
@@ -70,6 +90,7 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
         boolean error = false;
 
+        //is it an error ?
         if (TextUtils.isEmpty(startAbsence)) {
             etStartAbsence.setError(getString(R.string.empty_field));
             etStartAbsence.setText("");
@@ -110,10 +131,12 @@ public class RequestAbsencesActivity extends BaseHRActivity {
             }
         }
 
+        //if an error occurs, focus on the it
         if (error) {
             focusView.requestFocus();
         } else {
 
+            //else, create an absence in the database
             mail = ((BaseApp) this.getApplication()).getTheMail();
             Absences absence = new Absences(startAbsence, endAbsence, reason, mail);
             ar = ((BaseApp) getApplication()).getAbsenceRepository();
@@ -131,6 +154,11 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
     }
 
+    /**
+     * check if the date is in a valid format
+     * @param date - the date to check
+     * @return if yes or not
+     */
     public boolean isDateValid(String date) {
         // Définir le format date
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
@@ -146,6 +174,12 @@ public class RequestAbsencesActivity extends BaseHRActivity {
         return true;
     }
 
+    /**
+     * check if the start date is really before the end date
+     * @param start - the start date
+     * @param end - the end date
+     * @return
+     */
     public boolean isDateOneBeforeDateTwo (String start, String end) {
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");

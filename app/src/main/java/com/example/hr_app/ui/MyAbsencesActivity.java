@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * MyAbsencesActivity
+ * the users can see all of their absences
+ */
 public class MyAbsencesActivity extends BaseHRActivity {
     /**
      * Declaration of variables
