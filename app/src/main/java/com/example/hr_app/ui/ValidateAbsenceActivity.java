@@ -6,15 +6,21 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
+
 import com.example.hr_app.R;
 import com.example.hr_app.adapter.ValidateAbsencesAdapter;
 import com.example.hr_app.database.entity.Absences;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ValidateAbsenceActivity extends BaseHRActivity {
     /**
@@ -29,6 +35,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
     /**
      * on create
      * On the creation of the activity
+     *
      * @param savedInstanceState
      */
     @Override
@@ -37,14 +44,17 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
         /**
          * Get the layout from the xml file
          */
-        getLayoutInflater().inflate(R.layout.activity_validate_absence_v2,frameLayout);
+        getLayoutInflater().inflate(R.layout.activity_validate_absence_v2, frameLayout);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language", "English"));
 
         /**
          * Get the recyclerView and set in a vertical layout
          */
         RecyclerView recyclerView = findViewById(R.id.recycler_view_absences);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),LinearLayoutManager.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         /**
@@ -57,9 +67,9 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
          * Filling the list
          */
         AbsenceListNotValidateViewModel.Factory factory = new AbsenceListNotValidateViewModel.Factory(getApplication());
-        viewModel = ViewModelProviders.of(this,factory).get(AbsenceListNotValidateViewModel.class);
+        viewModel = ViewModelProviders.of(this, factory).get(AbsenceListNotValidateViewModel.class);
         viewModel.getAbsencesNotValidate().observe(this, absences -> {
-            if(absences!=null){
+            if (absences != null) {
                 absencesList = absences;
                 adapter.setData(absencesList);
             }
@@ -68,7 +78,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
         /**
          * Creation of the swipe feature
          */
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -86,14 +96,14 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
                 /**
                  * Swipping left delete the absence
                  */
-                if(direction==ItemTouchHelper.LEFT){
-                    viewModel.delete((Absences)adapter.getAbsenceAt(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
+                if (direction == ItemTouchHelper.LEFT) {
+                    viewModel.delete((Absences) adapter.getAbsenceAt(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
                         /**
                          * A toast will pop up if the absence is correctly deleted
                          */
                         @Override
                         public void onSuccess() {
-                            Toast.makeText(ValidateAbsenceActivity.this, "Absence refused", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ValidateAbsenceActivity.this, (getString(R.string.absence_refused)), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -103,7 +113,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
                     });
                     /**
                      * Swipping right accept the absence
-                      */
+                     */
                 } else {
                     /**
                      * Get the absence according to the ID
@@ -114,16 +124,17 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
                         /**
                          * A toast will pop up if the absence is correctly updated
                          */
-                       @Override
-                       public void onSuccess() {
-                           Toast.makeText(ValidateAbsenceActivity.this, "Absence accepted", Toast.LENGTH_SHORT).show();
-                       }
+                        @Override
+                        public void onSuccess() {
 
-                       @Override
-                       public void onFailure(Exception e) {
+                            Toast.makeText(ValidateAbsenceActivity.this, (getString(R.string.absence_accepted)), Toast.LENGTH_SHORT).show();
+                        }
 
-                       }
-                   });
+                        @Override
+                        public void onFailure(Exception e) {
+
+                        }
+                    });
                 }
 
 
@@ -136,5 +147,13 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
          */
         recyclerView.setAdapter(adapter);
 
+    }
+
+    public void setLanguage(String langue) {
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 }

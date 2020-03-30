@@ -17,7 +17,7 @@
         android:key="pref_language"
         android:title="Choose your language"
         android:dialogTitle="Language"
-        android:entries="@array/language"
+        android:entries="@array/lang_entries"
         android:defaultValue="English"
         android:entryValues="@array/language" />
 

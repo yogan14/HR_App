@@ -16,9 +16,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+
+import java.util.Locale;
 
 public class BaseHRActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -49,6 +53,8 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
             setContentView(R.layout.activity_menu);
         }
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -144,5 +150,13 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
+    }
+
+    public void setLanguage(String langue){
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
     }
 }

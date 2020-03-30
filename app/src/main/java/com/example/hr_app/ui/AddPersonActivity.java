@@ -1,7 +1,9 @@
 package com.example.hr_app.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +13,8 @@ import com.example.hr_app.R;
 import com.example.hr_app.database.async.collaborator.CreateCollaborator;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.util.OnAsyncEventListener;
+
+import java.util.Locale;
 
 public class AddPersonActivity extends BaseHRActivity {
 
@@ -33,6 +37,8 @@ public class AddPersonActivity extends BaseHRActivity {
         tvPassword = findViewById(R.id.password_field);
         bAdd = findViewById(R.id.addCollaborator);
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("","English"));
         bAdd.setOnClickListener(view -> addCollaborator());
 
     }
@@ -135,5 +141,12 @@ public class AddPersonActivity extends BaseHRActivity {
             tvMail.setError(getString(R.string.error_used_email));
             tvMail.requestFocus();
         }
+    }
+    public void setLanguage(String langue){
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
     }
 }

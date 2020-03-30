@@ -1,7 +1,9 @@
 package com.example.hr_app.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -15,6 +17,7 @@ import com.example.hr_app.util.RecyclerViewItemClickListener;
 import com.example.hr_app.viewmodel.absences.AbsencesListOneCollViewModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MyAbsencesActivity extends BaseHRActivity {
     /**
@@ -38,6 +41,8 @@ public class MyAbsencesActivity extends BaseHRActivity {
          */
         getLayoutInflater().inflate(R.layout.activity_ownabsences,frameLayout);
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
         /**
          * Creation of the recycler view and the relative layout
          */
@@ -104,4 +109,11 @@ public class MyAbsencesActivity extends BaseHRActivity {
         ((BaseApp) this.getApplication()).setTheID(id);
     }
 
+    public void setLanguage(String langue){
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+    }
 }

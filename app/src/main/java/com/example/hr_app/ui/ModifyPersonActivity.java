@@ -1,7 +1,9 @@
 package com.example.hr_app.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ModifyPersonActivity extends BaseHRActivity {
 
@@ -43,7 +46,8 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
         mailCollaborator = ((BaseApp)this.getApplication()).getMailCollaborator();
 
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
 
         tvName = findViewById(R.id.name_field);
         tvService = findViewById(R.id.service_field);
@@ -240,6 +244,12 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
         return false;
     }
-
+    public void setLanguage(String langue){
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+    }
 
 }

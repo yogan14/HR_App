@@ -1,7 +1,9 @@
 package com.example.hr_app.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import com.example.hr_app.viewmodel.absences.OneAbsenceViewModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class ModifyRequestAbsenceActivity extends BaseHRActivity {
@@ -49,6 +52,9 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         update.setOnClickListener(view -> {
             update(tvStartDate.getText().toString(), tvEndDate.getText().toString(), sCause.getSelectedItem().toString());
         });
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
 
         Button delete = findViewById(R.id.delete_button);
         delete.setOnClickListener(view -> {
@@ -210,5 +216,11 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
             return false;
         }
     }
-
+    public void setLanguage(String langue){
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+    }
 }

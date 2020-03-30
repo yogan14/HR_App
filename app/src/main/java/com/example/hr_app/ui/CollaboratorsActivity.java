@@ -3,6 +3,7 @@ package com.example.hr_app.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProviders;
@@ -20,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class CollaboratorsActivity extends BaseHRActivity {
@@ -56,7 +58,8 @@ public class CollaboratorsActivity extends BaseHRActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        SharedPreferences settings = getSharedPreferences(BaseHRActivity.PREFS_NAME, 0);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 LinearLayoutManager.VERTICAL);
@@ -108,5 +111,12 @@ public class CollaboratorsActivity extends BaseHRActivity {
 
         Intent intent = new Intent(this, AddPersonActivity.class);
         startActivity(intent);
+    }
+    public void setLanguage(String langue){
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
     }
 }

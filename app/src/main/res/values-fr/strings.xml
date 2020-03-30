@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HR App</string>
+    <string name="name_field">Nom</string>
+    <string name="service_field">Service</string>
+    <string name="mail_field">E-mail</string>
+    <string name="password_field">Mot de passe</string>
+    <string name="add_button">Ajouter</string>
+    <string name="update_button">Sauvegarder</string>
+    <string name="delete_button">Supprimer</string>
+    <string name="beginning_absence_field">Début de l\'absence(jj.mm.aaaa)</string>
+    <string name="end_absence_field">Fin de l\'absence (jj.mm.aaaa)</string>
+    <string name="to_field">au</string>
+    <string name="send_request_button">Envoyer</string>
+    <string name="pref_about_text">Cette application a été créée par Nicolas Constantin et Diogo D\'Almeida, 2 élèves de la HES-SO en filière informatique.
+        Avec cette application, vous pouvez ajouter, supprimer ou modifier des absences ou des collaborateurs si vous êtes un employé RH et vous pouvez proposer des absences ou les consulter si vous êtes un employé autre que RH.</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="action_logout">Déconnexion</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="title_activity_collaborators">Collaborateurs</string>
+    <string name="title_activity_accept_absences">Validation d\'absences</string>
+    <string name="title_activity_my_absences">Mes absences</string>
+    <string name="title_activity_request_absences">Demander des absences</string>
+    <string name="app_title">HR Diogo - Nicolas</string>
+    <string name="disclaimer">HES-SO Sierre Filière informatique</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="logout_msg">Voulez-vous vraiment vous déconnecter ?</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="empty_field">Champ vide !</string>
+    <string name="invalid_mail">Email invalide</string>
+    <string name="error_password">Ce mot de passe est trop court. (min. 5 caractères)</string>
+    <string name="error_used_email">Email déjà existant</string>
+    <string name="collaborator_created">Collaborateur créé avec succès</string>
+    <string name="absence_updated">Absence modifiée</string>
+    <string name="error">Une erreur est arrivée</string>
+    <string name="absence_deleted">Absence supprimée</string>
+    <string name="absence_refused">Absence refusée</string>
+    <string name="absence_accepted">Absence acceptée</string>
+    <string name="date_not_valid">Svp, entrez une date valide</string>
+    <string name="date_error_time">Mettez une date après le début de l\'absence</string>
+    <string name="collaborator_updated">Collaborateur modifié</string>
+    <string name="collaborator_deleted">Collaborateur supprimé</string>
+
+
+    <string-array name="cause_of_absence">
+        <item>Maladie</item>
+        <item>Vacances</item>
+        <item>Armée</item>
+        <item>Maternité</item>
+        <item>Paternité</item>
+        <item>Accident</item>
+        <item>Autre</item>
+    </string-array>
+</resources>

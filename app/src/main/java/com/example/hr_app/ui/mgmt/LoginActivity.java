@@ -2,7 +2,9 @@ package com.example.hr_app.ui.mgmt;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import com.example.hr_app.database.repository.CollaboratorRepository;
 import com.example.hr_app.ui.MainActivity;
 
 import java.util.List;
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity {
     /**

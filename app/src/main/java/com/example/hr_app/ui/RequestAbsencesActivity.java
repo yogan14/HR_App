@@ -1,7 +1,9 @@
 package com.example.hr_app.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class RequestAbsencesActivity extends BaseHRActivity {
 
@@ -44,6 +47,8 @@ public class RequestAbsencesActivity extends BaseHRActivity {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_requestabsences, frameLayout);
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
         String s = ((BaseApp) this.getApplication()).getTheMail();
 
         navigationView.setCheckedItem(position);
@@ -159,5 +164,11 @@ public class RequestAbsencesActivity extends BaseHRActivity {
             return false;
         }
     }
-
+    public void setLanguage(String langue){
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+    }
 }

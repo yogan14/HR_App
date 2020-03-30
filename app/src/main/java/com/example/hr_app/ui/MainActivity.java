@@ -1,10 +1,15 @@
 package com.example.hr_app.ui;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.hr_app.R;
+
+import java.util.Locale;
 
 
 public class MainActivity extends BaseHRActivity {
@@ -13,7 +18,8 @@ public class MainActivity extends BaseHRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
         setTitle(getString(R.string.app_name));
         navigationView.setCheckedItem(R.id.nav_none);
     }
@@ -39,4 +45,13 @@ public class MainActivity extends BaseHRActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
         alertDialog.show();
     }
+    public void setLanguage(String langue){
+        Locale locale = new Locale(langue);
+        Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+    }
+
+
 }
