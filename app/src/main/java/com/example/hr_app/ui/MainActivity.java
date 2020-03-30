@@ -61,6 +61,11 @@ public class MainActivity extends BaseHRActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
         alertDialog.show();
     }
+    /**
+     * setLanguage
+     * Set the language from the settings
+     * @param langue the language the user want
+     */
     public void setLanguage(String langue){
         Locale locale = new Locale(langue);
         Locale.setDefault(locale);

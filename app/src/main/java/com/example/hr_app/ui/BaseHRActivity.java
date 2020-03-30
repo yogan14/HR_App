@@ -178,6 +178,11 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
         startActivity(intent);
     }
 
+    /**
+     * setLanguage
+     * Set the language from the settings
+     * @param langue the language the user want
+     */
     public void setLanguage(String langue){
         Locale locale = new Locale(langue);
         Locale.setDefault(locale);

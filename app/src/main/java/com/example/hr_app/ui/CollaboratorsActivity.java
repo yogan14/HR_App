@@ -136,6 +136,11 @@ public class CollaboratorsActivity extends BaseHRActivity {
         Intent intent = new Intent(this, AddPersonActivity.class);
         startActivity(intent);
     }
+    /**
+     * setLanguage
+     * Set the language from the settings
+     * @param langue the language the user want
+     */
     public void setLanguage(String langue){
         Locale locale = new Locale(langue);
         Locale.setDefault(locale);

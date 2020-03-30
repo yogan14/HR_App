@@ -109,6 +109,11 @@ public class MyAbsencesActivity extends BaseHRActivity {
         ((BaseApp) this.getApplication()).setTheID(id);
     }
 
+    /**
+     * setLanguage
+     * Set the language from the settings
+     * @param langue the language the user want
+     */
     public void setLanguage(String langue){
         Locale locale = new Locale(langue);
         Locale.setDefault(locale);
