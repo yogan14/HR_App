@@ -8,7 +8,7 @@
     <string name="add_button">Ajouter</string>
     <string name="update_button">Sauvegarder</string>
     <string name="delete_button">Supprimer</string>
-    <string name="beginning_absence_field">Début de l\'absence(jj.mm.aaaa)</string>
+    <string name="beginning_absence_field">Début de l\'absence (jj.mm.aaaa)</string>
     <string name="end_absence_field">Fin de l\'absence (jj.mm.aaaa)</string>
     <string name="to_field">au</string>
     <string name="send_request_button">Envoyer</string>
@@ -49,7 +49,11 @@
     <string name="pref_title">Information</string>
     <string name="pref_deco_text">Pour appliquer ce paramètre, vous allez être déconnecté.</string>
     <string name="register">Connexion</string>
-
+    <string name="login_empty">Login est vide</string>
+    <string name="password_empty">Mot de passe est vide</string>
+    <string name="wrong_password">Mot de passe incorrect</string>
+    <string name="no_login">Login non existant</string>
+    <string name="created_request">Demande créée</string>
 
     <string-array name="cause_of_absence">
         <item>Maladie</item>

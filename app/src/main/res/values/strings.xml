@@ -50,6 +50,12 @@
     <string name="pref_deco_text">To apply this setting, you will be logged out.</string>
     <string name="register">Register</string>
 
+    <string name="login_empty">Login is empty</string>
+    <string name="password_empty">Password is empty</string>
+    <string name="wrong_password">Password incorrect</string>
+    <string name="no_login">Non-existent login</string>
+    <string name="created_request">Request created</string>
+
 
 
     <string-array name="cause_of_absence">
@@ -67,7 +73,7 @@
         <item>Francais</item>
     </string-array>
     <string-array name="language">
-        <item>en-rUS</item>
+        <item>en</item>
         <item>fr</item>
     </string-array>
 </resources>

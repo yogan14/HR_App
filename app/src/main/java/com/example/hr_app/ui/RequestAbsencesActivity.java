@@ -151,7 +151,7 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
             viewModel.insert(absence, callback);
 
-            toast = Toast.makeText(this, "request created", Toast.LENGTH_LONG);
+            toast = Toast.makeText(this, getString(R.string.created_request), Toast.LENGTH_LONG);
             toast.show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

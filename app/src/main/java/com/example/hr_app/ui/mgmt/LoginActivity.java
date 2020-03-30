@@ -75,14 +75,14 @@ public class LoginActivity extends AppCompatActivity {
 
         //Case when the login or/and password field are empty
         if (TextUtils.isEmpty(loginCase)) {
-            login.setError("Login is empty");
+            login.setError(getString(R.string.login_empty));
             login.setText("");
             focusView = login;
             error = true;
 
         } else {
             if (TextUtils.isEmpty(pwdCase)) {
-                pwd.setError("Password is empty");
+                pwd.setError(getString(R.string.password_empty));
                 pwd.setText("");
                 focusView = pwd;
 
@@ -112,14 +112,14 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     } else {
-                        pwd.setError("Password incorrect");
+                        pwd.setError(getString(R.string.wrong_password));
                         pwd.requestFocus();
                         pwd.setText("");
                     }
 
 
                 } else {
-                    login.setError("Non-existent login");
+                    login.setError(getString(R.string.no_login));
                     login.requestFocus();
                     login.setText("");
                 }
