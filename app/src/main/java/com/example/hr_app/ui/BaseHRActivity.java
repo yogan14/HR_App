@@ -29,8 +29,6 @@ import java.util.Locale;
  */
 public class BaseHRActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String PREFS_NAME = "SharedPrefs";
-    public static final String PREFS_USER = "LoggedIn";
     /**
      *  Frame layout: Which is going to be used as parent layout for child activity layout.
      *  This layout is protected so that child activity can access this
@@ -41,21 +39,19 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
 
     protected NavigationView navigationView;
 
-    /**
-     * Static variable for selected item position. Which can be used in child activity to know which item is selected from the list.
-     */
     protected static int position;
 
     /**
      * onCreate
      * Create the activity
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(((BaseApp)this.getApplication()).getIsHR()== true) { //HR
+        //if the user is an HR member, display the HR burger menu, else, display the normal menu
+        if(((BaseApp) this.getApplication()).getIsHR()) {
             setContentView(R.layout.activity_hrmenu);
         } else {
             setContentView(R.layout.activity_menu);
@@ -86,8 +82,6 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
     @Override
     protected void onResume() {
         super.onResume();
-        /*SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setLanguage(sharedPreferences.getString("pref_language","English"));*/
     }
 
     /**
@@ -106,8 +100,7 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
 
     /**
      * create the settings menu
-     * @param menu
-     * @return
+     * @param menu - the menu settings
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,7 +113,6 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
      * onOptionItemSelected
      * set the behaviour of the settings menu
      * @param item - the item selected
-     * @return
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

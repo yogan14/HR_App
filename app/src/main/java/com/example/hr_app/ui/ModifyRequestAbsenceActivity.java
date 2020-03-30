@@ -41,7 +41,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
     /**
      * onCreate
      * Create the activity
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,6 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
 
         navigationView.setCheckedItem(position);
         setData();
-
     }
 
     /**
@@ -58,13 +57,12 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
      * State when we return in the app
      */
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         setData();
     }
 
-    public void setData(){
+    public void setData() {
         int absenceID = ((BaseApp)this.getApplication()).getTheID();
 
         sCause = findViewById(R.id.cause_of_absences_spinner);
@@ -72,17 +70,13 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         tvEndDate = findViewById(R.id.end_date);
 
         Button update = findViewById(R.id.update_button);
-        update.setOnClickListener(view -> {
-            update(tvStartDate.getText().toString(), tvEndDate.getText().toString(), sCause.getSelectedItem().toString());
-        });
+        update.setOnClickListener(view -> update(tvStartDate.getText().toString(), tvEndDate.getText().toString(), sCause.getSelectedItem().toString()));
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language","English"));
 
         Button delete = findViewById(R.id.delete_button);
-        delete.setOnClickListener(view -> {
-            deleteButton();
-        });
+        delete.setOnClickListener(view -> deleteButton());
 
         OneAbsenceViewModel.Factory factory = new OneAbsenceViewModel.Factory(getApplication(), absenceID);
         viewModel = ViewModelProviders.of(this,factory).get(OneAbsenceViewModel.class);
@@ -212,8 +206,8 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
             } else {
                 toast = Toast.makeText(this, (getString(R.string.absence_deleted)), Toast.LENGTH_LONG);
             }
-
             toast.show();
+
             Intent intent = new Intent(ModifyRequestAbsenceActivity.this, MyAbsencesActivity.class);
             startActivity(intent);
         } else {
@@ -230,17 +224,17 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
      * @return if yes or not
      */
     public static boolean isDateValid (String date) {
-        // Définir le format date
+        // Set the date format
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         format.setLenient(false);
         try {
             Date d = format.parse(date);
         }
-        // Date invalide
+        // Date not valid
         catch (ParseException e) {
             return false;
         }
-        // Renvoie true si la date est valide
+        // send back true if the format is valid
         return true;
     }
 
@@ -248,7 +242,6 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
      * check if the start date is really before the end date
      * @param start - the start date
      * @param end - the end date
-     * @return
      */
     public boolean isDateOneBeforeDateTwo (String start, String end) {
 
@@ -258,16 +251,13 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
             Date time1 = format.parse(start);
             Date time2 = format.parse(end);
 
-            if (time1.compareTo(time2) < 0) {
-                return true;
-            }
+            return time1.compareTo(time2) < 0;
 
-            return false;
-
-        } catch (ParseException e) {
+        } catch (Exception e) {
             return false;
         }
     }
+
     /**
      * setLanguage
      * Set the language from the settings

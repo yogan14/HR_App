@@ -83,16 +83,14 @@ public abstract class AppDatabase extends RoomDatabase {
      * Initialize the db for demo
      * @param database - database
      */
-    public static void initializeDemoData(final AppDatabase database) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            database.runInTransaction(() -> {
-                Log.i(TAG, "Wipe database.");
-                database.collaboratorDao().deleteAll();
-                database.absencesDao().deleteAll();
+    private static void initializeDemoData(final AppDatabase database) {
+        Executors.newSingleThreadExecutor().execute(() -> database.runInTransaction(() -> {
+            Log.i(TAG, "Wipe database.");
+            database.collaboratorDao().deleteAll();
+            database.absencesDao().deleteAll();
 
-                DatabaseInitializer.populateDatabase(database);
-            });
-        });
+            DatabaseInitializer.populateDatabase(database);
+        }));
     }
 
     /**
@@ -115,7 +113,4 @@ public abstract class AppDatabase extends RoomDatabase {
         mIsDatabaseCreated.postValue(true);
     }
 
-    public LiveData<Boolean> getDatabaseCreated() {
-        return mIsDatabaseCreated;
-    }
 }

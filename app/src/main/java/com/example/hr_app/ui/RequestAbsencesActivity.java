@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.Absences;
-import com.example.hr_app.database.repository.AbsencesRepository;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
 
@@ -40,14 +39,12 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
     private AbsenceListNotValidateViewModel viewModel;
 
-    private AbsencesRepository ar;
-
     private OnAsyncEventListener callback;
 
     /**
      * onCreate
      * On the creation of the activity
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +69,14 @@ public class RequestAbsencesActivity extends BaseHRActivity {
         setDisplay();
     }
 
+    /**
+     * Set the display of the app
+     */
     public void setDisplay(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language","English"));
-        //String s = ((BaseApp) this.getApplication()).getTheMail();
     }
+
     /**
      * check if the request is valid and if yes, add it in the database
      */
@@ -145,7 +145,6 @@ public class RequestAbsencesActivity extends BaseHRActivity {
             //else, create an absence in the database
             mail = ((BaseApp) this.getApplication()).getTheMail();
             Absences absence = new Absences(startAbsence, endAbsence, reason, mail);
-            ar = ((BaseApp) getApplication()).getAbsenceRepository();
 
             AbsenceListNotValidateViewModel.Factory factory = new AbsenceListNotValidateViewModel.Factory( getApplication());
             viewModel = ViewModelProviders.of(this, factory).get(AbsenceListNotValidateViewModel.class);
@@ -166,17 +165,17 @@ public class RequestAbsencesActivity extends BaseHRActivity {
      * @return if yes or not
      */
     public boolean isDateValid(String date) {
-        // Définir le format date
+        // Set the date format
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         format.setLenient(false);
         try {
             Date d = format.parse(date);
         }
-        // Date invalide
+        // Date not valid
         catch (ParseException e) {
             return false;
         }
-        // Renvoie true si la date est valide
+        // send back true if the format is valid
         return true;
     }
 
@@ -184,7 +183,6 @@ public class RequestAbsencesActivity extends BaseHRActivity {
      * check if the start date is really before the end date
      * @param start - the start date
      * @param end - the end date
-     * @return
      */
     public boolean isDateOneBeforeDateTwo (String start, String end) {
 
@@ -194,13 +192,9 @@ public class RequestAbsencesActivity extends BaseHRActivity {
             Date time1 = format.parse(start);
             Date time2 = format.parse(end);
 
-            if (time1.compareTo(time2) < 0) {
-                return true;
-            }
+            return time1.compareTo(time2) < 0;
 
-            return false;
-
-        } catch (ParseException e) {
+        } catch (Exception e) {
             return false;
         }
     }

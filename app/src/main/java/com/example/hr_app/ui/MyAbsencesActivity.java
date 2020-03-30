@@ -35,31 +35,36 @@ public class MyAbsencesActivity extends BaseHRActivity {
     /**
      * onCreate
      * On the creation of the activity
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /**
-         * Get the layout from the xml file
-         */
+
+        //Get the layout from the xml file
         getLayoutInflater().inflate(R.layout.activity_ownabsences,frameLayout);
         setDisplay();
     }
 
+    /**
+     * When the activity resume
+     */
     @Override
     protected void onResume(){
         super.onResume();
         setDisplay();
     }
 
+    /**
+     * set the display of the activity
+     */
     public void setDisplay(){
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language","English"));
-        /**
-         * Creation of the recycler view and the relative layout
-         */
+
+        //Creation of the recycler view and the relative layout
+
         RecyclerView recyclerView = findViewById(R.id.absencesRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -68,16 +73,13 @@ public class MyAbsencesActivity extends BaseHRActivity {
         recyclerView.addItemDecoration(dividerItemDecoration);
         navigationView.setCheckedItem(position);
 
-        /**
-         * Session to get the mail of the connected collaborator
-         */
+        //Session to get the mail of the connected collaborator
         String s = ((BaseApp) this.getApplication()).getTheMail();
 
-        /**
-         * Creation of the list and the relative adapter
-         */
+        //Creation of the list and the relative adapter
         absences = new ArrayList<>();
         adapter = new ListAdapter<>(new RecyclerViewItemClickListener() {
+
             /**
              * onItemClick
              * Action according to the absence selected
@@ -97,9 +99,7 @@ public class MyAbsencesActivity extends BaseHRActivity {
             }
         });
 
-        /**
-         * Filling the list
-         */
+        //Filling the list
         AbsencesListOneCollViewModel.Factory factory = new AbsencesListOneCollViewModel.Factory(getApplication(),s);
         viewModel = ViewModelProviders.of(this,factory).get(AbsencesListOneCollViewModel.class);
         viewModel.getAbsencesForOneCollaborator().observe(this, absences1 -> {

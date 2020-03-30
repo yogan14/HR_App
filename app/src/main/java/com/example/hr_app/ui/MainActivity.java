@@ -10,8 +10,6 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.hr_app.R;
 
 import java.util.Locale;
-import java.util.prefs.PreferenceChangeEvent;
-import java.util.prefs.PreferenceChangeListener;
 
 
 /**
@@ -22,7 +20,7 @@ public class MainActivity extends BaseHRActivity {
 
     /**
      * Create the activity
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

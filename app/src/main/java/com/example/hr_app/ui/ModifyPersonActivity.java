@@ -37,7 +37,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
     /**
      * Create the activity
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,6 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
         navigationView.setCheckedItem(position);
         setDisplay();
-
 
     }
 
@@ -74,14 +73,10 @@ public class ModifyPersonActivity extends BaseHRActivity {
         tvPassword = findViewById(R.id.password_field);
 
         Button update = findViewById(R.id.update_button);
-        update.setOnClickListener(view -> {
-            update(tvName.getText().toString(), tvService.getText().toString(), tvPassword.getText().toString());
-        });
+        update.setOnClickListener(view -> update(tvName.getText().toString(), tvService.getText().toString(), tvPassword.getText().toString()));
 
         Button delete = findViewById(R.id.delete_button);
-        delete.setOnClickListener(view -> {
-            deleteButton();
-        });
+        delete.setOnClickListener(view -> deleteButton());
 
         CollaboratorViewModel.Factory factory = new CollaboratorViewModel.Factory(getApplication(), mailCollaborator);
         viewModel = ViewModelProviders.of(this,factory).get(CollaboratorViewModel.class);
@@ -221,8 +216,8 @@ public class ModifyPersonActivity extends BaseHRActivity {
             } else {
                 toast = Toast.makeText(this, (getString(R.string.collaborator_deleted)), Toast.LENGTH_LONG);
             }
-
             toast.show();
+
             Intent intent = new Intent(ModifyPersonActivity.this, CollaboratorsActivity.class);
             startActivity(intent);
         } else {

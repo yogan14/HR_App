@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 
 import java.util.Locale;
@@ -22,7 +20,7 @@ public class SettingsFragment extends PreferenceFragment {
     /**
      * onCreate
      * Create the activity
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance
      */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -31,24 +29,20 @@ public class SettingsFragment extends PreferenceFragment {
 
         // Load the preferences from an XML ressources
         addPreferencesFromResource(R.xml.preferences);
-        /**
-         * Listener for the changes of the language settings
-         * The user will logged out automatically after selecting a language
-         */
-        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if(key.equals("pref_language")){
 
-                    setLanguage(sharedPreferences.getString("pref_language","English"));
-                    final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-                    alertDialog.setTitle(getString(R.string.pref_title));
-                    alertDialog.setCancelable(false);
-                    alertDialog.setMessage(getString(R.string.pref_deco_text));
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", (dialog, which) -> logout());
+        //Listener for the changes of the language settings
+        //The user will logged out automatically after selecting a language
+        listener = (sharedPreferences, key) -> {
+            if(key.equals("pref_language")){
 
-                    alertDialog.show();
-                }
+                setLanguage(sharedPreferences.getString("pref_language","English"));
+                final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                alertDialog.setTitle(getString(R.string.pref_title));
+                alertDialog.setCancelable(false);
+                alertDialog.setMessage(getString(R.string.pref_deco_text));
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", (dialog, which) -> logout());
+
+                alertDialog.show();
             }
         };
     }

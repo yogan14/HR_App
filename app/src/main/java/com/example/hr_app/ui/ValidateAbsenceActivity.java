@@ -120,6 +120,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
                 // Swipping left delete the absence
                 if (direction == ItemTouchHelper.LEFT) {
                     viewModel.delete((Absences) adapter.getAbsenceAt(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
+
                         /**
                          * A toast will pop up if the absence is correctly deleted
                          */
@@ -133,12 +134,14 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
 
                         }
                     });
+
                     //Swipping right accept the absence
                 } else {
                     //Get the absence according to the ID
                     absence = (Absences) adapter.getAbsenceAt(viewHolder.getAdapterPosition());
                     absence.setValidate(true);
                     viewModel.update(absence, new OnAsyncEventListener() {
+
                         /**
                          * A toast will pop up if the absence is correctly updated
                          */
@@ -158,7 +161,6 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
 
             }
         }).attachToRecyclerView(recyclerView); //link the swipe feature to the recycler view
-
 
         //Link the adapter to the recycler view
         recyclerView.setAdapter(adapter);

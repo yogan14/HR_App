@@ -1,6 +1,5 @@
 package com.example.hr_app.adapter;
 
-import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
         private TextView date;
         private TextView cause;
 
-        public ViewHolder(@NonNull View itemView) {
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.text_view_collaborator_name);
             date = itemView.findViewById(R.id.text_view_date);
@@ -48,6 +47,10 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
         this.collaboList = collaboList;
     }
 
+    /**
+     * when the list is found in the database, set the list with the values
+     * @param collaboList - list of collaborators
+     */
     public void setDataChanged(List<Collaborator> collaboList) {
         this.collaboList = collaboList;
         notifyItemRangeInserted(0, collaboList.size());
@@ -55,27 +58,25 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
 
     /**
      * Method which will get all the layout and listener of our view
-     * @param parent
-     * @param viewType
+     * @param parent - the parents
+     * @param viewType - the view
      * @return the view holder "completed"
      */
     @NonNull
     @Override
     public ValidateAbsencesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         CardView cv = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.validateabs_item,parent,false);
-        final ViewHolder viewHolder = new ViewHolder(cv);
-        return viewHolder;
+        return new ViewHolder(cv);
     }
 
     /**
      * Method which will set the data inside our different fields
-     * @param holder
-     * @param position
+     * @param holder - the viewHolder
+     * @param position - the position
      */
     @Override
     public void onBindViewHolder(@NonNull ValidateAbsencesAdapter.ViewHolder holder, int position) {
         T item = mData.get(position);
-
 
         for (Collaborator c : collaboList) {
             if(c.getEmail().equals(((Absences) item).getEmail())) {
@@ -87,6 +88,9 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
         holder.cause.setText(((Absences) item).getReason());
     }
 
+    /**
+     * method who count the number of item for the display
+     */
     @Override
     public int getItemCount() {
         if(mData==null){
@@ -99,7 +103,7 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
 
     /**
      * Method which will convert the live data to the list of data
-     * @param data
+     * @param data - the list of datas
      */
     public void setData(final List<T> data){
         if(mData==null){
