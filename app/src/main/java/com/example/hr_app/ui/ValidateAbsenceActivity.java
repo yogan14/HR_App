@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class ValidateAbsenceActivity extends BaseHRActivity {
+
     /**
      * Declaration of variables
      */
@@ -40,14 +41,13 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
      * on create
      * On the creation of the activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /**
-         * Get the layout from the xml file
-         */
+
+        //et the layout from the xml file
         getLayoutInflater().inflate(R.layout.activity_validate_absence, frameLayout);
         setDisplay();
     }
@@ -65,17 +65,13 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language", "English"));
 
-        /**
-         * Get the recyclerView and set in a vertical layout
-         */
+        //Get the recyclerView and set in a vertical layout
         RecyclerView recyclerView = findViewById(R.id.recycler_view_absences);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        /**
-         * Creation of the list of absences and the relative adapter
-         */
+        //Creation of the list of absences and the relative adapter
 
 
         collaboratorList = new ArrayList<>();
@@ -95,9 +91,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
 
         adapter = new ValidateAbsencesAdapter<>(collaboratorList);
 
-        /**
-         * Filling the list
-         */
+        //Filling the list
         AbsenceListNotValidateViewModel.Factory factory = new AbsenceListNotValidateViewModel.Factory(getApplication());
         viewModel = ViewModelProviders.of(this, factory).get(AbsenceListNotValidateViewModel.class);
         viewModel.getAbsencesNotValidate().observe(this, absences -> {
@@ -107,9 +101,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
             }
         });
 
-        /**
-         * Creation of the swipe feature
-         */
+        // Creation of the swipe feature
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
@@ -125,9 +117,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
              */
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                /**
-                 * Swipping left delete the absence
-                 */
+                // Swipping left delete the absence
                 if (direction == ItemTouchHelper.LEFT) {
                     viewModel.delete((Absences) adapter.getAbsenceAt(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
                         /**
@@ -143,13 +133,9 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
 
                         }
                     });
-                    /**
-                     * Swipping right accept the absence
-                     */
+                    //Swipping right accept the absence
                 } else {
-                    /**
-                     * Get the absence according to the ID
-                     */
+                    //Get the absence according to the ID
                     absence = (Absences) adapter.getAbsenceAt(viewHolder.getAdapterPosition());
                     absence.setValidate(true);
                     viewModel.update(absence, new OnAsyncEventListener() {
@@ -174,9 +160,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
         }).attachToRecyclerView(recyclerView); //link the swipe feature to the recycler view
 
 
-        /**
-         * Link the adapter to the recycler view
-         */
+        //Link the adapter to the recycler view
         recyclerView.setAdapter(adapter);
 
     }
