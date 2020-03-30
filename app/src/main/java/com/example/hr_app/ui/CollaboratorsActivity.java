@@ -94,14 +94,38 @@ public class CollaboratorsActivity extends BaseHRActivity {
          */
         CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
         viewModel = ViewModelProviders.of(this,factory).get(CollaboratorListViewModel.class);
-        viewModel.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
-            if(collaborators1!=null){
-                collaborators = collaborators1;
-                adapter.setData(collaborators);
-            }
-        });
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(sharedPrefs.getBoolean("pref_order", false)){
+            viewModel.getAllCollaboByService().observe(this, (List<Collaborator> collaborators1) -> {
+                if(collaborators1!=null){
+                    collaborators = collaborators1;
+                    adapter.setData(collaborators);
+                }
+            });
+        } else {
+            viewModel.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
+                if(collaborators1!=null){
+                    collaborators = collaborators1;
+                    adapter.setData(collaborators);
+                }
+            });
+        }
+
+
+
 
         recyclerView.setAdapter(adapter);
+    }
+
+    /**
+     * onResume
+     * State when we return in the app
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
     }
 
     /**

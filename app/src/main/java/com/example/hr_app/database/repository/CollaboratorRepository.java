@@ -46,11 +46,20 @@ public class CollaboratorRepository {
 
     /**
      * getAll
-     * Get all the collaborators
+     * Get all the collaborators order by name
      * @param application - the application
      */
     public LiveData<List<Collaborator>> getAll(Application application) {
         return ((BaseApp) application).getDatabase().collaboratorDao().getAll();
+    }
+
+    /**
+     * getAll
+     * Get all the collaborators order by service
+     * @param application - the application
+     */
+    public LiveData<List<Collaborator>> getAllOrderService(Application application) {
+        return ((BaseApp) application).getDatabase().collaboratorDao().getAllOrderService();
     }
 
     /**

@@ -13,8 +13,13 @@ import com.example.hr_app.R;
 import com.example.hr_app.database.async.collaborator.CreateCollaborator;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.util.OnAsyncEventListener;
-
 import java.util.Locale;
+
+/**
+ * AddPersonActivity
+ * Activity to add a collaborator
+ */
+
 
 public class AddPersonActivity extends BaseHRActivity {
 
@@ -24,6 +29,11 @@ public class AddPersonActivity extends BaseHRActivity {
 
     private String name, service, mail, password;
 
+    /**
+     * onCreate
+     * Create the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +53,20 @@ public class AddPersonActivity extends BaseHRActivity {
 
     }
 
+    /**
+     * onResume
+     * State when we return in the app
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+    }
+
+    /**
+     * addCollaborator
+     * when the add button is pressed, add the collaborator in the database and return to the collaboratorsActivity
+     */
     public void addCollaborator() {
 
         tvName.setError(null);
@@ -59,6 +83,7 @@ public class AddPersonActivity extends BaseHRActivity {
 
         boolean error = false;
 
+        //check all the possibles mistakes
         if (TextUtils.isEmpty(name)) {
             tvName.setError(getString(R.string.empty_field));
             tvName.setText("");
@@ -107,10 +132,11 @@ public class AddPersonActivity extends BaseHRActivity {
             }
         }
 
+        //if one think isn't ok, request focus
         if (error) {
             focusView.requestFocus();
         } else {
-
+            //add collaborator in the database
             Collaborator collaborator = new Collaborator(name, service, mail, password);
 
             new CreateCollaborator(getApplication(), new OnAsyncEventListener() {
@@ -131,13 +157,20 @@ public class AddPersonActivity extends BaseHRActivity {
         }
     }
 
+    /**
+     * setResponse
+     * if it's ok, start the intent, if not, say it
+     * @param response - ok or not
+     */
     private void setResponse(Boolean response) {
+        //if true, start the intent and show a toast for inform the user
         if (response) {
             Toast toast = Toast.makeText(this, (getString(R.string.collaborator_created)), Toast.LENGTH_LONG);
             toast.show();
             Intent intent = new Intent(AddPersonActivity.this, CollaboratorsActivity.class);
             startActivity(intent);
         } else {
+            //if the mail already exist in the database, request focus and tell the error
             tvMail.setError(getString(R.string.error_used_email));
             tvMail.requestFocus();
         }

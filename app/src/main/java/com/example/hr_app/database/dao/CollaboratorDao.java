@@ -24,8 +24,11 @@ public interface CollaboratorDao {
     @Query("SELECT * FROM Collaborator WHERE email = :id")
     LiveData<Collaborator> getOneCollaborator(String id);
 
-    @Query("SELECT * FROM Collaborator")
+    @Query("SELECT * FROM Collaborator ORDER BY name")
     LiveData<List<Collaborator>> getAll();
+
+    @Query("SELECT * FROM Collaborator ORDER BY service, name")
+    LiveData<List<Collaborator>> getAllOrderService();
 
     @Insert
     void insert(Collaborator collaborator) throws SQLiteConstraintException;

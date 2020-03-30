@@ -48,7 +48,6 @@ public class AbsencesRepository {
     public LiveData<List<Absences>> getAbsencesForOneCollaborator(Application application, String email) {
         return ((BaseApp) application).getDatabase().absencesDao().getAbsencesForOneCollaborator(email);
     }
-
     /**
      * getAbsencesNotValidate
      * Get all the absences not validate by a HR

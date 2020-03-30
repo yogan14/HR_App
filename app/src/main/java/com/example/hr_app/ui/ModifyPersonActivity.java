@@ -26,6 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * ModifyPersonActivity
+ * The activity to modify or delete a collaborator
+ */
 public class ModifyPersonActivity extends BaseHRActivity {
 
     private TextView tvName, tvService, tvMail, tvPassword;
@@ -36,7 +40,10 @@ public class ModifyPersonActivity extends BaseHRActivity {
     private CollaboratorListViewModel dvm;
     private List<Collaborator> collaboList;
 
-
+    /**
+     * Create the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +83,18 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
     }
 
+    /**
+     * State when we return in the app
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+    }
+
+    /**
+     * when the collaborator is set, extract the attribute of the collaborator and put it to the text views
+     */
     private void findData() {
         name = oneCollaborator.getName();
         service = oneCollaborator.getService();
@@ -87,7 +106,13 @@ public class ModifyPersonActivity extends BaseHRActivity {
         tvPassword.setText(password);
     }
 
-
+    /**
+     * verify the fields, and if all is ok, modify the collaborator in the database
+     * @param newName - the content of the name field
+     * @param newService - the content of the service field
+     * @param newMail - the content of the mail field
+     * @param newPassword - the content of the password field
+     */
     private void update(String newName, String newService, String newMail, String newPassword) {
 
         tvName.setError(null);
@@ -99,12 +124,13 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
         boolean error = false;
 
+        //check if it has an error
         if (TextUtils.isEmpty(newName)) {
             tvName.setError(getString(R.string.empty_field));
             tvName.setText("");
             focusView = tvName;
-            error = true;
 
+            error = true;
         } else {
             if (TextUtils.isEmpty(newService)) {
                 tvService.setError(getString(R.string.empty_field));
@@ -155,10 +181,12 @@ public class ModifyPersonActivity extends BaseHRActivity {
             }
         }
 
+        //if an error occurs, focus on the field
         if (error) {
             focusView.requestFocus();
         } else {
 
+            //else, modify the object collaborator
             if(!name.equals(newName)){
                 oneCollaborator.setName(newName);
             }
@@ -172,7 +200,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
                 oneCollaborator.setPassword(newPassword);
             }
 
-
+            //modify the collaborator in the database
             new UpdateCollaborator(getApplication(), new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
@@ -189,6 +217,9 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
     }
 
+    /**
+     * delete a collaborator in the database
+     */
     private void deleteButton() {
 
         new DeleteCollaborator(getApplication(), new OnAsyncEventListener() {
@@ -205,6 +236,11 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
     }
 
+    /**
+     * setResponse
+     * if it's ok, modify / delete and return to the list of collaborator, if not, say it and return to the list of collaborator
+     * @param response - ok or not
+     */
     private void setResponse(Boolean response, String type) {
         if (response) {
             if(type.equals("update")) {
@@ -224,10 +260,16 @@ public class ModifyPersonActivity extends BaseHRActivity {
         }
     }
 
+    /**
+     * check if the mail exist already in the database
+     * @param email - the mail for the check
+     * @return
+     */
     private boolean mailExist(String email) {
 
         collaboList = new ArrayList<>();
 
+        //get a list of all the collaborators
         CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
         dvm = ViewModelProviders.of(this,factory).get(CollaboratorListViewModel.class);
         dvm.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
@@ -236,6 +278,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
             }
         });
 
+        //if the mail exist, return true, else, return false
         for (Collaborator collaborator: collaboList) {
             if(collaborator.getEmail().equals(email)) {
                 return true;

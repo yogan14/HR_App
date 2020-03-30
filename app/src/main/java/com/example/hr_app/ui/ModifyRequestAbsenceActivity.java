@@ -26,7 +26,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-
+/**
+ * ModifyRequestAbsenceActivity
+ * for modify a request of absence
+ */
 public class ModifyRequestAbsenceActivity extends BaseHRActivity {
     private TextView tvStartDate, tvEndDate;
     private Spinner sCause;
@@ -35,6 +38,11 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
     private OneAbsenceViewModel viewModel;
     private String startAbsence, endAbsence, reason;
 
+    /**
+     * onCreate
+     * Create the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +83,19 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
 
     }
 
+    /**
+     * onResume
+     * State when we return in the app
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+    }
 
-
+    /**
+     * when the collaborator is set, extract the attribute of the collaborator and put it to the text views
+     */
     private void findData() {
         startAbsence = absence.getStartAbsence();
         endAbsence = absence.getEndAbsence();
@@ -87,6 +106,12 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         sCause.setSelection(((ArrayAdapter<String>)sCause.getAdapter()).getPosition(reason));
     }
 
+    /**
+     * verify the fields, and if all is ok, modify the absence in the database
+     * @param beginning - the content of the startAbsence field
+     * @param end - the content of the endAbsence field
+     * @param newCause - the content of the reason field
+     */
     public void update(String beginning, String end, String newCause) {
 
         tvStartDate.setError(null);
@@ -95,34 +120,37 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
 
         boolean error = false;
 
-                if(!isDateValid(beginning)) {
-                    tvStartDate.setError(getString(R.string.date_not_valid));
-                    tvStartDate.setText(startAbsence);
-                    focusView = tvStartDate;
+        //check if it has some error in the fields
+        if(!isDateValid(beginning)) {
+            tvStartDate.setError(getString(R.string.date_not_valid));
+            tvStartDate.setText(startAbsence);
+            focusView = tvStartDate;
+
+            error = true;
+        } else {
+            if(!isDateValid(end)) {
+                tvEndDate.setError(getString(R.string.date_not_valid));
+                tvEndDate.setText(endAbsence);
+                focusView = tvEndDate;
+
+                error = true;
+            } else {
+                if(!isDateOneBeforeDateTwo(beginning, end)) {
+                    tvEndDate.setError(getString(R.string.date_error_time));
+                    tvEndDate.setText(endAbsence);
+                    focusView = tvEndDate;
 
                     error = true;
-                } else {
-                    if(!isDateValid(end)) {
-                        tvEndDate.setError(getString(R.string.date_not_valid));
-                        tvEndDate.setText(endAbsence);
-                        focusView = tvEndDate;
-
-                        error = true;
-                    } else {
-                        if(!isDateOneBeforeDateTwo(beginning, end)) {
-                            tvEndDate.setError(getString(R.string.date_error_time));
-                            tvEndDate.setText(endAbsence);
-                            focusView = tvEndDate;
-
-                            error = true;
-                        }
-                    }
                 }
+            }
+        }
 
+        //if some error, focus
         if (error) {
             focusView.requestFocus();
         } else {
 
+            //modify the object absence
             if(!startAbsence.equals(beginning)){
                 absence.setStartAbsence(beginning);
             }
@@ -133,6 +161,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
                 absence.setReason(newCause);
             }
 
+            //modify the database
             new UpdateAbsences(getApplication(), new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
@@ -148,6 +177,9 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
 
     }
 
+    /**
+     * delete a collaborator in the database
+     */
     private void deleteButton() {
 
         new DeleteAbsences(getApplication(), new OnAsyncEventListener() {
@@ -163,7 +195,11 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         }).execute(absence);
     }
 
-
+    /**
+     * setResponse
+     * if it's ok, modify / delete and return to the list of collaborator, if not, say it and return to the list of collaborator
+     * @param response - ok or not
+     */
     private void setResponse(Boolean response, String type) {
         if (response) {
             if(type.equals("update")) {
@@ -183,6 +219,11 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         }
     }
 
+    /**
+     * check if the date is in a valid format
+     * @param date - the date to check
+     * @return if yes or not
+     */
     public static boolean isDateValid (String date) {
         // Définir le format date
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
@@ -198,6 +239,12 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         return true;
     }
 
+    /**
+     * check if the start date is really before the end date
+     * @param start - the start date
+     * @param end - the end date
+     * @return
+     */
     public boolean isDateOneBeforeDateTwo (String start, String end) {
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");

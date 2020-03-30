@@ -12,8 +12,16 @@ import com.example.hr_app.R;
 import java.util.Locale;
 
 
+/**
+ * MainActivity
+ * The activity shows when user log in
+ */
 public class MainActivity extends BaseHRActivity {
 
+    /**
+     * Create the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +32,9 @@ public class MainActivity extends BaseHRActivity {
         navigationView.setCheckedItem(R.id.nav_none);
     }
 
+    /**
+     * State when we return in the app
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -31,12 +42,17 @@ public class MainActivity extends BaseHRActivity {
         navigationView.setCheckedItem(R.id.nav_none);
     }
 
+    /**
+     * onBackPressed
+     * set the behaviour on the back button
+     */
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
+        //set an alertBox who ask if we really want to logout
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(getString(R.string.action_logout));
         alertDialog.setCancelable(false);

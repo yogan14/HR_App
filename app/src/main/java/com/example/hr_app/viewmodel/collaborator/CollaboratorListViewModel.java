@@ -22,7 +22,7 @@ public class CollaboratorListViewModel extends AndroidViewModel {
      */
     private Application app;
     private CollaboratorRepository repository;
-    private final MediatorLiveData<List<Collaborator>> observableColls;
+    private final MediatorLiveData<List<Collaborator>> observableColls, observableCollsByService;
 
     /**
      * Constructor for the view model (ModifyPerson and Collaborators activity)
@@ -33,12 +33,21 @@ public class CollaboratorListViewModel extends AndroidViewModel {
         super(application);
         this.app = application;
         repository = collabo;
+
         observableColls = new MediatorLiveData<>();
         observableColls.setValue(null);
 
         LiveData<List<Collaborator>> allCollabo = repository.getAll(application);
 
         observableColls.addSource(allCollabo, observableColls::setValue);
+
+
+        observableCollsByService = new MediatorLiveData<>();
+        observableCollsByService.setValue(null);
+
+        LiveData<List<Collaborator>> allColaboByService = repository.getAllOrderService(application);
+
+        observableCollsByService.addSource(allColaboByService, observableCollsByService::setValue);
     }
 
     /**
@@ -70,6 +79,14 @@ public class CollaboratorListViewModel extends AndroidViewModel {
      */
     public LiveData<List<Collaborator>> getAllCollabo(){
         return observableColls;
+    }
+
+    /**
+     * Method which return the list of all collaborators sort by service
+     * @return the list of collaborators
+     */
+    public LiveData<List<Collaborator>> getAllCollaboByService() {
+        return observableCollsByService;
     }
 
 }
