@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <Preference
+        android:key="pref_title"
+        android:title="Settings"
+        android:selectable="false"/>
+
+    <CheckBoxPreference
+        android:key="pref_order"
+        android:title="Order by service"
+        android:summary="Order the Collaborator by service"
+        android:defaultValue="false" />
+
+
+    <ListPreference
+        android:dependency="pref_language"
+        android:key="pref_language"
+        android:title="Choose your language"
+        android:dialogTitle="Language"
+        android:entries="@array/language"
+        android:defaultValue="English"
+        android:entryValues="@array/language" />
+
+    <Preference
+        android:key="pref_info"
+        android:title="About"
+        android:summary="@string/pref_about_text"
+        android:selectable="false"/>
+</PreferenceScreen>

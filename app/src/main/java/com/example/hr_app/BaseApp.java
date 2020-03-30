@@ -15,7 +15,8 @@ public class BaseApp extends Application {
     private String mailCollaborator;
     private String mail;
     private int id;
-    private boolean isHR = true;
+    private boolean isHR;
+    private boolean isDarkMode = false;
 
     public String getTheMail() {
         return mail;
