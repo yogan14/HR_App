@@ -7,7 +7,6 @@ import com.example.hr_app.R;
 
 /**
  * SettingsFragment
- * @author - Quentin Nater
  * Fragment to display settings
  */
 public class SettingsFragment extends PreferenceFragment {
