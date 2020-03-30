@@ -45,6 +45,18 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
          * Get the layout from the xml file
          */
         getLayoutInflater().inflate(R.layout.activity_validate_absence, frameLayout);
+        setDisplay();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        setDisplay();
+    }
+
+    public void setDisplay(){
+
+        getLayoutInflater().inflate(R.layout.activity_validate_absence, frameLayout);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language", "English"));

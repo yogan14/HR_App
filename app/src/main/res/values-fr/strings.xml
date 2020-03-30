@@ -41,15 +41,20 @@
     <string name="date_error_time">Mettez une date après le début de l\'absence</string>
     <string name="collaborator_updated">Collaborateur modifié</string>
     <string name="collaborator_deleted">Collaborateur supprimé</string>
+    <string name="settings">Paramètres</string>
+    <string name="order_by_service">Trier par service</string>
+    <string name="choose_your_language">Choisir le langage</string>
+    <string name="order_summary">Trier les collaborateurs par service</string>
+    <string name="about">À propos</string>
 
 
     <string-array name="cause_of_absence">
         <item>Maladie</item>
         <item>Vacances</item>
+        <item>Accident</item>
         <item>Armée</item>
         <item>Maternité</item>
         <item>Paternité</item>
-        <item>Accident</item>
         <item>Autre</item>
     </string-array>
 </resources>

@@ -40,16 +40,8 @@ public class AddPersonActivity extends BaseHRActivity {
         getLayoutInflater().inflate(R.layout.activity_addperson, frameLayout);
 
         navigationView.setCheckedItem(position);
+        setDisplay();
 
-        tvName = findViewById(R.id.name_field);
-        tvService = findViewById(R.id.service_field);
-        tvMail = findViewById(R.id.mail_field);
-        tvPassword = findViewById(R.id.password_field);
-        bAdd = findViewById(R.id.addCollaborator);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setLanguage(sharedPreferences.getString("","English"));
-        bAdd.setOnClickListener(view -> addCollaborator());
 
     }
 
@@ -61,8 +53,20 @@ public class AddPersonActivity extends BaseHRActivity {
     protected void onResume()
     {
         super.onResume();
+        setDisplay();
     }
 
+    public void setDisplay(){
+        tvName = findViewById(R.id.name_field);
+        tvService = findViewById(R.id.service_field);
+        tvMail = findViewById(R.id.mail_field);
+        tvPassword = findViewById(R.id.password_field);
+        bAdd = findViewById(R.id.addCollaborator);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
+        bAdd.setOnClickListener(view -> addCollaborator());
+    }
     /**
      * addCollaborator
      * when the add button is pressed, add the collaborator in the database and return to the collaboratorsActivity

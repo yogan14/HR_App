@@ -49,7 +49,22 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         getLayoutInflater().inflate(R.layout.activity_modifyrequestabsences, frameLayout);
 
         navigationView.setCheckedItem(position);
+        setData();
 
+    }
+
+    /**
+     * onResume
+     * State when we return in the app
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        setData();
+    }
+
+    public void setData(){
         int absenceID = ((BaseApp)this.getApplication()).getTheID();
 
         sCause = findViewById(R.id.cause_of_absences_spinner);
@@ -81,16 +96,6 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
 
 
 
-    }
-
-    /**
-     * onResume
-     * State when we return in the app
-     */
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
     }
 
     /**

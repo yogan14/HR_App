@@ -54,11 +54,11 @@ public class RequestAbsencesActivity extends BaseHRActivity {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_requestabsences, frameLayout);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setLanguage(sharedPreferences.getString("pref_language","English"));
-        String s = ((BaseApp) this.getApplication()).getTheMail();
+
 
         navigationView.setCheckedItem(position);
+
+        setDisplay();
     }
 
     /**
@@ -69,8 +69,14 @@ public class RequestAbsencesActivity extends BaseHRActivity {
     protected void onResume()
     {
         super.onResume();
+        setDisplay();
     }
 
+    public void setDisplay(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
+        //String s = ((BaseApp) this.getApplication()).getTheMail();
+    }
     /**
      * check if the request is valid and if yes, add it in the database
      */

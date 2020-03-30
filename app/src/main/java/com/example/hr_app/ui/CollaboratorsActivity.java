@@ -46,7 +46,22 @@ public class CollaboratorsActivity extends BaseHRActivity {
          * Get the layout from the xml file
          */
         getLayoutInflater().inflate(R.layout.activity_collaborators, frameLayout);
+        setDisplay();
 
+    }
+
+    /**
+     * onResume
+     * State when we return in the app
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        setDisplay();
+    }
+
+    public void setDisplay(){
         /**
          * Creation of the button and the recycler view and set the relative settings
          */
@@ -116,16 +131,6 @@ public class CollaboratorsActivity extends BaseHRActivity {
 
 
         recyclerView.setAdapter(adapter);
-    }
-
-    /**
-     * onResume
-     * State when we return in the app
-     */
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
     }
 
     /**

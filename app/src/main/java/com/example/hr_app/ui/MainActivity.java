@@ -26,10 +26,7 @@ public class MainActivity extends BaseHRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setLanguage(sharedPreferences.getString("pref_language","English"));
-        setTitle(getString(R.string.app_name));
-        navigationView.setCheckedItem(R.id.nav_none);
+        setDisplay();
     }
 
     /**
@@ -38,8 +35,7 @@ public class MainActivity extends BaseHRActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setTitle(getString(R.string.app_name));
-        navigationView.setCheckedItem(R.id.nav_none);
+        setDisplay();
     }
 
     /**
@@ -61,6 +57,14 @@ public class MainActivity extends BaseHRActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
         alertDialog.show();
     }
+
+    public void setDisplay(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setLanguage(sharedPreferences.getString("pref_language","English"));
+        setTitle(getString(R.string.app_name));
+        navigationView.setCheckedItem(R.id.nav_none);
+    }
+
     /**
      * setLanguage
      * Set the language from the settings

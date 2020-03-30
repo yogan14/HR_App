@@ -1,6 +1,8 @@
 package com.example.hr_app.viewmodel.collaborator;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -56,9 +58,11 @@ public class CollaboratorViewModel extends AndroidViewModel {
 
         private final CollaboratorRepository repository;
 
+
         public Factory(@NonNull Application application, String email) {
             this.application = application;
             this.email = email;
+
             repository = ((BaseApp) application).getCollaboratorRepository();
         }
 

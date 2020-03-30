@@ -2,20 +2,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <Preference
         android:key="pref_title"
-        android:title="Settings"
+        android:title="@string/settings"
         android:selectable="false"/>
 
     <CheckBoxPreference
         android:key="pref_order"
-        android:title="Order by service"
-        android:summary="Order the Collaborator by service"
+        android:title="@string/order_by_service"
+        android:summary="@string/order_summary"
         android:defaultValue="false" />
 
 
     <ListPreference
         android:dependency="pref_language"
         android:key="pref_language"
-        android:title="Choose your language"
+        android:title="@string/choose_your_language"
         android:dialogTitle="Language"
         android:entries="@array/lang_entries"
         android:defaultValue="English"
@@ -23,7 +23,7 @@
 
     <Preference
         android:key="pref_info"
-        android:title="About"
+        android:title="@string/about"
         android:summary="@string/pref_about_text"
         android:selectable="false"/>
 </PreferenceScreen>

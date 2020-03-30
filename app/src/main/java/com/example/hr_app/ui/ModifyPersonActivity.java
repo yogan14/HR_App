@@ -49,8 +49,25 @@ public class ModifyPersonActivity extends BaseHRActivity {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_modifyperson, frameLayout);
 
-        navigationView.setCheckedItem(position);
 
+        navigationView.setCheckedItem(position);
+        setData();
+
+
+    }
+
+    /**
+     * State when we return in the app
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        setData();
+    }
+
+    public void setData(){
         mailCollaborator = ((BaseApp)this.getApplication()).getMailCollaborator();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -80,16 +97,6 @@ public class ModifyPersonActivity extends BaseHRActivity {
                 findData();
             }
         });
-
-    }
-
-    /**
-     * State when we return in the app
-     */
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
     }
 
     /**
