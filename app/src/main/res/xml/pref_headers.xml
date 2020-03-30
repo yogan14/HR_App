@@ -9,5 +9,10 @@
         android:icon="@drawable/ic_language_black_24dp"
         android:title="language" />
 
+    <header
+        android:fragment="com.example.hr_app.ui.mgmt.SettingsActivity$DarkModePreferenceFragment"
+        android:icon="@drawable/ic_test_24dp"
+        android:title="Dark Mode" />
+
 
 </preference-headers>

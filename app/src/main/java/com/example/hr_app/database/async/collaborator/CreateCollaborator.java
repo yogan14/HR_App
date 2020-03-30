@@ -7,7 +7,10 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.util.OnAsyncEventListener;
 
-
+/**
+ * CreateCollaborator
+ * insert in the database
+ */
 public class CreateCollaborator extends AsyncTask<Collaborator, Void, Void> {
 
     private Application application;

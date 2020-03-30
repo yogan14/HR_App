@@ -7,7 +7,10 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.database.entity.Absences;
 import com.example.hr_app.util.OnAsyncEventListener;
 
-
+/**
+ * DeleteAbsence
+ * Delete an absence in the database
+ */
 public class DeleteAbsences extends AsyncTask<Absences, Void, Void> {
 
     private Application application;

@@ -7,7 +7,10 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.database.entity.Absences;
 import com.example.hr_app.util.OnAsyncEventListener;
 
-
+/**
+ * UpdateAbsences
+ * Update an absence in the database
+ */
 public class UpdateAbsences extends AsyncTask<Absences, Void, Void> {
 
     private Application application;

@@ -12,7 +12,10 @@ import com.example.hr_app.database.entity.Absences;
 
 import java.util.List;
 
-
+/**
+ * AbsenceDao
+ * Queries to the Absence table
+ */
 @Dao
 public interface AbsencesDao {
 

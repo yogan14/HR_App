@@ -15,7 +15,8 @@ import java.util.List;
 
 
 /**
- * https://developer.android.com/topic/libraries/architecture/room.html#no-object-references
+ * CollaboratorDao
+ * Queries to the Collaborator table
  */
 @Dao
 public interface CollaboratorDao {

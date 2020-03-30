@@ -7,7 +7,10 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.database.entity.Absences;
 import com.example.hr_app.util.OnAsyncEventListener;
 
-
+/**
+ * CreateAbsence
+ * insert in the database
+ */
 public class CreateAbsences extends AsyncTask<Absences, Void, Void> {
 
     private Application application;

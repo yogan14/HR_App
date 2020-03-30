@@ -12,7 +12,10 @@ import com.example.hr_app.util.OnAsyncEventListener;
 
 import java.util.List;
 
-
+/**
+ * CollaboratorRepository
+ * Repository connected with the view model
+ */
 public class CollaboratorRepository {
 
     private static CollaboratorRepository instance;
@@ -31,26 +34,58 @@ public class CollaboratorRepository {
         return instance;
     }
 
+    /**
+     * getOneCollaborator
+     * Get one collaborator
+     * @param email - the mail of the collaborator
+     * @param application - the application
+     */
     public LiveData<Collaborator> getOneCollaborator(final String email, Application application) {
         return ((BaseApp) application).getDatabase().collaboratorDao().getOneCollaborator(email);
     }
 
+    /**
+     * getAll
+     * Get all the collaborators
+     * @param application - the application
+     */
     public LiveData<List<Collaborator>> getAll(Application application) {
         return ((BaseApp) application).getDatabase().collaboratorDao().getAll();
     }
 
-    public void insert(final Collaborator client, OnAsyncEventListener callback,
+    /**
+     * insert
+     * insert a collaborator
+     * @param collaborator - collaborator to add
+     * @param callback - callback
+     * @param application - the application
+     */
+    public void insert(final Collaborator collaborator, OnAsyncEventListener callback,
                        Application application) {
-        new CreateCollaborator(application, callback).execute(client);
+        new CreateCollaborator(application, callback).execute(collaborator);
     }
 
-    public void update(final Collaborator client, OnAsyncEventListener callback,
+    /**
+     * update
+     * update a collaborator
+     * @param collaborator - collaborator to add
+     * @param callback - callback
+     * @param application - the application
+     */
+    public void update(final Collaborator collaborator, OnAsyncEventListener callback,
                        Application application) {
-        new UpdateCollaborator(application, callback).execute(client);
+        new UpdateCollaborator(application, callback).execute(collaborator);
     }
 
-    public void delete(final Collaborator client, OnAsyncEventListener callback,
+    /**
+     * delete
+     * delete a collaborator
+     * @param collaborator - collaborator to add
+     * @param callback - callback
+     * @param application - the application
+     */
+    public void delete(final Collaborator collaborator, OnAsyncEventListener callback,
                        Application application) {
-        new DeleteCollaborator(application, callback).execute(client);
+        new DeleteCollaborator(application, callback).execute(collaborator);
     }
 }

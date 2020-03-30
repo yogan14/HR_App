@@ -17,7 +17,10 @@ import com.example.hr_app.database.entity.Collaborator;
 
 import java.util.concurrent.Executors;
 
-
+/**
+ * AppDatabase
+ * Build
+ */
 @Database(entities = {Absences.class, Collaborator.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -34,6 +37,12 @@ public abstract class AppDatabase extends RoomDatabase {
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
 
+    /**
+     * getInstance
+     * AppDatabase is the object to call the db
+     * @param context - actual context
+     * @return INSTANCE
+     */
     public static AppDatabase getInstance(final Context context) {
         if (instance == null) {
             synchronized (AppDatabase.class) {
@@ -46,7 +55,12 @@ public abstract class AppDatabase extends RoomDatabase {
         return instance;
     }
 
-
+    /**
+     * buildDatabase
+     * Build the database
+     * @param appContext - context of the app
+     * @return database
+     */
     private static AppDatabase buildDatabase(final Context appContext) {
         Log.i(TAG, "Database will be initialized.");
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
@@ -64,6 +78,11 @@ public abstract class AppDatabase extends RoomDatabase {
                 }).build();
     }
 
+    /**
+     * initializeDemoData
+     * Initialize the db for demo
+     * @param database - database
+     */
     public static void initializeDemoData(final AppDatabase database) {
         Executors.newSingleThreadExecutor().execute(() -> {
             database.runInTransaction(() -> {
@@ -77,7 +96,9 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     /**
-     * Check whether the database already exists and expose it via {@link #getDatabaseCreated()}
+     * updateDatabaseCreated
+     * update the new created db
+     * @param context - context
      */
     private void updateDatabaseCreated(final Context context) {
         if (context.getDatabasePath(DATABASE_NAME).exists()) {
@@ -86,6 +107,10 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     }
 
+    /**
+     * setDatabaseCreated
+     * Set the new created db
+     */
     private void setDatabaseCreated(){
         mIsDatabaseCreated.postValue(true);
     }

@@ -8,30 +8,57 @@ import com.example.hr_app.database.entity.Collaborator;
 
 
 /**
- * Generates dummy data
+ * DatabaseInitializer
+ * Initialize the db
  */
 public class DatabaseInitializer {
 
     public static final String TAG = "DatabaseInitializer";
 
+    /**
+     * populateDatabase
+     * @param db - the db to populate
+     */
     public static void populateDatabase(final AppDatabase db) {
         Log.i(TAG, "Inserting demo data.");
         PopulateDbAsync task = new PopulateDbAsync(db);
         task.execute();
     }
 
+    /**
+     * addCollaborator
+     * Add an collaborator
+     * @param db - the right database
+     * @param name - name of collaborator
+     * @param service - service of collaborator
+     * @param email - mail of the collaborator
+     * @param password - password of the collaborator
+     */
     private static void addCollaborator(final AppDatabase db, final String name, final String service,
                                         final String email, final String password) {
         Collaborator collaborator = new Collaborator(name, service, email, password);
         db.collaboratorDao().insert(collaborator);
     }
 
+    /**
+     * addAbsences
+     * Add an absence
+     * @param db - the right database
+     * @param startAbsence - the date when the absence begin
+     * @param endAbsence - the date when the absence end
+     * @param reason - the reason of the absence
+     * @param email - the mail of the collaborator who request the absence
+     */
     private static void addAbsences(final AppDatabase db, final String startAbsence, final String endAbsence,
                                     final String reason, final String email) {
         Absences absence = new Absences(startAbsence, endAbsence, reason, email);
         db.absencesDao().insert(absence);
     }
 
+    /**
+     * populateWithTestData
+     * @param db - db to populate
+     */
     private static void populateWithTestData(AppDatabase db) {
         db.collaboratorDao().deleteAll();
 
@@ -78,6 +105,10 @@ public class DatabaseInitializer {
 
     }
 
+    /**
+     * PopulateDbAsync
+     * Populate the db in asynchronous
+     */
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final AppDatabase database;

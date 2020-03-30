@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 
+/**
+ * Collaborator
+ * table of collaborators
+ */
 @Entity(tableName = "collaborator", primaryKeys = {"email"})
 public class Collaborator implements Comparable {
 
