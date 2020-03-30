@@ -61,6 +61,7 @@ public class MainActivity extends BaseHRActivity {
     public void setDisplay(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language","English"));
+
         setTitle(getString(R.string.app_name));
         navigationView.setCheckedItem(R.id.nav_none);
     }

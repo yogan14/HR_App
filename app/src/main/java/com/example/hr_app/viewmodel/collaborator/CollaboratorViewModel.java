@@ -1,19 +1,16 @@
 package com.example.hr_app.viewmodel.collaborator;
 
 import android.app.Application;
-import android.content.SharedPreferences;
-
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
-
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.database.repository.CollaboratorRepository;
-import com.example.hr_app.util.OnAsyncEventListener;
+
 
 
 public class CollaboratorViewModel extends AndroidViewModel {
@@ -79,5 +76,4 @@ public class CollaboratorViewModel extends AndroidViewModel {
     public LiveData<Collaborator> getOneCollaborator() {
         return observableCollaborator;
     }
-
 }
