@@ -17,7 +17,6 @@ import java.util.Locale;
 /**
  * AddPersonActivity
  * Activity to add a collaborator
- * master
  */
 
 
