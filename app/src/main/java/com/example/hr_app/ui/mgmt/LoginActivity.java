@@ -117,7 +117,6 @@ public class LoginActivity extends AppCompatActivity {
                         pwd.setText("");
                     }
 
-
                 } else {
                     login.setError(getString(R.string.no_login));
                     login.requestFocus();

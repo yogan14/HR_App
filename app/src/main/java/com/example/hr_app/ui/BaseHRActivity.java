@@ -95,7 +95,8 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
             return;
         }
         BaseHRActivity.position = 0;
-        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     /**

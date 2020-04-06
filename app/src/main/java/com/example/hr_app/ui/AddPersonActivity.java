@@ -14,7 +14,6 @@ import com.example.hr_app.database.async.collaborator.CreateCollaborator;
 import com.example.hr_app.database.entity.Collaborator;
 import com.example.hr_app.util.OnAsyncEventListener;
 import java.util.Locale;
-
 /**
  * AddPersonActivity
  * Activity to add a collaborator
@@ -41,8 +40,6 @@ public class AddPersonActivity extends BaseHRActivity {
 
         navigationView.setCheckedItem(position);
         setDisplay();
-
-
     }
 
     /**
