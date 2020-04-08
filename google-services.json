@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "790453130399",
+    "firebase_url": "https://hrappdn.firebaseio.com",
+    "project_id": "hrappdn",
+    "storage_bucket": "hrappdn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790453130399:android:ba825d187cdb06c689beaa",
+        "android_client_info": {
+          "package_name": "com.example.hr_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790453130399-e89d14g5tld8ls24ds12nheu9vvk0av8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPCzAv8Fv1KechxT0ixIH_xioGVggTjQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790453130399-e89d14g5tld8ls24ds12nheu9vvk0av8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
