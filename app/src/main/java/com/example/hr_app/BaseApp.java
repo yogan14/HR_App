@@ -2,7 +2,6 @@ package com.example.hr_app;
 
 import android.app.Application;
 
-import com.example.hr_app.database.AppDatabase;
 import com.example.hr_app.database.repository.AbsencesRepository;
 import com.example.hr_app.database.repository.CollaboratorRepository;
 

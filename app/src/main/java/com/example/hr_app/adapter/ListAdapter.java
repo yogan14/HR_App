@@ -6,8 +6,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.hr_app.R;
-import com.example.hr_app.database.entity.Absences;
-import com.example.hr_app.database.entity.Collaborator;
+import com.example.hr_app.database.entity.AbsencesEntity;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.RecyclerViewItemClickListener;
 import java.util.List;
 import java.util.Objects;
@@ -66,10 +66,10 @@ public class ListAdapter<T> extends RecyclerView.Adapter<ListAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(ListAdapter.ViewHolder holder, int position) {
         T item =mData.get(position);
-        if(item.getClass().equals(Collaborator.class)){
-            holder.tv.setText(((Collaborator) item).getName());
+        if(item.getClass().equals(CollaboratorEntity.class)){
+            holder.tv.setText(((CollaboratorEntity) item).getName());
         } else {
-            holder.tv.setText(((Absences) item).getStartAbsence() + " - " + ((Absences) item).getEndAbsence());
+            holder.tv.setText(((AbsencesEntity) item).getStartAbsence() + " - " + ((AbsencesEntity) item).getEndAbsence());
         }
 
     }
@@ -106,26 +106,26 @@ public class ListAdapter<T> extends RecyclerView.Adapter<ListAdapter.ViewHolder>
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    if(mData instanceof Collaborator){
-                        return ((Collaborator) mData.get(oldItemPosition)).getEmail().equals(((Collaborator) data.get(newItemPosition)).getEmail());
-                    } else if(mData instanceof Absences){
-                        return ((Absences) mData.get(oldItemPosition)).getIdAbsence() == ((Absences) mData.get(newItemPosition)).getIdAbsence();
+                    if(mData instanceof CollaboratorEntity){
+                        return ((CollaboratorEntity) mData.get(oldItemPosition)).getEmail().equals(((CollaboratorEntity) data.get(newItemPosition)).getEmail());
+                    } else if(mData instanceof AbsencesEntity){
+                        return ((AbsencesEntity) mData.get(oldItemPosition)).getIdAbsence() == ((AbsencesEntity) mData.get(newItemPosition)).getIdAbsence();
                     }
                     return false;
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    if(mData instanceof Collaborator){
-                        Collaborator newCollabo =(Collaborator) data.get(newItemPosition);
-                        Collaborator oldCollabo = (Collaborator) mData.get(oldItemPosition);
+                    if(mData instanceof CollaboratorEntity){
+                        CollaboratorEntity newCollabo =(CollaboratorEntity) data.get(newItemPosition);
+                        CollaboratorEntity oldCollabo = (CollaboratorEntity) mData.get(oldItemPosition);
                         return newCollabo.getEmail().equals(oldCollabo.getEmail())
                                 && Objects.equals(newCollabo.getName(), oldCollabo.getName())
                                 && Objects.equals(newCollabo.getService(), oldCollabo.getService())
                                 && Objects.equals(newCollabo.getPassword(), oldCollabo.getPassword());
-                    } else if(mData instanceof Absences){
-                        Absences newAbs = (Absences) data.get(newItemPosition);
-                        Absences oldAbs = (Absences) data.get(oldItemPosition);
+                    } else if(mData instanceof AbsencesEntity){
+                        AbsencesEntity newAbs = (AbsencesEntity) data.get(newItemPosition);
+                        AbsencesEntity oldAbs = (AbsencesEntity) data.get(oldItemPosition);
                         return newAbs.getIdAbsence() == oldAbs.getIdAbsence()
                                 && Objects.equals(newAbs.getEmail(), oldAbs.getEmail())
                                 && Objects.equals(newAbs.getReason(), oldAbs.getReason())

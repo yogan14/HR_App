@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 import com.example.hr_app.BaseApp;
-import com.example.hr_app.database.entity.Absences;
+import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.database.repository.AbsencesRepository;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
      */
     private Application application;
     private AbsencesRepository repository;
-    private final MediatorLiveData<List<Absences>> observableAbsencesForOneCollaborator;
+    private final MediatorLiveData<List<AbsencesEntity>> observableAbsencesForOneCollaborator;
 
     /**
      * Constructor of the view model (MyAbsenceActivity)
@@ -40,7 +40,7 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
         observableAbsencesForOneCollaborator = new MediatorLiveData<>();
         observableAbsencesForOneCollaborator.setValue(null);
 
-        LiveData<List<Absences>> AbsencesOneColl = repository.getAbsencesForOneCollaborator(application, email);
+        LiveData<List<AbsencesEntity>> AbsencesOneColl = repository.getAbsencesForOneCollaborator(application, email);
 
 
         observableAbsencesForOneCollaborator.addSource(AbsencesOneColl, observableAbsencesForOneCollaborator::setValue);
@@ -75,7 +75,7 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
      * Method which will return all absences for the current collaborator
      * @return the list of absences
      */
-    public LiveData<List<Absences>> getAbsencesForOneCollaborator() {
+    public LiveData<List<AbsencesEntity>> getAbsencesForOneCollaborator() {
         return observableAbsencesForOneCollaborator;
     }
 }

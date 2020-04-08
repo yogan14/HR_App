@@ -17,7 +17,7 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.database.async.collaborator.DeleteCollaborator;
 import com.example.hr_app.database.async.collaborator.UpdateCollaborator;
-import com.example.hr_app.database.entity.Collaborator;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorViewModel;
 
@@ -33,7 +33,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
     private Toast toast;
     private String mailCollaborator, name, service, password;
     private CollaboratorViewModel viewModel;
-    private Collaborator oneCollaborator;
+    private CollaboratorEntity oneCollaborator;
 
     /**
      * Create the activity

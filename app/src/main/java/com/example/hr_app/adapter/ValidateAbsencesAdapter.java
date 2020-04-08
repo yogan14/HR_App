@@ -9,8 +9,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.hr_app.R;
-import com.example.hr_app.database.entity.Absences;
-import com.example.hr_app.database.entity.Collaborator;
+import com.example.hr_app.database.entity.AbsencesEntity;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +22,7 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
      */
     private List<T> mData;
 
-    private List<Collaborator> collaboList;
+    private List<CollaboratorEntity> collaboList;
     /**
      * The view holder which will contain the view according its content
      */
@@ -43,7 +43,7 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
      * Empty constructor for the adapter since we don't
      * ask a listener
      */
-    public ValidateAbsencesAdapter(List<Collaborator> collaboList){
+    public ValidateAbsencesAdapter(List<CollaboratorEntity> collaboList){
         this.collaboList = collaboList;
     }
 
@@ -51,7 +51,7 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
      * when the list is found in the database, set the list with the values
      * @param collaboList - list of collaborators
      */
-    public void setDataChanged(List<Collaborator> collaboList) {
+    public void setDataChanged(List<CollaboratorEntity> collaboList) {
         this.collaboList = collaboList;
         notifyItemRangeInserted(0, collaboList.size());
     }
@@ -78,14 +78,14 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
     public void onBindViewHolder(@NonNull ValidateAbsencesAdapter.ViewHolder holder, int position) {
         T item = mData.get(position);
 
-        for (Collaborator c : collaboList) {
-            if(c.getEmail().equals(((Absences) item).getEmail())) {
+        for (CollaboratorEntity c : collaboList) {
+            if(c.getEmail().equals(((AbsencesEntity) item).getEmail())) {
                 holder.name.setText(c.getName());
             }
         }
 
-        holder.date.setText(((Absences) item).getStartAbsence() + " to " + ((Absences) item).getEndAbsence());
-        holder.cause.setText(((Absences) item).getReason());
+        holder.date.setText(((AbsencesEntity) item).getStartAbsence() + " to " + ((AbsencesEntity) item).getEndAbsence());
+        holder.cause.setText(((AbsencesEntity) item).getReason());
     }
 
     /**
@@ -123,8 +123,8 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    if(mData instanceof Absences){
-                        return ((Absences) mData.get(oldItemPosition)).getIdAbsence() == ((Absences) mData.get(newItemPosition)).getIdAbsence();
+                    if(mData instanceof AbsencesEntity){
+                        return ((AbsencesEntity) mData.get(oldItemPosition)).getIdAbsence() == ((AbsencesEntity) mData.get(newItemPosition)).getIdAbsence();
                     } else{
                         return false;
                     }
@@ -133,9 +133,9 @@ public class ValidateAbsencesAdapter<T> extends RecyclerView.Adapter<ValidateAbs
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    if(mData instanceof Absences){
-                        Absences newAbs = (Absences) data.get(newItemPosition);
-                        Absences oldAbs = (Absences) data.get(oldItemPosition);
+                    if(mData instanceof AbsencesEntity){
+                        AbsencesEntity newAbs = (AbsencesEntity) data.get(newItemPosition);
+                        AbsencesEntity oldAbs = (AbsencesEntity) data.get(oldItemPosition);
                         return newAbs.getIdAbsence() == oldAbs.getIdAbsence()
                                 && Objects.equals(newAbs.getEmail(), oldAbs.getEmail())
                                 && Objects.equals(newAbs.getReason(), oldAbs.getReason())

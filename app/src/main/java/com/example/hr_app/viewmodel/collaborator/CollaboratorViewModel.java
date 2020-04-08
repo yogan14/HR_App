@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 import com.example.hr_app.BaseApp;
-import com.example.hr_app.database.entity.Collaborator;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.database.repository.CollaboratorRepository;
 
 
@@ -20,7 +20,7 @@ public class CollaboratorViewModel extends AndroidViewModel {
      */
     private CollaboratorRepository repository;
     private Application application;
-    private final MediatorLiveData<Collaborator> observableCollaborator;
+    private final MediatorLiveData<CollaboratorEntity> observableCollaborator;
 
     /**
      * Constructor for the view model (ModifyPersonActivity)
@@ -39,7 +39,7 @@ public class CollaboratorViewModel extends AndroidViewModel {
         observableCollaborator = new MediatorLiveData<>();
         observableCollaborator.setValue(null);
 
-        LiveData<Collaborator> collaborator = repository.getOneCollaborator(email, application);
+        LiveData<CollaboratorEntity> collaborator = repository.getOneCollaborator(email, application);
         observableCollaborator.addSource(collaborator, observableCollaborator::setValue);
     }
 
@@ -73,7 +73,7 @@ public class CollaboratorViewModel extends AndroidViewModel {
     /**
      * Expose the LiveData Collaborator query so the UI can observe it.
      */
-    public LiveData<Collaborator> getOneCollaborator() {
+    public LiveData<CollaboratorEntity> getOneCollaborator() {
         return observableCollaborator;
     }
 }

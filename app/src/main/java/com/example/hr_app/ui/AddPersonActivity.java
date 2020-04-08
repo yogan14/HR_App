@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.hr_app.R;
 import com.example.hr_app.database.async.collaborator.CreateCollaborator;
-import com.example.hr_app.database.entity.Collaborator;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
 import java.util.Locale;
 /**
@@ -138,7 +138,7 @@ public class AddPersonActivity extends BaseHRActivity {
             focusView.requestFocus();
         } else {
             //add collaborator in the database
-            Collaborator collaborator = new Collaborator(name, service, mail, password);
+            CollaboratorEntity collaborator = new CollaboratorEntity(name, service, mail, password);
 
             new CreateCollaborator(getApplication(), new OnAsyncEventListener() {
                 @Override
@@ -189,3 +189,5 @@ public class AddPersonActivity extends BaseHRActivity {
         getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
     }
 }
+
+

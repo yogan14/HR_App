@@ -7,7 +7,7 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.database.async.collaborator.CreateCollaborator;
 import com.example.hr_app.database.async.collaborator.DeleteCollaborator;
 import com.example.hr_app.database.async.collaborator.UpdateCollaborator;
-import com.example.hr_app.database.entity.Collaborator;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class CollaboratorRepository {
      * @param email - the mail of the collaborator
      * @param application - the application
      */
-    public LiveData<Collaborator> getOneCollaborator(final String email, Application application) {
+    public LiveData<CollaboratorEntity> getOneCollaborator(final String email, Application application) {
         return ((BaseApp) application).getDatabase().collaboratorDao().getOneCollaborator(email);
     }
 
@@ -49,7 +49,7 @@ public class CollaboratorRepository {
      * Get all the collaborators order by name
      * @param application - the application
      */
-    public LiveData<List<Collaborator>> getAll(Application application) {
+    public LiveData<List<CollaboratorEntity>> getAll(Application application) {
         return ((BaseApp) application).getDatabase().collaboratorDao().getAll();
     }
 
@@ -58,7 +58,7 @@ public class CollaboratorRepository {
      * Get all the collaborators order by service
      * @param application - the application
      */
-    public LiveData<List<Collaborator>> getAllOrderService(Application application) {
+    public LiveData<List<CollaboratorEntity>> getAllOrderService(Application application) {
         return ((BaseApp) application).getDatabase().collaboratorDao().getAllOrderService();
     }
 
@@ -69,7 +69,7 @@ public class CollaboratorRepository {
      * @param callback - callback
      * @param application - the application
      */
-    public void insert(final Collaborator collaborator, OnAsyncEventListener callback,
+    public void insert(final CollaboratorEntity collaborator, OnAsyncEventListener callback,
                        Application application) {
         new CreateCollaborator(application, callback).execute(collaborator);
     }
@@ -81,7 +81,7 @@ public class CollaboratorRepository {
      * @param callback - callback
      * @param application - the application
      */
-    public void update(final Collaborator collaborator, OnAsyncEventListener callback,
+    public void update(final CollaboratorEntity collaborator, OnAsyncEventListener callback,
                        Application application) {
         new UpdateCollaborator(application, callback).execute(collaborator);
     }
@@ -93,7 +93,7 @@ public class CollaboratorRepository {
      * @param callback - callback
      * @param application - the application
      */
-    public void delete(final Collaborator collaborator, OnAsyncEventListener callback,
+    public void delete(final CollaboratorEntity collaborator, OnAsyncEventListener callback,
                        Application application) {
         new DeleteCollaborator(application, callback).execute(collaborator);
     }

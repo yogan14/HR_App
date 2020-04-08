@@ -1,37 +1,43 @@
 package com.example.hr_app.database.entity;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.Ignore;
+
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Collaborator
  * table of collaborators
  */
-@Entity(tableName = "collaborator", primaryKeys = {"email"})
-public class Collaborator implements Comparable {
 
-    @NonNull
+public class CollaboratorEntity implements Comparable {
+
+    private String id;
     private String email;
-
     private String name;
-
     private String service;
-
-    @NonNull
     private String password;
 
-    @Ignore
-    public Collaborator(){
+    public CollaboratorEntity() {
     }
 
-    public Collaborator(String name, String service, @NonNull String email, @NonNull String password) {
+    public CollaboratorEntity(String name, String service, @NonNull String email, String password) {
         this.name = name;
         this.service = service;
         this.email = email;
         this.password = password;
     }
 
+    @Exclude
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -53,10 +59,11 @@ public class Collaborator implements Comparable {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NonNull String email) {
         this.email = email;
     }
 
+    @Exclude
     public String getPassword() {
         return password;
     }
@@ -69,8 +76,8 @@ public class Collaborator implements Comparable {
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
-        if (!(obj instanceof Collaborator)) return false;
-        Collaborator o = (Collaborator) obj;
+        if (!(obj instanceof CollaboratorEntity)) return false;
+        CollaboratorEntity o = (CollaboratorEntity) obj;
         return o.getEmail() == this.getEmail();
     }
 
@@ -84,4 +91,13 @@ public class Collaborator implements Comparable {
         return toString().compareTo(o.toString());
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("service", service);
+        result.put("email", email);
+
+        return result;
+    }
 }

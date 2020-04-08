@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hr_app.BaseApp;
-import com.example.hr_app.database.entity.Collaborator;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.database.repository.CollaboratorRepository;
 
 
@@ -22,7 +22,7 @@ public class CollaboratorListViewModel extends AndroidViewModel {
      */
     private Application app;
     private CollaboratorRepository repository;
-    private final MediatorLiveData<List<Collaborator>> observableColls, observableCollsByService;
+    private final MediatorLiveData<List<CollaboratorEntity>> observableColls, observableCollsByService;
 
     /**
      * Constructor for the view model (ModifyPerson and Collaborators activity)
@@ -37,7 +37,7 @@ public class CollaboratorListViewModel extends AndroidViewModel {
         observableColls = new MediatorLiveData<>();
         observableColls.setValue(null);
 
-        LiveData<List<Collaborator>> allCollabo = repository.getAll(application);
+        LiveData<List<CollaboratorEntity>> allCollabo = repository.getAll(application);
 
         observableColls.addSource(allCollabo, observableColls::setValue);
 
@@ -45,7 +45,7 @@ public class CollaboratorListViewModel extends AndroidViewModel {
         observableCollsByService = new MediatorLiveData<>();
         observableCollsByService.setValue(null);
 
-        LiveData<List<Collaborator>> allColaboByService = repository.getAllOrderService(application);
+        LiveData<List<CollaboratorEntity>> allColaboByService = repository.getAllOrderService(application);
 
         observableCollsByService.addSource(allColaboByService, observableCollsByService::setValue);
     }
@@ -77,7 +77,7 @@ public class CollaboratorListViewModel extends AndroidViewModel {
      * Method which return the list of all collaborators
      * @return the list of collaborators
      */
-    public LiveData<List<Collaborator>> getAllCollabo(){
+    public LiveData<List<CollaboratorEntity>> getAllCollabo(){
         return observableColls;
     }
 
@@ -85,7 +85,7 @@ public class CollaboratorListViewModel extends AndroidViewModel {
      * Method which return the list of all collaborators sort by service
      * @return the list of collaborators
      */
-    public LiveData<List<Collaborator>> getAllCollaboByService() {
+    public LiveData<List<CollaboratorEntity>> getAllCollaboByService() {
         return observableCollsByService;
     }
 

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.adapter.ListAdapter;
-import com.example.hr_app.database.entity.Absences;
+import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.util.RecyclerViewItemClickListener;
 import com.example.hr_app.viewmodel.absences.AbsencesListOneCollViewModel;
 import java.util.ArrayList;
@@ -27,8 +27,8 @@ public class MyAbsencesActivity extends BaseHRActivity {
     /**
      * Declaration of variables
      */
-    private List<Absences> absences;
-    private ListAdapter<Absences> adapter;
+    private List<AbsencesEntity> absences;
+    private ListAdapter<AbsencesEntity> adapter;
     private AbsencesListOneCollViewModel viewModel;
 
 

@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.example.hr_app.R;
 import com.example.hr_app.adapter.ValidateAbsencesAdapter;
-import com.example.hr_app.database.entity.Absences;
-import com.example.hr_app.database.entity.Collaborator;
+import com.example.hr_app.database.entity.AbsencesEntity;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
@@ -30,11 +30,11 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
      * Declaration of variables
      */
     private AbsenceListNotValidateViewModel viewModel;
-    private List<Absences> absencesList;
-    private List<Collaborator> collaboratorList;
+    private List<AbsencesEntity> absencesList;
+    private List<CollaboratorEntity> collaboratorList;
     private CollaboratorListViewModel collaboVm;
     private ValidateAbsencesAdapter adapter;
-    private Absences absence;
+    private AbsencesEntity absence;
 
 
     /**
@@ -79,7 +79,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
 
         CollaboratorListViewModel.Factory fact = new CollaboratorListViewModel.Factory(getApplication());
         collaboVm = ViewModelProviders.of(this,fact).get(CollaboratorListViewModel.class);
-        collaboVm.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
+        collaboVm.getAllCollabo().observe(this, (List<CollaboratorEntity> collaborators1) -> {
             System.out.println("in the observe");
             if(collaborators1!=null){
                 System.out.println("in the if");
@@ -119,7 +119,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 // Swipping left delete the absence
                 if (direction == ItemTouchHelper.LEFT) {
-                    viewModel.delete((Absences) adapter.getAbsenceAt(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
+                    viewModel.delete((AbsencesEntity) adapter.getAbsenceAt(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
 
                         /**
                          * A toast will pop up if the absence is correctly deleted
@@ -138,7 +138,7 @@ public class ValidateAbsenceActivity extends BaseHRActivity {
                     //Swipping right accept the absence
                 } else {
                     //Get the absence according to the ID
-                    absence = (Absences) adapter.getAbsenceAt(viewHolder.getAdapterPosition());
+                    absence = (AbsencesEntity) adapter.getAbsenceAt(viewHolder.getAdapterPosition());
                     absence.setValidate(true);
                     viewModel.update(absence, new OnAsyncEventListener() {
 

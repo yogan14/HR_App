@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
-import com.example.hr_app.database.entity.Absences;
+import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
 
@@ -144,7 +144,7 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
             //else, create an absence in the database
             mail = ((BaseApp) this.getApplication()).getTheMail();
-            Absences absence = new Absences(startAbsence, endAbsence, reason, mail);
+            AbsencesEntity absence = new AbsencesEntity(startAbsence, endAbsence, reason, mail);
 
             AbsenceListNotValidateViewModel.Factory factory = new AbsenceListNotValidateViewModel.Factory( getApplication());
             viewModel = ViewModelProviders.of(this, factory).get(AbsenceListNotValidateViewModel.class);

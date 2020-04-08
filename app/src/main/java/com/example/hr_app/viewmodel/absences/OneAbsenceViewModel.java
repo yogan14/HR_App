@@ -8,7 +8,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.hr_app.BaseApp;
-import com.example.hr_app.database.entity.Absences;
+import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.database.repository.AbsencesRepository;
 
 
@@ -18,7 +18,7 @@ public class OneAbsenceViewModel extends AndroidViewModel {
      */
     private Application application;
     private AbsencesRepository repository;
-    private final MediatorLiveData<Absences> observableAbsence;
+    private final MediatorLiveData<AbsencesEntity> observableAbsence;
 
     /**
      * Constructor of the view model (ModifyRequestActivity)
@@ -34,7 +34,7 @@ public class OneAbsenceViewModel extends AndroidViewModel {
         observableAbsence = new MediatorLiveData<>();
         observableAbsence.setValue(null);
 
-        LiveData<Absences> absence = repository.getAbsence(application, absenceID);
+        LiveData<AbsencesEntity> absence = repository.getAbsence(application, absenceID);
 
         observableAbsence.addSource(absence, observableAbsence::setValue);
     }
@@ -64,7 +64,7 @@ public class OneAbsenceViewModel extends AndroidViewModel {
      * Method which will return the absence
      * @return the specific absence
      */
-    public LiveData<Absences> getAbsence(){
+    public LiveData<AbsencesEntity> getAbsence(){
         return observableAbsence;
     }
 

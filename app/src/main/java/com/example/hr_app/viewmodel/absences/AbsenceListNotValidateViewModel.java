@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
 import com.example.hr_app.BaseApp;
-import com.example.hr_app.database.entity.Absences;
+import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.database.repository.AbsencesRepository;
 import com.example.hr_app.util.OnAsyncEventListener;
 
@@ -22,7 +22,7 @@ public class AbsenceListNotValidateViewModel extends AndroidViewModel {
      */
     private Application application;
     private AbsencesRepository repository;
-    private final MediatorLiveData<List<Absences>> observableAbsencesNotValidate;
+    private final MediatorLiveData<List<AbsencesEntity>> observableAbsencesNotValidate;
 
     /**
      * Constructor of the view model (ValidateAbsenceActivity and RequesAbsenceActivity)
@@ -40,7 +40,7 @@ public class AbsenceListNotValidateViewModel extends AndroidViewModel {
         observableAbsencesNotValidate = new MediatorLiveData<>();
         observableAbsencesNotValidate.setValue(null);
 
-        LiveData<List<Absences>> AbsenceNotValidate = repository.getAbsencesNotValidate(application);
+        LiveData<List<AbsencesEntity>> AbsenceNotValidate = repository.getAbsencesNotValidate(application);
         observableAbsencesNotValidate.addSource(AbsenceNotValidate, observableAbsencesNotValidate::setValue);
     }
 
@@ -69,19 +69,19 @@ public class AbsenceListNotValidateViewModel extends AndroidViewModel {
     /**
      * Expose the LiveData AccountEntities query so the UI can observe it.
      */
-    public LiveData<List<Absences>> getAbsencesNotValidate() {
+    public LiveData<List<AbsencesEntity>> getAbsencesNotValidate() {
         return observableAbsencesNotValidate;
     }
 
-    public void delete(Absences absences, OnAsyncEventListener callback) {
+    public void delete(AbsencesEntity absences, OnAsyncEventListener callback) {
         repository.delete(absences, callback, application);
     }
 
-    public void insert(Absences absences, OnAsyncEventListener callback) {
+    public void insert(AbsencesEntity absences, OnAsyncEventListener callback) {
         repository.insert(absences, callback, application);
     }
 
-    public void update(Absences absences, OnAsyncEventListener callback) {
+    public void update(AbsencesEntity absences, OnAsyncEventListener callback) {
         repository.update(absences, callback, application);
     }
 }

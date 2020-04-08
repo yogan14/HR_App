@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +17,7 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.database.async.absences.DeleteAbsences;
 import com.example.hr_app.database.async.absences.UpdateAbsences;
-import com.example.hr_app.database.entity.Absences;
+import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.absences.OneAbsenceViewModel;
 
@@ -35,7 +34,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
     private TextView tvStartDate, tvEndDate;
     private Spinner sCause;
     private Toast toast;
-    private Absences absence;
+    private AbsencesEntity absence;
     private OneAbsenceViewModel viewModel;
     private String startAbsence, endAbsence, reason;
     SharedPreferences sharedPreferences;

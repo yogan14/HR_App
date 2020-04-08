@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.adapter.ListAdapter;
-import com.example.hr_app.database.entity.Collaborator;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.RecyclerViewItemClickListener;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,8 +29,8 @@ public class CollaboratorsActivity extends BaseHRActivity {
     /**
      * Declaration of the variables
      */
-    private List<Collaborator> collaborators;
-    private ListAdapter<Collaborator> adapter;
+    private List<CollaboratorEntity> collaborators;
+    private ListAdapter<CollaboratorEntity> adapter;
     private CollaboratorListViewModel viewModel;
     private FloatingActionButton addButton;
 
@@ -112,14 +112,14 @@ public class CollaboratorsActivity extends BaseHRActivity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(sharedPrefs.getBoolean("pref_order", false)){
-            viewModel.getAllCollaboByService().observe(this, (List<Collaborator> collaborators1) -> {
+            viewModel.getAllCollaboByService().observe(this, (List<CollaboratorEntity> collaborators1) -> {
                 if(collaborators1!=null){
                     collaborators = collaborators1;
                     adapter.setData(collaborators);
                 }
             });
         } else {
-            viewModel.getAllCollabo().observe(this, (List<Collaborator> collaborators1) -> {
+            viewModel.getAllCollabo().observe(this, (List<CollaboratorEntity> collaborators1) -> {
                 if(collaborators1!=null){
                     collaborators = collaborators1;
                     adapter.setData(collaborators);
