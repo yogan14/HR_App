@@ -39,7 +39,7 @@ public class CollaboratorViewModel extends AndroidViewModel {
         observableCollaborator = new MediatorLiveData<>();
         observableCollaborator.setValue(null);
 
-        LiveData<CollaboratorEntity> collaborator = repository.getOneCollaborator(email, application);
+        LiveData<CollaboratorEntity> collaborator = repository.getOneCollaborator(email);
         observableCollaborator.addSource(collaborator, observableCollaborator::setValue);
     }
 

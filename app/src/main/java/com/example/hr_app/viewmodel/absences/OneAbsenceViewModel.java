@@ -27,14 +27,14 @@ public class OneAbsenceViewModel extends AndroidViewModel {
      * @param absencesRepository the absence repository
      */
     public OneAbsenceViewModel(@NonNull Application application, final
-    int absenceID, AbsencesRepository absencesRepository){
+    String absenceID, AbsencesRepository absencesRepository){
         super(application);
         this.application = application;
         repository = absencesRepository;
         observableAbsence = new MediatorLiveData<>();
         observableAbsence.setValue(null);
 
-        LiveData<AbsencesEntity> absence = repository.getAbsence(application, absenceID);
+        LiveData<AbsencesEntity> absence = repository.getAbsence(absenceID);
 
         observableAbsence.addSource(absence, observableAbsence::setValue);
     }
@@ -45,10 +45,10 @@ public class OneAbsenceViewModel extends AndroidViewModel {
     public static class Factory extends ViewModelProvider.NewInstanceFactory{
         @NonNull
         private final Application application;
-        private final int absenceID;
+        private final String absenceID;
         private final AbsencesRepository repository;
 
-        public Factory(@NonNull Application application, int absenceID){
+        public Factory(@NonNull Application application, String absenceID){
             this.application = application;
             this.absenceID = absenceID;
             repository =((BaseApp) application).getAbsenceRepository();

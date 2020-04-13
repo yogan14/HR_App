@@ -112,9 +112,10 @@ public class CollaboratorsActivity extends BaseHRActivity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(sharedPrefs.getBoolean("pref_order", false)){
-            viewModel.getAllCollaboByService().observe(this, (List<CollaboratorEntity> collaborators1) -> {
+            viewModel.getAllCollabo().observe(this, (List<CollaboratorEntity> collaborators1) -> {
                 if(collaborators1!=null){
                     collaborators = collaborators1;
+                    //trier les collaborateurs par service
                     adapter.setData(collaborators);
                 }
             });
@@ -122,6 +123,7 @@ public class CollaboratorsActivity extends BaseHRActivity {
             viewModel.getAllCollabo().observe(this, (List<CollaboratorEntity> collaborators1) -> {
                 if(collaborators1!=null){
                     collaborators = collaborators1;
+                    //trier les collaborateurs par noms
                     adapter.setData(collaborators);
                 }
             });

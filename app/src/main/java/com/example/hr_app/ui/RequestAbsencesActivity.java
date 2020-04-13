@@ -16,7 +16,6 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
-import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

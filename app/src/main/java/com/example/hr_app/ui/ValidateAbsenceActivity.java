@@ -17,7 +17,6 @@ import com.example.hr_app.adapter.ValidateAbsencesAdapter;
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
-import com.example.hr_app.viewmodel.absences.AbsenceListNotValidateViewModel;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 
 import java.util.ArrayList;

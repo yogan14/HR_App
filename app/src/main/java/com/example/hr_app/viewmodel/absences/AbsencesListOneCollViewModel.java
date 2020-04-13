@@ -40,7 +40,7 @@ public class AbsencesListOneCollViewModel extends AndroidViewModel {
         observableAbsencesForOneCollaborator = new MediatorLiveData<>();
         observableAbsencesForOneCollaborator.setValue(null);
 
-        LiveData<List<AbsencesEntity>> AbsencesOneColl = repository.getAbsencesForOneCollaborator(application, email);
+        LiveData<List<AbsencesEntity>> AbsencesOneColl = repository.getAbsencesForOneCollaborator(email);
 
 
         observableAbsencesForOneCollaborator.addSource(AbsencesOneColl, observableAbsencesForOneCollaborator::setValue);
