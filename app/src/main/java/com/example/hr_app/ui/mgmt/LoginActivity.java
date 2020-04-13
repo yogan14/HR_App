@@ -1,6 +1,8 @@
 package com.example.hr_app.ui.mgmt;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,9 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.database.repository.CollaboratorRepository;
 
 import com.example.hr_app.ui.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
     /**
@@ -99,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+
                 } else {
 
                     login.setError(getString(R.string.invalid_account));
