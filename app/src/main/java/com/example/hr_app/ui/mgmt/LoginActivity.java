@@ -1,6 +1,8 @@
 package com.example.hr_app.ui.mgmt;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,9 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
+import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.database.repository.CollaboratorRepository;
 
 import com.example.hr_app.ui.MainActivity;
+import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     /**
@@ -20,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button registerButton;
     private EditText login, pwd;
     private CollaboratorRepository CR;
+    private CollaboratorListViewModel viewModel;
+    private List<CollaboratorEntity> collaborators;
+    boolean check;
 
 
     /**
@@ -51,6 +63,9 @@ public class LoginActivity extends AppCompatActivity {
         pwd = findViewById(R.id.editText);
         registerButton = findViewById(R.id.button2);
         registerButton.setOnClickListener(view -> register());
+
+        CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
+        viewModel = ViewModelProviders.of(this, factory).get(CollaboratorListViewModel.class);
 
 
     }
@@ -97,6 +112,12 @@ public class LoginActivity extends AppCompatActivity {
             CR.signIn(loginCase,pwdCase,task -> {
                 if(task.isSuccessful()){
 
+                    if(isHR(loginCase)){
+                        ((BaseApp) this.getApplication()).setHR(true);
+                    } else {
+                        ((BaseApp) this.getApplication()).setHR(false);
+                    }
+
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
@@ -106,36 +127,31 @@ public class LoginActivity extends AppCompatActivity {
                     pwd.setText("");
                 }
             });
-
-            // Get the collaborator according to his email
-            /*CR.getOneCollaborator(loginCase, getApplication()).observe(LoginActivity.this, collaborator -> {
-                if (collaborator != null) {
-                    if (collaborator.getPassword().equals(pwdCase)) {
-                        //Session to store the email throughout the app
-                        ((BaseApp) this.getApplication()).setTheMail(collaborator.getEmail());
-
-                        //Different screens according to the service
-                        if(collaborator.getService().equals("HR")){
-                            ((BaseApp) this.getApplication()).setHR(true);
-                        } else {
-                            ((BaseApp) this.getApplication()).setHR(false);
-                        }
-
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-
-                    } else {
-                        pwd.setError(getString(R.string.wrong_password));
-                        pwd.requestFocus();
-                        pwd.setText("");
-                    }
-
-                } else {
-                    login.setError(getString(R.string.no_login));
-                    login.requestFocus();
-                    login.setText("");
-                }
-            });*/
         }
+    }
+
+    public boolean isHR (String login){
+
+        collaborators = new ArrayList<>();
+
+        viewModel.getAllCollabo().observe(this, (List<CollaboratorEntity> collaborators1) -> {
+            if(collaborators1!=null){
+                collaborators = collaborators1;
+
+
+            }
+        });
+
+            for (CollaboratorEntity c : collaborators) {
+                if (c.getEmail().equals(login)) {
+                    if (c.getService().equals("HR")) {
+                        check = true;
+                    } else {
+                        check = false;
+                    }
+                }
+            }
+
+        return check;
     }
 }
