@@ -16,6 +16,7 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
+import com.example.hr_app.viewmodel.absences.IUDAbsencesViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,7 +37,7 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
     private String startAbsence, endAbsence, reason, mail;
 
-    private AbsenceListNotValidateViewModel viewModel;
+    private IUDAbsencesViewModel viewModel;
 
     private OnAsyncEventListener callback;
 
@@ -143,10 +144,16 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
             //else, create an absence in the database
             mail = ((BaseApp) this.getApplication()).getTheMail();
-            AbsencesEntity absence = new AbsencesEntity(startAbsence, endAbsence, reason, mail);
 
-            AbsenceListNotValidateViewModel.Factory factory = new AbsenceListNotValidateViewModel.Factory( getApplication());
-            viewModel = ViewModelProviders.of(this, factory).get(AbsenceListNotValidateViewModel.class);
+            AbsencesEntity absence = new AbsencesEntity();
+
+            absence.setStartAbsence(startAbsence);
+            absence.setEndAbsence(endAbsence);
+            absence.setReason(reason);
+            absence.setEmail(mail);
+
+            IUDAbsencesViewModel.Factory factory = new IUDAbsencesViewModel.Factory(getApplication());
+            viewModel = ViewModelProviders.of(this, factory).get(IUDAbsencesViewModel.class);
 
             viewModel.insert(absence, callback);
 

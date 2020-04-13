@@ -11,10 +11,6 @@
             android:icon="@drawable/ic_assignment_black_24dp"
             android:title="@string/title_activity_my_absences" />
         <item
-            android:id="@+id/nav_accept_absences"
-            android:icon="@drawable/ic_check_circle_black_24dp"
-            android:title="@string/title_activity_accept_absences"/>
-        <item
             android:id="@+id/nav_collaborators"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/title_activity_collaborators"/>

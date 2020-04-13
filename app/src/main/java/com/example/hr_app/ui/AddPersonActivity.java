@@ -9,10 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.lifecycle.ViewModelProviders;
+
 import com.example.hr_app.R;
-import com.example.hr_app.database.async.collaborator.CreateCollaborator;
 import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
+import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
+
 import java.util.Locale;
 /**
  * AddPersonActivity
@@ -27,6 +31,8 @@ public class AddPersonActivity extends BaseHRActivity {
     private TextView tvName, tvService, tvMail, tvPassword;
 
     private String name, service, mail, password;
+
+    private CollaboratorListViewModel viewModel;
 
     /**
      * onCreate
@@ -63,6 +69,10 @@ public class AddPersonActivity extends BaseHRActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language","English"));
         bAdd.setOnClickListener(view -> addCollaborator());
+
+        CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
+        viewModel = ViewModelProviders.of(this, factory).get(CollaboratorListViewModel.class);
+
     }
     /**
      * addCollaborator
@@ -140,7 +150,7 @@ public class AddPersonActivity extends BaseHRActivity {
             //add collaborator in the database
             CollaboratorEntity collaborator = new CollaboratorEntity(name, service, mail, password);
 
-            new CreateCollaborator(getApplication(), new OnAsyncEventListener() {
+            viewModel.insert(collaborator, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
                     setResponse(true);
@@ -150,7 +160,7 @@ public class AddPersonActivity extends BaseHRActivity {
                 public void onFailure(Exception e) {
                     setResponse(false);
                 }
-            }).execute(collaborator);
+            });
 
 
 

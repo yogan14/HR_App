@@ -15,7 +15,7 @@ public class BaseApp extends Application {
     //id(for go to a specific absence), idHR(for display the good menu if the user is HR or not)
     private String mailCollaborator;
     private String mail;
-    private int id;
+    private String id;
     private boolean isHR;
 
     //getters and setters
@@ -27,11 +27,11 @@ public class BaseApp extends Application {
         this.mail = variable;
     }
 
-    public int getTheID(){
+    public String getTheID(){
         return id;
     }
 
-    public void setTheID(int id){
+    public void setTheID(String id){
         this.id = id;
     }
 
@@ -57,10 +57,6 @@ public class BaseApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-    }
-
-    public AppDatabase getDatabase() {
-        return AppDatabase.getInstance(this);
     }
 
     public AbsencesRepository getAbsenceRepository() {

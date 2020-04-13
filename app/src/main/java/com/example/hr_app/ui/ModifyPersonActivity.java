@@ -15,10 +15,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
-import com.example.hr_app.database.async.collaborator.DeleteCollaborator;
-import com.example.hr_app.database.async.collaborator.UpdateCollaborator;
 import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
+import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorViewModel;
 
 import java.util.Locale;
@@ -33,6 +32,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
     private Toast toast;
     private String mailCollaborator, name, service, password;
     private CollaboratorViewModel viewModel;
+    private CollaboratorListViewModel vm;
     private CollaboratorEntity oneCollaborator;
 
     /**
@@ -87,6 +87,9 @@ public class ModifyPersonActivity extends BaseHRActivity {
                 findData();
             }
         });
+
+        CollaboratorListViewModel.Factory factory2 = new CollaboratorListViewModel.Factory(getApplication());
+        vm = ViewModelProviders.of(this, factory2).get(CollaboratorListViewModel.class);
     }
 
     /**
@@ -169,7 +172,8 @@ public class ModifyPersonActivity extends BaseHRActivity {
             }
 
             //modify the collaborator in the database
-            new UpdateCollaborator(getApplication(), new OnAsyncEventListener() {
+
+            vm.update(oneCollaborator, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
                     setResponse(true, "update");
@@ -179,9 +183,9 @@ public class ModifyPersonActivity extends BaseHRActivity {
                 public void onFailure(Exception e) {
                     setResponse(false, "update");
                 }
-            }).execute(oneCollaborator);
-        }
+            });
 
+        }
 
     }
 
@@ -190,7 +194,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
      */
     private void deleteButton() {
 
-        new DeleteCollaborator(getApplication(), new OnAsyncEventListener() {
+        vm.delete(oneCollaborator, new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
                 setResponse(true, "delete");
@@ -200,7 +204,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
             public void onFailure(Exception e) {
                 setResponse(false, "delete");
             }
-        }).execute(oneCollaborator);
+        });
 
     }
 

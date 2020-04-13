@@ -15,10 +15,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
-import com.example.hr_app.database.async.absences.DeleteAbsences;
-import com.example.hr_app.database.async.absences.UpdateAbsences;
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
+import com.example.hr_app.viewmodel.absences.IUDAbsencesViewModel;
 import com.example.hr_app.viewmodel.absences.OneAbsenceViewModel;
 
 import java.text.ParseException;
@@ -36,6 +35,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
     private Toast toast;
     private AbsencesEntity absence;
     private OneAbsenceViewModel viewModel;
+    private IUDAbsencesViewModel vm;
     private String startAbsence, endAbsence, reason;
     SharedPreferences sharedPreferences;
 
@@ -64,7 +64,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
     }
 
     public void setData() {
-        int absenceID = ((BaseApp)this.getApplication()).getTheID();
+        String absenceID = ((BaseApp)this.getApplication()).getTheID();
 
         sCause = findViewById(R.id.cause_of_absences_spinner);
         tvStartDate = findViewById(R.id.begining_date);
@@ -89,7 +89,8 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
             }
         });
 
-
+        IUDAbsencesViewModel.Factory factory2 = new IUDAbsencesViewModel.Factory(getApplication());
+        vm = ViewModelProviders.of(this, factory2).get(IUDAbsencesViewModel.class);
 
     }
 
@@ -216,7 +217,8 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
             }
 
             //modify the database
-            new UpdateAbsences(getApplication(), new OnAsyncEventListener() {
+
+            vm.update(absence, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
                     setResponse(true, "update");
@@ -226,7 +228,9 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
                 public void onFailure(Exception e) {
                     setResponse(false, "update");
                 }
-            }).execute(absence);
+            });
+
+
         }
 
     }
@@ -236,7 +240,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
      */
     private void deleteButton() {
 
-        new DeleteAbsences(getApplication(), new OnAsyncEventListener() {
+        vm.delete(absence, new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
                 setResponse(true, "delete");
@@ -246,7 +250,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
             public void onFailure(Exception e) {
                 setResponse(false, "delete");
             }
-        }).execute(absence);
+        });
     }
 
     /**

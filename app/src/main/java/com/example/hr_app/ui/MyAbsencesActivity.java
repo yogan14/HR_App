@@ -119,7 +119,7 @@ public class MyAbsencesActivity extends BaseHRActivity {
      * Method that allows to set the id in the "Session"
      * @param id the absence ID
      */
-    public void setID(int id){
+    public void setID(String id){
         ((BaseApp) this.getApplication()).setTheID(id);
     }
 

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.database.repository.CollaboratorRepository;
+import com.example.hr_app.util.OnAsyncEventListener;
 
 
 import java.util.List;
@@ -74,4 +75,15 @@ public class CollaboratorListViewModel extends AndroidViewModel {
         return observableColls;
     }
 
+    public void insert(CollaboratorEntity collaborator, OnAsyncEventListener callback) {
+        repository.insert(collaborator, callback);
+    }
+
+    public void update(CollaboratorEntity collaborator, OnAsyncEventListener callback) {
+        repository.update(collaborator, callback);
+    }
+
+    public void delete(CollaboratorEntity collaborator, OnAsyncEventListener callback) {
+        repository.delete(collaborator, callback);
+    }
 }
