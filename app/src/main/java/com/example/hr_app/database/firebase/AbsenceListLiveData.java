@@ -2,20 +2,24 @@ package com.example.hr_app.database.firebase;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AbsenceListLiveData extends LiveData<List<AbsencesEntity>> {
     private final DatabaseReference reference;
     private final MyValueEventListener listener = new MyValueEventListener();
+    private final String email;
 
-    public AbsenceListLiveData(DatabaseReference ref) {
+    public AbsenceListLiveData(DatabaseReference ref, String email) {
         reference = ref;
+        this.email = email;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class AbsenceListLiveData extends LiveData<List<AbsencesEntity>> {
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             AbsencesEntity entity = childSnapshot.getValue(AbsencesEntity.class);
             entity.setIdAbsence(childSnapshot.getKey());
+            entity.setEmail(email);
             absences.add(entity);
         }
         return absences;
