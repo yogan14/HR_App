@@ -94,8 +94,21 @@ public class LoginActivity extends AppCompatActivity {
         if (error) {
             focusView.requestFocus();
         } else {
+            CR.signIn(loginCase,pwdCase,task -> {
+                if(task.isSuccessful()){
+
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+
+                    login.setError(getString(R.string.invalid_account));
+                    login.requestFocus();
+                    pwd.setText("");
+                }
+            });
+
             // Get the collaborator according to his email
-            CR.getOneCollaborator(loginCase, getApplication()).observe(LoginActivity.this, collaborator -> {
+            /*CR.getOneCollaborator(loginCase, getApplication()).observe(LoginActivity.this, collaborator -> {
                 if (collaborator != null) {
                     if (collaborator.getPassword().equals(pwdCase)) {
                         //Session to store the email throughout the app
@@ -122,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                     login.requestFocus();
                     login.setText("");
                 }
-            });
+            });*/
         }
     }
 }

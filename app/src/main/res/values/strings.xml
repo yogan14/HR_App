@@ -29,6 +29,7 @@
     <string name="action_cancel">Cancel</string>
     <string name="empty_field">Field empty !</string>
     <string name="invalid_mail">Invalid Email</string>
+    <string name="invalid_account">Invalid account</string>
     <string name="error_password">This password is too short (min. 5 characters)</string>
     <string name="error_used_email">Email already in use</string>
     <string name="collaborator_created">Collaborator successfully created</string>

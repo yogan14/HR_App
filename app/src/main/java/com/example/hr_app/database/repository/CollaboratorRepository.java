@@ -8,6 +8,9 @@ import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.database.firebase.CollaboratorListLiveData;
 import com.example.hr_app.database.firebase.CollaboratorLiveData;
 import com.example.hr_app.util.OnAsyncEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -115,5 +118,11 @@ public class CollaboratorRepository {
                             callback.onSuccess();
                         }
                     });
+    }
+
+    public void signIn(final String email, final String password,
+                       final OnCompleteListener<AuthResult> listener) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(listener);
     }
 }
