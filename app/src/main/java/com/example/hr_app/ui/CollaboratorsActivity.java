@@ -20,6 +20,8 @@ import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -115,7 +117,11 @@ public class CollaboratorsActivity extends BaseHRActivity {
             viewModel.getAllCollabo().observe(this, (List<CollaboratorEntity> collaborators1) -> {
                 if(collaborators1!=null){
                     collaborators = collaborators1;
-                    //trier les collaborateurs par service
+
+                    //sort collaborator list by service
+                    Comparator<CollaboratorEntity> compareByService = (CollaboratorEntity c1, CollaboratorEntity c2) -> c1.getService().compareTo(c2.getService());
+                    Collections.sort(collaborators, compareByService);
+
                     adapter.setData(collaborators);
                 }
             });
@@ -123,7 +129,11 @@ public class CollaboratorsActivity extends BaseHRActivity {
             viewModel.getAllCollabo().observe(this, (List<CollaboratorEntity> collaborators1) -> {
                 if(collaborators1!=null){
                     collaborators = collaborators1;
-                    //trier les collaborateurs par noms
+
+                    //sort collaborator list by name
+                    Comparator<CollaboratorEntity> compareByName = (CollaboratorEntity c1, CollaboratorEntity c2) -> c1.getName().compareTo(c2.getName());
+                    Collections.sort(collaborators, compareByName);
+
                     adapter.setData(collaborators);
                 }
             });
