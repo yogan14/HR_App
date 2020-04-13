@@ -1,6 +1,8 @@
 package com.example.hr_app.ui.mgmt;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
     /**
@@ -29,9 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button registerButton;
     private EditText login, pwd;
     private CollaboratorRepository CR;
-    private CollaboratorListViewModel viewModel;
-    private List<CollaboratorEntity> collaborators;
-    boolean check;
 
 
     /**
@@ -63,9 +63,6 @@ public class LoginActivity extends AppCompatActivity {
         pwd = findViewById(R.id.editText);
         registerButton = findViewById(R.id.button2);
         registerButton.setOnClickListener(view -> register());
-
-        CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
-        viewModel = ViewModelProviders.of(this, factory).get(CollaboratorListViewModel.class);
 
 
     }
@@ -112,14 +109,9 @@ public class LoginActivity extends AppCompatActivity {
             CR.signIn(loginCase,pwdCase,task -> {
                 if(task.isSuccessful()){
 
-                    if(isHR(loginCase)){
-                        ((BaseApp) this.getApplication()).setHR(true);
-                    } else {
-                        ((BaseApp) this.getApplication()).setHR(false);
-                    }
-
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+
                 } else {
 
                     login.setError(getString(R.string.invalid_account));
@@ -127,31 +119,36 @@ public class LoginActivity extends AppCompatActivity {
                     pwd.setText("");
                 }
             });
-        }
-    }
 
-    public boolean isHR (String login){
+            // Get the collaborator according to his email
+            /*CR.getOneCollaborator(loginCase, getApplication()).observe(LoginActivity.this, collaborator -> {
+                if (collaborator != null) {
+                    if (collaborator.getPassword().equals(pwdCase)) {
+                        //Session to store the email throughout the app
+                        ((BaseApp) this.getApplication()).setTheMail(collaborator.getEmail());
 
-        collaborators = new ArrayList<>();
+                        //Different screens according to the service
+                        if(collaborator.getService().equals("HR")){
+                            ((BaseApp) this.getApplication()).setHR(true);
+                        } else {
+                            ((BaseApp) this.getApplication()).setHR(false);
+                        }
 
-        viewModel.getAllCollabo().observe(this, (List<CollaboratorEntity> collaborators1) -> {
-            if(collaborators1!=null){
-                collaborators = collaborators1;
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
 
-
-            }
-        });
-
-            for (CollaboratorEntity c : collaborators) {
-                if (c.getEmail().equals(login)) {
-                    if (c.getService().equals("HR")) {
-                        check = true;
                     } else {
-                        check = false;
+                        pwd.setError(getString(R.string.wrong_password));
+                        pwd.requestFocus();
+                        pwd.setText("");
                     }
-                }
-            }
 
-        return check;
+                } else {
+                    login.setError(getString(R.string.no_login));
+                    login.requestFocus();
+                    login.setText("");
+                }
+            });*/
+        }
     }
 }
