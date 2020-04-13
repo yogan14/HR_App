@@ -130,8 +130,7 @@ public class ListAdapter<T> extends RecyclerView.Adapter<ListAdapter.ViewHolder>
                                 && Objects.equals(newAbs.getEmail(), oldAbs.getEmail())
                                 && Objects.equals(newAbs.getReason(), oldAbs.getReason())
                                 && Objects.equals(newAbs.getStartAbsence(), oldAbs.getStartAbsence())
-                                && Objects.equals(newAbs.getEndAbsence(),oldAbs.getEndAbsence())
-                                && Objects.equals(newAbs.isValidate(), oldAbs.isValidate());
+                                && Objects.equals(newAbs.getEndAbsence(),oldAbs.getEndAbsence());
                     }
                     return false;
                 }
