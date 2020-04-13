@@ -1,14 +1,15 @@
 package com.example.hr_app.database.repository;
 
 import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 
-import com.example.hr_app.BaseApp;
-import com.example.hr_app.database.async.collaborator.CreateCollaborator;
-import com.example.hr_app.database.async.collaborator.DeleteCollaborator;
-import com.example.hr_app.database.async.collaborator.UpdateCollaborator;
 import com.example.hr_app.database.entity.CollaboratorEntity;
+import com.example.hr_app.database.firebase.CollaboratorListLiveData;
+import com.example.hr_app.database.firebase.CollaboratorLiveData;
 import com.example.hr_app.util.OnAsyncEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -37,29 +38,23 @@ public class CollaboratorRepository {
     /**
      * getOneCollaborator
      * Get one collaborator
-     * @param email - the mail of the collaborator
-     * @param application - the application
+     * @param collaboratorId - the mail of the collaborator
      */
-    public LiveData<CollaboratorEntity> getOneCollaborator(final String email, Application application) {
-        return ((BaseApp) application).getDatabase().collaboratorDao().getOneCollaborator(email);
+    public LiveData<CollaboratorEntity> getOneCollaborator(final String collaboratorId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Collaborators")
+                .child(collaboratorId);
+        return new CollaboratorLiveData(reference);
     }
 
     /**
      * getAll
      * Get all the collaborators order by name
-     * @param application - the application
      */
-    public LiveData<List<CollaboratorEntity>> getAll(Application application) {
-        return ((BaseApp) application).getDatabase().collaboratorDao().getAll();
-    }
-
-    /**
-     * getAll
-     * Get all the collaborators order by service
-     * @param application - the application
-     */
-    public LiveData<List<CollaboratorEntity>> getAllOrderService(Application application) {
-        return ((BaseApp) application).getDatabase().collaboratorDao().getAllOrderService();
+    public LiveData<List<CollaboratorEntity>> getAll() {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Collaborators");
+        return new CollaboratorListLiveData(reference);
     }
 
     /**
@@ -67,11 +62,21 @@ public class CollaboratorRepository {
      * insert a collaborator
      * @param collaborator - collaborator to add
      * @param callback - callback
-     * @param application - the application
      */
-    public void insert(final CollaboratorEntity collaborator, OnAsyncEventListener callback,
-                       Application application) {
-        new CreateCollaborator(application, callback).execute(collaborator);
+    public void insert(final CollaboratorEntity collaborator, OnAsyncEventListener callback) {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Collaborators");
+        String key = reference.push().getKey();
+        FirebaseDatabase.getInstance()
+                .getReference("Collaborators")
+                .child(key)
+                .setValue(collaborator, (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
     }
 
     /**
@@ -79,11 +84,18 @@ public class CollaboratorRepository {
      * update a collaborator
      * @param collaborator - collaborator to add
      * @param callback - callback
-     * @param application - the application
      */
-    public void update(final CollaboratorEntity collaborator, OnAsyncEventListener callback,
-                       Application application) {
-        new UpdateCollaborator(application, callback).execute(collaborator);
+    public void update(final CollaboratorEntity collaborator, OnAsyncEventListener callback) {
+        FirebaseDatabase.getInstance()
+                .getReference("Collaborators")
+                .child(collaborator.getId())
+                .updateChildren(collaborator.toMap(), (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
     }
 
     /**
@@ -91,10 +103,17 @@ public class CollaboratorRepository {
      * delete a collaborator
      * @param collaborator - collaborator to add
      * @param callback - callback
-     * @param application - the application
      */
-    public void delete(final CollaboratorEntity collaborator, OnAsyncEventListener callback,
-                       Application application) {
-        new DeleteCollaborator(application, callback).execute(collaborator);
+    public void delete(final CollaboratorEntity collaborator, OnAsyncEventListener callback) {
+            FirebaseDatabase.getInstance()
+                    .getReference("Collaborators")
+                    .child(collaborator.getId())
+                    .removeValue((databaseError, databaseReference) -> {
+                        if (databaseError != null) {
+                            callback.onFailure(databaseError.toException());
+                        } else {
+                            callback.onSuccess();
+                        }
+                    });
     }
 }

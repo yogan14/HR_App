@@ -10,12 +10,8 @@ import com.example.hr_app.database.firebase.AbsenceListLiveData;
 import com.example.hr_app.database.firebase.AbsenceLiveData;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 
 import java.util.List;
 
@@ -44,27 +40,25 @@ public class AbsencesRepository {
     /**
      * getAbsencesForOneCollaborator
      * Get all the absences for one collaborator
-     * @param email - the mail of the collaborator
+     * @param collaboratorID - the mail of the collaborator
      */
-    public LiveData<List<AbsencesEntity>> getAbsencesForOneCollaborator(String email) {
+    public LiveData<List<AbsencesEntity>> getAbsencesForOneCollaborator(String collaboratorID) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("clients")
-                .child(email)
-                .child("accounts");
-        return new AbsenceListLiveData(reference, email);
+                .getReference("Absences")
+                .child(collaboratorID);
+        return new AbsenceListLiveData(reference, collaboratorID);
     }
 
     /**
      * getAbsences
      * Get one absence
-     * @param accountId - the id of the absence
+     * @param absenceId - the id of the absence
      */
-    public LiveData<AbsencesEntity> getAbsence(String accountId){
+    public LiveData<AbsencesEntity> getAbsence(String absenceId){
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("clients")
+                .getReference("Absences")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("accounts")
-                .child(accountId);
+                .child(absenceId);
         return new AbsenceLiveData(reference);
     }
 
@@ -76,14 +70,12 @@ public class AbsencesRepository {
      */
     public void insert(final AbsencesEntity absence, OnAsyncEventListener callback) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("clients")
-                .child(absence.getEmail())
-                .child("accounts");
+                .getReference("Absences")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         String key = reference.push().getKey();
         FirebaseDatabase.getInstance()
-                .getReference("clients")
-                .child(absence.getEmail())
-                .child("accounts")
+                .getReference("Absences")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child(key)
                 .setValue(absence, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
@@ -102,9 +94,8 @@ public class AbsencesRepository {
      */
     public void update(final AbsencesEntity absence, OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()
-                .getReference("clients")
-                .child(absence.getEmail())
-                .child("accounts")
+                .getReference("Absences")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child(absence.getIdAbsence())
                 .updateChildren(absence.toMap(), (databaseError, databaseReference) -> {
                     if (databaseError != null) {
@@ -118,12 +109,20 @@ public class AbsencesRepository {
     /**
      * delete
      * delete an absence
-     * @param absences - absence to add
+     * @param absence - absence to add
      * @param callback - callback
-     * @param application - the application
      */
-    public void delete(final AbsencesEntity absences, OnAsyncEventListener callback,
-                       Application application) {
-        new DeleteAbsences(application, callback).execute(absences);
+    public void delete(final AbsencesEntity absence, OnAsyncEventListener callback) {
+        FirebaseDatabase.getInstance()
+                .getReference("Absences")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(absence.getIdAbsence())
+                .removeValue((databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
     }
 }
