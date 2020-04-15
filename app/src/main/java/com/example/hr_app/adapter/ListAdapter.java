@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.database.entity.CollaboratorEntity;
-import com.example.hr_app.database.entity.MessageEntity;
 import com.example.hr_app.util.RecyclerViewItemClickListener;
 import java.util.List;
 import java.util.Objects;
@@ -111,8 +110,6 @@ public class ListAdapter<T> extends RecyclerView.Adapter<ListAdapter.ViewHolder>
                         return ((CollaboratorEntity) mData.get(oldItemPosition)).getEmail().equals(((CollaboratorEntity) data.get(newItemPosition)).getEmail());
                     } else if(mData instanceof AbsencesEntity){
                         return ((AbsencesEntity) mData.get(oldItemPosition)).getIdAbsence() == ((AbsencesEntity) mData.get(newItemPosition)).getIdAbsence();
-                    } else if(mData instanceof MessageEntity){
-                        return ((MessageEntity) mData.get(oldItemPosition)).getMessageID() == ((MessageEntity) mData.get(newItemPosition)).getMessageID();
                     }
                     return false;
                 }
@@ -134,12 +131,6 @@ public class ListAdapter<T> extends RecyclerView.Adapter<ListAdapter.ViewHolder>
                                 && Objects.equals(newAbs.getReason(), oldAbs.getReason())
                                 && Objects.equals(newAbs.getStartAbsence(), oldAbs.getStartAbsence())
                                 && Objects.equals(newAbs.getEndAbsence(),oldAbs.getEndAbsence());
-                    } else if(mData instanceof MessageEntity) {
-                        MessageEntity newMess = (MessageEntity) data.get(newItemPosition);
-                        MessageEntity oldMess = (MessageEntity) data.get(oldItemPosition);
-                        return newMess.getMessageID() == oldMess.getMessageID()
-                                && Objects.equals(newMess.getMessage(),oldMess.getMessage())
-                                && Objects.equals(newMess.getSenderName(),oldMess.getSenderName());
                     }
                     return false;
                 }
