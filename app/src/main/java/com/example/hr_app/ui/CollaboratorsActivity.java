@@ -96,7 +96,7 @@ public class CollaboratorsActivity extends BaseHRActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Intent intent = new Intent(CollaboratorsActivity.this, ModifyPersonActivity.class);
-                ((BaseApp) getApplication()).setMailCollaborator(collaborators.get(position).getEmail());
+                ((BaseApp) getApplication()).setMailCollaborator(collaborators.get(position).getId());
                 startActivity(intent);
             }
 

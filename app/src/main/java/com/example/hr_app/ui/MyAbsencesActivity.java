@@ -15,6 +15,8 @@ import com.example.hr_app.adapter.ListAdapter;
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.util.RecyclerViewItemClickListener;
 import com.example.hr_app.viewmodel.absences.AbsencesListOneCollViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -74,7 +76,7 @@ public class MyAbsencesActivity extends BaseHRActivity {
         navigationView.setCheckedItem(position);
 
         //Session to get the mail of the connected collaborator
-        String s = ((BaseApp) this.getApplication()).getTheMail();
+        String s = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Creation of the list and the relative adapter
         absences = new ArrayList<>();
@@ -120,7 +122,7 @@ public class MyAbsencesActivity extends BaseHRActivity {
      * @param id the absence ID
      */
     public void setID(String id){
-        ((BaseApp) this.getApplication()).setTheID(id);
+        ((BaseApp) this.getApplication()).setIDAbsence(id);
     }
 
     /**

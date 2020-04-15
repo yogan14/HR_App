@@ -56,7 +56,8 @@
     <string name="wrong_password">Password incorrect</string>
     <string name="no_login">Non-existent login</string>
     <string name="created_request">Request created</string>
-
+    <string name="chat_input">Enter your message</string>
+    <string name="title_activity_chat">chat</string>
 
 
     <string-array name="cause_of_absence">

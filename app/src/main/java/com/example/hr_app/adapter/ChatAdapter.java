@@ -1,87 +1,70 @@
 package com.example.hr_app.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.database.entity.MessageEntity;
-import com.example.hr_app.util.RecyclerViewItemClickListener;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ListAdapter<T> extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
-    /**
-     * Declaration of the variables
-     */
+public class ChatAdapter<T> extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder>{
+
     private List<T> mData;
-    private RecyclerViewItemClickListener mListener;
 
     /**
-     * The view holder which will contain the view according its content
+     * ViewHolder to be the item of the list
      */
-    static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv;
-        ViewHolder(TextView textView){
-            super(textView);
-            tv = textView;
+    static final class ChatViewHolder extends RecyclerView.ViewHolder {
+
+        TextView name;
+        TextView message;
+
+        ChatViewHolder(View view) {
+            super(view);
+
+            name = (TextView) view.findViewById(R.id.item_username);
+            message = (TextView) view.findViewById(R.id.item_message);
         }
     }
 
-    /**
-     * Constructor to call it
-     * @param listener onItemClick / onLongItemClick
-     */
-    public ListAdapter(RecyclerViewItemClickListener listener){
-        mListener = listener;
+    private List<MessageEntity> mContent = new ArrayList<>();
+
+    public void clearData() {
+        mContent.clear();
     }
 
-
-    /**
-     * Method which will get all the layout and listener of our view
-     * @param parent
-     * @param viewType
-     * @return the view holder "completed"
-     */
-    @Override
-    public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_view, parent, false);
-        final ViewHolder viewHolder = new ViewHolder(v);
-        v.setOnClickListener(view -> mListener.onItemClick(view, viewHolder.getAdapterPosition()));
-        v.setOnLongClickListener(view -> { mListener.onItemLongClick(view, viewHolder.getAdapterPosition());
-            return true;
-        });
-        return viewHolder;
-    }
-
-    /**
-     * Method which will set the data inside our text view
-     * @param holder
-     * @param position
-     */
-    @Override
-    public void onBindViewHolder(ListAdapter.ViewHolder holder, int position) {
-        T item =mData.get(position);
-        if(item.getClass().equals(CollaboratorEntity.class)){
-            holder.tv.setText(((CollaboratorEntity) item).getName());
-        } else {
-            holder.tv.setText(((AbsencesEntity) item).getStartAbsence() + " - " + ((AbsencesEntity) item).getEndAbsence());
-        }
-
+    public void addData(MessageEntity data) {
+        mContent.add(data);
     }
 
     @Override
     public int getItemCount() {
-        if (mData != null) {
-            return mData.size();
-        } else {
-            return 0;
-        }
+        return mContent.size();
+    }
+
+    @Override
+    public ChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler, parent, false);
+        return new ChatViewHolder(root);
+    }
+
+    @Override
+    public void onBindViewHolder(ChatViewHolder holder, int position) {
+        MessageEntity data = mContent.get(position);
+
+        holder.message.setText(data.getMessage());
+        holder.name.setText(data.getSenderName());
     }
 
     /**
@@ -148,7 +131,5 @@ public class ListAdapter<T> extends RecyclerView.Adapter<ListAdapter.ViewHolder>
             result.dispatchUpdatesTo(this);
         }
     }
-
-
 
 }

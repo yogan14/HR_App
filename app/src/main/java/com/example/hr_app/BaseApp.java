@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.hr_app.database.repository.AbsencesRepository;
 import com.example.hr_app.database.repository.CollaboratorRepository;
+import com.example.hr_app.database.repository.MessageRepository;
 
 
 /**
@@ -15,7 +16,7 @@ public class BaseApp extends Application {
     //id(for go to a specific absence), idHR(for display the good menu if the user is HR or not)
     private String mailCollaborator;
     private String mail;
-    private String id;
+    private String idAbsence;
     private boolean isHR;
 
     //getters and setters
@@ -27,12 +28,12 @@ public class BaseApp extends Application {
         this.mail = variable;
     }
 
-    public String getTheID(){
-        return id;
+    public String getIDAbsence(){
+        return idAbsence;
     }
 
-    public void setTheID(String id){
-        this.id = id;
+    public void setIDAbsence(String id){
+        this.idAbsence = id;
     }
 
     public String getMailCollaborator() {
@@ -65,5 +66,9 @@ public class BaseApp extends Application {
 
     public CollaboratorRepository getCollaboratorRepository() {
         return CollaboratorRepository.getInstance();
+    }
+
+    public MessageRepository getMessageRepository() {
+        return MessageRepository.getInstance();
     }
 }

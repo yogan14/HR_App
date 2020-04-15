@@ -10,16 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ui.MyAbsencesActivity"/>
+        <activity android:name=".ui.chat.ChatActivity"></activity>
+        <activity android:name=".ui.MyAbsencesActivity" />
         <activity android:name=".ui.BaseHRActivity" />
-        <activity android:name=".ui.ModifyRequestAbsenceActivity"/>
-        <activity android:name=".ui.ModifyPersonActivity"/>
-        <activity android:name=".ui.AddPersonActivity"/>
-        <activity android:name=".ui.RequestAbsencesActivity"/>
-        <activity android:name=".ui.CollaboratorsActivity"/>
-        <activity android:name=".ui.mgmt.SettingsActivity"/>
-        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.ModifyRequestAbsenceActivity" />
+        <activity android:name=".ui.ModifyPersonActivity" />
+        <activity android:name=".ui.AddPersonActivity" />
+        <activity android:name=".ui.RequestAbsencesActivity" />
+        <activity android:name=".ui.CollaboratorsActivity" />
+        <activity android:name=".ui.mgmt.SettingsActivity" />
+        <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.mgmt.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -32,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button registerButton;
     private EditText login, pwd;
     private CollaboratorRepository CR;
+    private CollaboratorListViewModel viewModel;
+    private List<CollaboratorEntity> collaborators;
 
 
     /**
@@ -109,8 +111,31 @@ public class LoginActivity extends AppCompatActivity {
             CR.signIn(loginCase,pwdCase,task -> {
                 if(task.isSuccessful()){
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
+                    viewModel = ViewModelProviders.of(this,factory).get(CollaboratorListViewModel.class);
+
+                    viewModel.getAllCollabo().observe(this, (List<CollaboratorEntity> collaborators1) -> {
+                        if(collaborators1!=null){
+                            collaborators = collaborators1;
+
+                            for (CollaboratorEntity c : collaborators){
+                                if(c.getEmail().equals(loginCase))
+                                    if(c.getService().equals("HR")){
+
+                                        ((BaseApp) this.getApplication()).setHR(true);
+
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    } else {
+
+                                        ((BaseApp) this.getApplication()).setHR(false);
+
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                            }
+                        }
+                    });
 
                 } else {
 
@@ -151,4 +176,5 @@ public class LoginActivity extends AppCompatActivity {
             });*/
         }
     }
+
 }

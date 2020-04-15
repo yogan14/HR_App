@@ -89,7 +89,7 @@ public class AbsencesRepository {
     /**
      * update
      * update an absence
-     * @param absence - absence to add
+     * @param absence - absence to update
      * @param callback - callback
      */
     public void update(final AbsencesEntity absence, OnAsyncEventListener callback) {
@@ -109,7 +109,7 @@ public class AbsencesRepository {
     /**
      * delete
      * delete an absence
-     * @param absence - absence to add
+     * @param absence - absence to delete
      * @param callback - callback
      */
     public void delete(final AbsencesEntity absence, OnAsyncEventListener callback) {

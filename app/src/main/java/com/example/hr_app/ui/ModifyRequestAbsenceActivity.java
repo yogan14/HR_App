@@ -64,7 +64,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
     }
 
     public void setData() {
-        String absenceID = ((BaseApp)this.getApplication()).getTheID();
+        String absenceID = ((BaseApp)this.getApplication()).getIDAbsence();
 
         sCause = findViewById(R.id.cause_of_absences_spinner);
         tvStartDate = findViewById(R.id.begining_date);

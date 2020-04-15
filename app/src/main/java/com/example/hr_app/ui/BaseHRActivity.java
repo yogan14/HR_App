@@ -7,20 +7,27 @@ import androidx.annotation.NonNull;
 
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
+import com.example.hr_app.database.entity.CollaboratorEntity;
+import com.example.hr_app.ui.chat.ChatActivity;
 import com.example.hr_app.ui.mgmt.LoginActivity;
 import com.example.hr_app.ui.mgmt.SettingsActivity;
+import com.example.hr_app.viewmodel.collaborator.CollaboratorViewModel;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -50,12 +57,17 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //if the user is an HR member, display the HR burger menu, else, display the normal menu
-        if(((BaseApp) this.getApplication()).getIsHR()) {
-            setContentView(R.layout.activity_hrmenu);
-        } else {
-            setContentView(R.layout.activity_menu);
-        }
+        String mail = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+                //if the user is an HR member, display the HR burger menu, else, display the normal menu
+                if(((BaseApp)this.getApplication()).getIsHR()) {
+                    setContentView(R.layout.activity_hrmenu);
+                } else {
+                    setContentView(R.layout.activity_menu);
+                }
+
+
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language","English"));
@@ -151,6 +163,8 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
             intent = new Intent(this, RequestAbsencesActivity.class);
         } else if (id == R.id.nav_my_absences) {
             intent = new Intent(this, MyAbsencesActivity.class);
+        } else if(id == R.id.nav_chat){
+            intent = new Intent(this, ChatActivity.class);
         } else if (id == R.id.nav_collaborators) {
             intent = new Intent(this, CollaboratorsActivity.class);
         } else if (id == R.id.nav_logout) {

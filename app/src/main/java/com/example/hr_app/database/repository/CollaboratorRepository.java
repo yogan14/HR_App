@@ -1,6 +1,5 @@
 package com.example.hr_app.database.repository;
 
-import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
@@ -29,7 +28,7 @@ public class CollaboratorRepository {
 
     public static CollaboratorRepository getInstance() {
         if (instance == null) {
-            synchronized (AbsencesRepository.class) {
+            synchronized (CollaboratorRepository.class) {
                 if (instance == null) {
                     instance = new CollaboratorRepository();
                 }
@@ -52,7 +51,7 @@ public class CollaboratorRepository {
 
     /**
      * getAll
-     * Get all the collaborators order by name
+     * Get all the collaborators
      */
     public LiveData<List<CollaboratorEntity>> getAll() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
@@ -85,7 +84,7 @@ public class CollaboratorRepository {
     /**
      * update
      * update a collaborator
-     * @param collaborator - collaborator to add
+     * @param collaborator - collaborator to update
      * @param callback - callback
      */
     public void update(final CollaboratorEntity collaborator, OnAsyncEventListener callback) {
@@ -104,7 +103,7 @@ public class CollaboratorRepository {
     /**
      * delete
      * delete a collaborator
-     * @param collaborator - collaborator to add
+     * @param collaborator - collaborator to delete
      * @param callback - callback
      */
     public void delete(final CollaboratorEntity collaborator, OnAsyncEventListener callback) {

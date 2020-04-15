@@ -16,7 +16,6 @@ public class OneAbsenceViewModel extends AndroidViewModel {
     /**
      * Declaration of the variables
      */
-    private Application application;
     private AbsencesRepository repository;
     private final MediatorLiveData<AbsencesEntity> observableAbsence;
 
@@ -29,7 +28,6 @@ public class OneAbsenceViewModel extends AndroidViewModel {
     public OneAbsenceViewModel(@NonNull Application application, final
     String absenceID, AbsencesRepository absencesRepository){
         super(application);
-        this.application = application;
         repository = absencesRepository;
         observableAbsence = new MediatorLiveData<>();
         observableAbsence.setValue(null);
