@@ -1,5 +1,6 @@
 package com.example.hr_app.ui;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,14 +11,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.lifecycle.ViewModelProviders;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.lifecycle.ViewModelProviders;
+import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 
 import java.util.Locale;
+
 /**
  * AddPersonActivity
  * Activity to add a collaborator
@@ -27,7 +32,7 @@ import java.util.Locale;
 public class AddPersonActivity extends BaseHRActivity {
 
     private Button bAdd;
-
+    private NotificationManagerCompat troplong;
     private TextView tvName, tvService, tvMail, tvPassword;
 
     private String name, service, mail, password;
@@ -37,6 +42,7 @@ public class AddPersonActivity extends BaseHRActivity {
     /**
      * onCreate
      * Create the activity
+     *
      * @param savedInstanceState
      */
     @Override
@@ -45,6 +51,7 @@ public class AddPersonActivity extends BaseHRActivity {
         getLayoutInflater().inflate(R.layout.activity_addperson, frameLayout);
 
         navigationView.setCheckedItem(position);
+        troplong = NotificationManagerCompat.from(this);
         setDisplay();
     }
 
@@ -53,13 +60,12 @@ public class AddPersonActivity extends BaseHRActivity {
      * State when we return in the app
      */
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         setDisplay();
     }
 
-    public void setDisplay(){
+    public void setDisplay() {
         tvName = findViewById(R.id.name_field);
         tvService = findViewById(R.id.service_field);
         tvMail = findViewById(R.id.mail_field);
@@ -67,13 +73,14 @@ public class AddPersonActivity extends BaseHRActivity {
         bAdd = findViewById(R.id.addCollaborator);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setLanguage(sharedPreferences.getString("pref_language","English"));
+        setLanguage(sharedPreferences.getString("pref_language", "English"));
         bAdd.setOnClickListener(view -> addCollaborator());
 
         CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
         viewModel = ViewModelProviders.of(this, factory).get(CollaboratorListViewModel.class);
 
     }
+
     /**
      * addCollaborator
      * when the add button is pressed, add the collaborator in the database and return to the collaboratorsActivity
@@ -123,20 +130,20 @@ public class AddPersonActivity extends BaseHRActivity {
 
                         error = true;
                     } else {
-                        if (TextUtils.isEmpty(password)){
+                        if (TextUtils.isEmpty(password)) {
                             tvPassword.setError(getString(R.string.empty_field));
                             tvPassword.setText("");
                             focusView = tvPassword;
 
                             error = true;
                         } else {
-                           if (password.length() < 5) {
-                               tvPassword.setError(getString(R.string.error_password));
-                               tvPassword.setText("");
-                               focusView = tvPassword;
+                            if (password.length() < 5) {
+                                tvPassword.setError(getString(R.string.error_password));
+                                tvPassword.setText("");
+                                focusView = tvPassword;
 
-                               error = true;
-                           }
+                                error = true;
+                            }
                         }
                     }
                 }
@@ -147,14 +154,24 @@ public class AddPersonActivity extends BaseHRActivity {
         if (error) {
             focusView.requestFocus();
         } else {
+
+            Notification notif = new NotificationCompat.Builder(this, BaseApp.CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_person_black_24dp)
+                    .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
+                    .setContentTitle(getString(R.string.newcollabo))
+                    .setContentText(getString(R.string.hello) + " " + name + " " + getString(R.string.from)+ " " + service + " service.")
+                    .setPriority(NotificationCompat.PRIORITY_LOW)
+                    .build();
+
+
+            troplong.notify(2,notif);
+
             //add collaborator in the database
             CollaboratorEntity collaborator = new CollaboratorEntity(name, service, mail, password);
 
             viewModel.insert(collaborator, new OnAsyncEventListener() {
                 @Override
-                public void onSuccess() {
-                    setResponse(true);
-                }
+                public void onSuccess() { setResponse(true); }
 
                 @Override
                 public void onFailure(Exception e) {
@@ -163,14 +180,15 @@ public class AddPersonActivity extends BaseHRActivity {
             });
 
 
-
-
         }
     }
+
+
 
     /**
      * setResponse
      * if it's ok, start the intent, if not, say it
+     *
      * @param response - ok or not
      */
     private void setResponse(Boolean response) {
@@ -186,17 +204,19 @@ public class AddPersonActivity extends BaseHRActivity {
             tvMail.requestFocus();
         }
     }
+
     /**
      * setLanguage
      * Set the language from the settings
+     *
      * @param langue the language the user want
      */
-    public void setLanguage(String langue){
+    public void setLanguage(String langue) {
         Locale locale = new Locale(langue);
         Locale.setDefault(locale);
         android.content.res.Configuration config = new android.content.res.Configuration();
         config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 }
 

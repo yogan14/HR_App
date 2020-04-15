@@ -1,6 +1,9 @@
 package com.example.hr_app;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 
 import com.example.hr_app.database.repository.AbsencesRepository;
 import com.example.hr_app.database.repository.CollaboratorRepository;
@@ -17,6 +20,7 @@ public class BaseApp extends Application {
     private String mail;
     private String idAbsence;
     private boolean isHR;
+    public static final String CHANNEL_ID = "channel1";
 
     //getters and setters
     public String getTheMail() {
@@ -57,6 +61,7 @@ public class BaseApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        createNotificationChannel();
     }
 
     public AbsencesRepository getAbsenceRepository() {
@@ -65,6 +70,16 @@ public class BaseApp extends Application {
 
     public CollaboratorRepository getCollaboratorRepository() {
         return CollaboratorRepository.getInstance();
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,"Channel 1", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is the first channel");
+            channel.setShowBadge(true);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
     }
 
 

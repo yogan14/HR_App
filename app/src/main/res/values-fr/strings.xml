@@ -55,6 +55,9 @@
     <string name="wrong_password">Mot de passe incorrect</string>
     <string name="no_login">Login non existant</string>
     <string name="created_request">Demande créée</string>
+    <string name="newcollabo">Nouveau/elle collaborateur/trice !</string>
+    <string name="hello">Dites bonjour à</string>
+    <string name="from">du</string>
 
     <string-array name="cause_of_absence">
         <item>Maladie</item>
