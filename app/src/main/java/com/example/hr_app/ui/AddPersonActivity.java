@@ -32,7 +32,7 @@ import java.util.Locale;
 public class AddPersonActivity extends BaseHRActivity {
 
     private Button bAdd;
-    private NotificationManagerCompat troplong;
+    private NotificationManagerCompat notificationManagerCompat;
     private TextView tvName, tvService, tvMail, tvPassword;
 
     private String name, service, mail, password;
@@ -51,7 +51,7 @@ public class AddPersonActivity extends BaseHRActivity {
         getLayoutInflater().inflate(R.layout.activity_addperson, frameLayout);
 
         navigationView.setCheckedItem(position);
-        troplong = NotificationManagerCompat.from(this);
+        notificationManagerCompat = NotificationManagerCompat.from(this);
         setDisplay();
     }
 
@@ -154,17 +154,41 @@ public class AddPersonActivity extends BaseHRActivity {
         if (error) {
             focusView.requestFocus();
         } else {
+            switch(service){
+                case "HR":
+                    Notification notif = new NotificationCompat.Builder(this, BaseApp.CHANNEL_1)
+                            .setSmallIcon(R.drawable.ic_person_black_24dp)
+                            .setContentTitle(getString(R.string.newcollabo))
+                            .setContentText(getString(R.string.hello) + " " + name + " " + getString(R.string.from)+ " " + service + " service.")
+                            .setPriority(NotificationCompat.PRIORITY_LOW)
+                            .build();
 
-            Notification notif = new NotificationCompat.Builder(this, BaseApp.CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_person_black_24dp)
-                    .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
-                    .setContentTitle(getString(R.string.newcollabo))
-                    .setContentText(getString(R.string.hello) + " " + name + " " + getString(R.string.from)+ " " + service + " service.")
-                    .setPriority(NotificationCompat.PRIORITY_LOW)
-                    .build();
+
+                    notificationManagerCompat.notify(1,notif);
+                    break;
+                case "IT":
+                    Notification notif2 = new NotificationCompat.Builder(this, BaseApp.CHANNEL_2)
+                            .setSmallIcon(R.drawable.ic_computer_black_24dp)
+                            .setContentTitle(getString(R.string.newcollabo))
+                            .setContentText(getString(R.string.hello) + " " + name + " " + getString(R.string.from)+ " " + service + " service.")
+                            .setPriority(NotificationCompat.PRIORITY_LOW)
+                            .build();
 
 
-            troplong.notify(2,notif);
+                    notificationManagerCompat.notify(2,notif2);
+                    break;
+                case "Accounting":
+                    Notification notif3 = new NotificationCompat.Builder(this, BaseApp.CHANNEL_3)
+                            .setSmallIcon(R.drawable.ic_account_balance_black_24dp)
+                            .setContentTitle(getString(R.string.newcollabo))
+                            .setContentText(getString(R.string.hello) + " " + name + " " + getString(R.string.from)+ " " + service + " service.")
+                            .setPriority(NotificationCompat.PRIORITY_LOW)
+                            .build();
+
+
+                    notificationManagerCompat.notify(3,notif3);
+            }
+
 
             //add collaborator in the database
             CollaboratorEntity collaborator = new CollaboratorEntity(name, service, mail, password);

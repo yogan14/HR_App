@@ -20,7 +20,9 @@ public class BaseApp extends Application {
     private String mail;
     private String idAbsence;
     private boolean isHR;
-    public static final String CHANNEL_ID = "channel1";
+    public static final String CHANNEL_1 = "HR";
+    public static final String CHANNEL_2 = "IT";
+    public static final String CHANNEL_3 = "Accounting";
 
     //getters and setters
     public String getTheMail() {
@@ -74,11 +76,24 @@ public class BaseApp extends Application {
 
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,"Channel 1", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("This is the first channel");
-            channel.setShowBadge(true);
+            NotificationChannel channel1 = new NotificationChannel(CHANNEL_1,"Channel HR", NotificationManager.IMPORTANCE_HIGH);
+            channel1.setDescription("This is the HR channel");
+            channel1.setShowBadge(true);
+
+
+            NotificationChannel channel2 = new NotificationChannel(CHANNEL_2,"Channel IT", NotificationManager.IMPORTANCE_HIGH);
+            channel2.setDescription("This is the IT channel");
+            channel2.setShowBadge(true);
+
+            NotificationChannel channel3 = new NotificationChannel(CHANNEL_3,"Channel Accounting", NotificationManager.IMPORTANCE_HIGH);
+            channel3.setDescription("This is the Accounting channel");
+            channel3.setShowBadge(true);
+
+
             NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
+            manager.createNotificationChannel(channel1);
+            manager.createNotificationChannel(channel2);
+            manager.createNotificationChannel(channel3);
         }
     }
 
