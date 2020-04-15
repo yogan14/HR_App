@@ -67,7 +67,5 @@ public class BaseApp extends Application {
         return CollaboratorRepository.getInstance();
     }
 
-    public MessageRepository getMessageRepository() {
-        return MessageRepository.getInstance();
-    }
+
 }

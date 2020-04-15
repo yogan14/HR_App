@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.CollaboratorEntity;
-import com.example.hr_app.ui.chat.ChatActivity;
+
 import com.example.hr_app.ui.mgmt.LoginActivity;
 import com.example.hr_app.ui.mgmt.SettingsActivity;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorViewModel;
@@ -163,8 +163,6 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
             intent = new Intent(this, RequestAbsencesActivity.class);
         } else if (id == R.id.nav_my_absences) {
             intent = new Intent(this, MyAbsencesActivity.class);
-        } else if(id == R.id.nav_chat){
-            intent = new Intent(this, ChatActivity.class);
         } else if (id == R.id.nav_collaborators) {
             intent = new Intent(this, CollaboratorsActivity.class);
         } else if (id == R.id.nav_logout) {
