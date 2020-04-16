@@ -56,7 +56,7 @@ public class StorageActivity extends BaseHRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_storage);
-        getLayoutInflater().inflate(R.layout.activity_test, frameLayout);
+        getLayoutInflater().inflate(R.layout.activity_storage, frameLayout);
         navigationView.setCheckedItem(position);
 
 

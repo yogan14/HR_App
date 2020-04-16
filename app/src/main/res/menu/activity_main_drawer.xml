@@ -13,7 +13,7 @@
 
         <item
             android:id="@+id/nav_storage"
-            android:icon="@drawable/ic_assignment_black_24dp"
+            android:icon="@drawable/ic_cloud_circle_black_24dp"
             android:title="Images" />
 
         <item

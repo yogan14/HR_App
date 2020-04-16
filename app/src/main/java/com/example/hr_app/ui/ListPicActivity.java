@@ -6,6 +6,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -89,13 +90,10 @@ public class ListPicActivity extends BaseHRActivity implements ImageAdapter.OnIt
     }
 
     @Override
-    public void onItemClick(int position) {
-        Toast.makeText(this,"normal click at position: " + position,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onYoloClick(int position) {
-        Toast.makeText(this,"yolo click at position: " + position,Toast.LENGTH_SHORT).show();
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, StorageActivity.class);
+        startActivity(intent);
     }
 
     @Override
