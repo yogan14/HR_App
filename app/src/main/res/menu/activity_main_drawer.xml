@@ -12,6 +12,11 @@
             android:title="@string/title_activity_my_absences" />
 
         <item
+            android:id="@+id/nav_storage"
+            android:icon="@drawable/ic_assignment_black_24dp"
+            android:title="Images" />
+
+        <item
             android:id="@+id/nav_collaborators"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/title_activity_collaborators"/>

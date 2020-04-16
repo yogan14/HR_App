@@ -47,7 +47,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.firebase:firebase-analytics:17.3.0'
-
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version" // ViewModel

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hr_app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".BaseApp"
         android:allowBackup="true"
@@ -10,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.ListPicActivity"></activity>
+        <activity android:name=".ui.StorageActivity">
+        </activity>
         <activity android:name=".ui.MyAbsencesActivity" />
         <activity android:name=".ui.BaseHRActivity" />
         <activity android:name=".ui.ModifyRequestAbsenceActivity" />
@@ -21,11 +25,14 @@
         <activity android:name=".ui.mgmt.SettingsActivity" />
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.mgmt.LoginActivity">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

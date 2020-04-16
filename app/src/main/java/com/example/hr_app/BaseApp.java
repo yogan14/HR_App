@@ -76,16 +76,16 @@ public class BaseApp extends Application {
 
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel1 = new NotificationChannel(CHANNEL_1,"Channel HR", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel1 = new NotificationChannel(CHANNEL_1,"Channel HR", NotificationManager.IMPORTANCE_LOW);
             channel1.setDescription("This is the HR channel");
             channel1.setShowBadge(true);
 
 
-            NotificationChannel channel2 = new NotificationChannel(CHANNEL_2,"Channel IT", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel2 = new NotificationChannel(CHANNEL_2,"Channel IT", NotificationManager.IMPORTANCE_LOW);
             channel2.setDescription("This is the IT channel");
             channel2.setShowBadge(true);
 
-            NotificationChannel channel3 = new NotificationChannel(CHANNEL_3,"Channel Accounting", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel3 = new NotificationChannel(CHANNEL_3,"Channel Accounting", NotificationManager.IMPORTANCE_LOW);
             channel3.setDescription("This is the Accounting channel");
             channel3.setShowBadge(true);
 

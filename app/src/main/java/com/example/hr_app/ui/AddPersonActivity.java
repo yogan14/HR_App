@@ -20,6 +20,8 @@ import com.example.hr_app.R;
 import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
@@ -49,7 +51,7 @@ public class AddPersonActivity extends BaseHRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_addperson, frameLayout);
-
+        
         navigationView.setCheckedItem(position);
         notificationManagerCompat = NotificationManagerCompat.from(this);
         setDisplay();
