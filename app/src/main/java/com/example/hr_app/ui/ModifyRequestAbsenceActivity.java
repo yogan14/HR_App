@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.hr_app.BaseApp;
@@ -62,6 +63,8 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         super.onResume();
         setData();
     }
+
+
 
     public void setData() {
         String absenceID = ((BaseApp)this.getApplication()).getIDAbsence();

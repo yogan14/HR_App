@@ -59,6 +59,19 @@ public class CollaboratorRepository {
         return new CollaboratorListLiveData(reference);
     }
 
+    public void register(final CollaboratorEntity collaborator, final OnAsyncEventListener callback) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                collaborator.getEmail(),
+                collaborator.getPassword()
+        ).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                insert(collaborator, callback);
+            } else {
+                callback.onFailure(task.getException());
+            }
+        });
+    }
+
     /**
      * insert
      * insert a collaborator

@@ -10,7 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AbsenceLiveData extends LiveData<AbsencesEntity> {
     private final DatabaseReference reference;
-    private final ValueListener listener = new ValueListener();
+    private final AbsenceLiveData.ValueListener listener = new AbsenceLiveData.ValueListener();
     private final String id;
 
     public AbsenceLiveData(DatabaseReference ref){
@@ -19,19 +19,17 @@ public class AbsenceLiveData extends LiveData<AbsencesEntity> {
     }
 
 
-    protected void OnActive(){
+    protected void onActive(){
         reference.addValueEventListener(listener);
     }
 
     private class ValueListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists()) {
                 AbsencesEntity entity = dataSnapshot.getValue(AbsencesEntity.class);
                 entity.setIdAbsence(dataSnapshot.getKey());
                 entity.setEmail(id);
                 setValue(entity);
-            }
         }
 
         @Override

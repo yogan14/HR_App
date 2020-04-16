@@ -76,7 +76,7 @@ public class CollaboratorListViewModel extends AndroidViewModel {
     }
 
     public void insert(CollaboratorEntity collaborator, OnAsyncEventListener callback) {
-        repository.insert(collaborator, callback);
+        repository.register(collaborator, callback);
     }
 
     public void update(CollaboratorEntity collaborator, OnAsyncEventListener callback) {

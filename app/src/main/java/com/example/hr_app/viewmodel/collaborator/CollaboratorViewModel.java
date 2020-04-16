@@ -19,27 +19,25 @@ public class CollaboratorViewModel extends AndroidViewModel {
      * Declaration of the variables
      */
     private CollaboratorRepository repository;
-    private Application application;
     private final MediatorLiveData<CollaboratorEntity> observableCollaborator;
 
     /**
      * Constructor for the view model (ModifyPersonActivity)
-     * @param application
-     * @param email
-     * @param collaboratorRepository
+     * @param application - the app
+     * @param collaboratorId - the ID of the collaborator
+     * @param collaboratorRepository - The repository
      */
     public CollaboratorViewModel(@NonNull Application application,
-                                 final String email, CollaboratorRepository collaboratorRepository) {
+                                 final String collaboratorId, CollaboratorRepository collaboratorRepository) {
         super(application);
-
-        this.application = application;
 
         repository = collaboratorRepository;
 
         observableCollaborator = new MediatorLiveData<>();
         observableCollaborator.setValue(null);
 
-        LiveData<CollaboratorEntity> collaborator = repository.getOneCollaborator(email);
+
+        LiveData<CollaboratorEntity> collaborator = repository.getOneCollaborator(collaboratorId);
         observableCollaborator.addSource(collaborator, observableCollaborator::setValue);
     }
 
@@ -51,14 +49,14 @@ public class CollaboratorViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final String email;
+        private final String collaboratorId;
 
         private final CollaboratorRepository repository;
 
 
-        public Factory(@NonNull Application application, String email) {
+        public Factory(@NonNull Application application, String collaboratorId) {
             this.application = application;
-            this.email = email;
+            this.collaboratorId = collaboratorId;
 
             repository = ((BaseApp) application).getCollaboratorRepository();
         }
@@ -66,7 +64,7 @@ public class CollaboratorViewModel extends AndroidViewModel {
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new CollaboratorViewModel(application, email, repository);
+            return (T) new CollaboratorViewModel(application, collaboratorId, repository);
         }
     }
 

@@ -12,26 +12,25 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CollaboratorLiveData extends LiveData<CollaboratorEntity> {
     private final DatabaseReference ref;
-    private final ValueListener listener = new ValueListener();
+    private final CollaboratorLiveData.ValueListener listener = new CollaboratorLiveData.ValueListener();
 
     public CollaboratorLiveData(DatabaseReference ref){
         this.ref = ref;
     }
 
 
-    protected void OnActive(){
+    protected void onActive(){
         ref.addValueEventListener(listener);
     }
 
     private class ValueListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists()) {
+
                 CollaboratorEntity entity = dataSnapshot.getValue(CollaboratorEntity.class);
                 entity.setId(dataSnapshot.getKey());
                 setValue(entity);
             }
-        }
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {

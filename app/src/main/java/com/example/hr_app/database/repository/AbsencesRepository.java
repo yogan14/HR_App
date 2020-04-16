@@ -54,7 +54,7 @@ public class AbsencesRepository {
      * Get one absence
      * @param absenceId - the id of the absence
      */
-    public LiveData<AbsencesEntity> getAbsence(String absenceId){
+    public LiveData<AbsencesEntity> getAbsence(final String absenceId){
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Absences")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
