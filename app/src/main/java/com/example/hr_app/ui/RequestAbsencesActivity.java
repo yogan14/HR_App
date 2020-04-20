@@ -155,10 +155,19 @@ public class RequestAbsencesActivity extends BaseHRActivity {
             IUDAbsencesViewModel.Factory factory = new IUDAbsencesViewModel.Factory(getApplication());
             viewModel = ViewModelProviders.of(this, factory).get(IUDAbsencesViewModel.class);
 
-            viewModel.insert(absence, callback);
+            viewModel.insert(absence, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(RequestAbsencesActivity.this, getString(R.string.created_request), Toast.LENGTH_LONG).show();
+                }
 
-            toast = Toast.makeText(this, getString(R.string.created_request), Toast.LENGTH_LONG);
-            toast.show();
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(RequestAbsencesActivity.this,"LOSER",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

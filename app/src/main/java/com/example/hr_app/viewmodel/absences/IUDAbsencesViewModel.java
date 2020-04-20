@@ -61,7 +61,7 @@ public class IUDAbsencesViewModel extends AndroidViewModel {
 
 
     public void insert(AbsencesEntity absences, OnAsyncEventListener callback) {
-        repository.insert(absences, callback);
+        ((BaseApp) getApplication()).getAbsenceRepository().insert(absences, callback);
     }
 
     public void update(AbsencesEntity absences, OnAsyncEventListener callback) {
@@ -69,6 +69,6 @@ public class IUDAbsencesViewModel extends AndroidViewModel {
     }
 
     public void delete(AbsencesEntity absences, OnAsyncEventListener callback) {
-        repository.delete(absences, callback);
+        ((BaseApp) getApplication()).getAbsenceRepository().delete(absences, callback);
     }
 }
