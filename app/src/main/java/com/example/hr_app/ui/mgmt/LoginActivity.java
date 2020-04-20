@@ -1,7 +1,6 @@
 package com.example.hr_app.ui.mgmt;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -19,11 +18,7 @@ import com.example.hr_app.database.repository.CollaboratorRepository;
 import com.example.hr_app.ui.MainActivity;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
     /**
@@ -144,36 +139,6 @@ public class LoginActivity extends AppCompatActivity {
                     pwd.setText("");
                 }
             });
-
-            // Get the collaborator according to his email
-            /*CR.getOneCollaborator(loginCase, getApplication()).observe(LoginActivity.this, collaborator -> {
-                if (collaborator != null) {
-                    if (collaborator.getPassword().equals(pwdCase)) {
-                        //Session to store the email throughout the app
-                        ((BaseApp) this.getApplication()).setTheMail(collaborator.getEmail());
-
-                        //Different screens according to the service
-                        if(collaborator.getService().equals("HR")){
-                            ((BaseApp) this.getApplication()).setHR(true);
-                        } else {
-                            ((BaseApp) this.getApplication()).setHR(false);
-                        }
-
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-
-                    } else {
-                        pwd.setError(getString(R.string.wrong_password));
-                        pwd.requestFocus();
-                        pwd.setText("");
-                    }
-
-                } else {
-                    login.setError(getString(R.string.no_login));
-                    login.requestFocus();
-                    login.setText("");
-                }
-            });*/
         }
     }
 

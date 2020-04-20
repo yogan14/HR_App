@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.hr_app.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Locale;
 
@@ -64,6 +65,8 @@ public class MainActivity extends BaseHRActivity {
 
         setTitle(getString(R.string.app_name));
         navigationView.setCheckedItem(R.id.nav_none);
+
+        String test = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     /**

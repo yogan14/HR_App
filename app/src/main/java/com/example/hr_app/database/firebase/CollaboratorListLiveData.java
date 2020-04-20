@@ -3,7 +3,6 @@ package com.example.hr_app.database.firebase;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,6 +12,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Live data of collaborator list for our database
+ */
 public class CollaboratorListLiveData extends LiveData<List<CollaboratorEntity>> {
     private final DatabaseReference reference;
     private final MyValueEventListener listener = new MyValueEventListener();
@@ -49,8 +51,10 @@ public class CollaboratorListLiveData extends LiveData<List<CollaboratorEntity>>
         List<CollaboratorEntity> collaborators = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             CollaboratorEntity entity = childSnapshot.getValue(CollaboratorEntity.class);
-            entity.setId(childSnapshot.getKey());
-            collaborators.add(entity);
+            if(entity!=null) {
+                entity.setId(childSnapshot.getKey());
+                collaborators.add(entity);
+            }
         }
         return collaborators;
     }

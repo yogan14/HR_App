@@ -30,7 +30,7 @@ public class CollaboratorListViewModel extends AndroidViewModel {
      * @param application our application
      * @param collabo the collaborator repository
      */
-    public CollaboratorListViewModel(@NonNull Application application, CollaboratorRepository collabo){
+    private CollaboratorListViewModel(@NonNull Application application, CollaboratorRepository collabo){
         super(application);
         this.app = application;
         repository = collabo;
@@ -75,15 +75,30 @@ public class CollaboratorListViewModel extends AndroidViewModel {
         return observableColls;
     }
 
+    /**
+     * Method which insert collaborator to the db
+     * @param collaborator - the collaborator to add
+     * @param callback - the callback
+     */
     public void insert(CollaboratorEntity collaborator, OnAsyncEventListener callback) {
-        repository.register(collaborator, callback);
+        ((BaseApp) getApplication()).getCollaboratorRepository().register(collaborator, callback);
     }
 
+    /**
+     * Method which update collaborator in the db
+     * @param collaborator - the collaborator to update
+     * @param callback - the callback
+     */
     public void update(CollaboratorEntity collaborator, OnAsyncEventListener callback) {
-        repository.update(collaborator, callback);
+        ((BaseApp) getApplication()).getCollaboratorRepository().update(collaborator, callback);
     }
 
+    /**
+     * Method which delete collaborator in the db
+     * @param collaborator - the collaborator to delete
+     * @param callback - the callback
+     */
     public void delete(CollaboratorEntity collaborator, OnAsyncEventListener callback) {
-        repository.delete(collaborator, callback);
+        ((BaseApp) getApplication()).getCollaboratorRepository().delete(collaborator, callback);
     }
 }

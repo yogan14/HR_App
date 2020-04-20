@@ -6,10 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Absences
+ * AbsencesEntity
  * table of absences
  */
-
 public class AbsencesEntity {
 
     private String idAbsence;
@@ -70,7 +69,7 @@ public class AbsencesEntity {
         if (obj == this) return true;
         if (!(obj instanceof AbsencesEntity)) return false;
         AbsencesEntity o = (AbsencesEntity) obj;
-        return o.getEmail() == this.getEmail();
+        return o.getEmail() .equals(this.getEmail());
     }
 
     @Override

@@ -29,8 +29,6 @@ import java.util.Locale;
  */
 public class RequestAbsencesActivity extends BaseHRActivity {
 
-    private Toast toast;
-
     private EditText etStartAbsence, etEndAbsence;
 
     private Spinner sReason;
@@ -38,8 +36,6 @@ public class RequestAbsencesActivity extends BaseHRActivity {
     private String startAbsence, endAbsence, reason, mail;
 
     private IUDAbsencesViewModel viewModel;
-
-    private OnAsyncEventListener callback;
 
     /**
      * onCreate
@@ -163,7 +159,6 @@ public class RequestAbsencesActivity extends BaseHRActivity {
 
                 @Override
                 public void onFailure(Exception e) {
-                    Toast.makeText(RequestAbsencesActivity.this,"LOSER",Toast.LENGTH_SHORT).show();
                 }
             });
 

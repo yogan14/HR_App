@@ -12,6 +12,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Live data of absence list for our database
+ */
 public class AbsenceListLiveData extends LiveData<List<AbsencesEntity>> {
     private final DatabaseReference reference;
     private final MyValueEventListener listener = new MyValueEventListener();
@@ -50,9 +53,11 @@ public class AbsenceListLiveData extends LiveData<List<AbsencesEntity>> {
         List<AbsencesEntity> absences = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             AbsencesEntity entity = childSnapshot.getValue(AbsencesEntity.class);
-            entity.setIdAbsence(childSnapshot.getKey());
-            entity.setEmail(email);
-            absences.add(entity);
+            if(entity!=null) {
+                entity.setIdAbsence(childSnapshot.getKey());
+                entity.setEmail(email);
+                absences.add(entity);
+            }
         }
         return absences;
     }

@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ui.StorageActivity">
+    tools:context=".ui.storage.StorageActivity">
 
     <Button
         android:id="@+id/button_choose_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Choose file"
+        android:text="@string/choose_button"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/edit_text_file_name"
         tools:layout_editor_absoluteX="0dp" />
 
     <EditText
@@ -22,7 +23,8 @@
         android:layout_height="47dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:hint="enter file name"
+        android:hint="@string/file_name"
+        android:inputType="text"
         app:layout_constraintStart_toEndOf="@+id/button_choose_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="upload"
+        android:text="@string/upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -65,7 +67,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:text="Show uploads"
+        android:text="@string/show_upload"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/upload_button" />

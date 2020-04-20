@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.hr_app.BaseApp;

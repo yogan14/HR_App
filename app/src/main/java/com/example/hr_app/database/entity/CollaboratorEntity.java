@@ -8,10 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Collaborator
+ * CollaboratorEntity
  * table of collaborators
  */
-
 public class CollaboratorEntity implements Comparable {
 
     private String id;
@@ -78,7 +77,7 @@ public class CollaboratorEntity implements Comparable {
         if (obj == this) return true;
         if (!(obj instanceof CollaboratorEntity)) return false;
         CollaboratorEntity o = (CollaboratorEntity) obj;
-        return o.getEmail() == this.getEmail();
+        return o.getEmail() .equals(this.getEmail());
     }
 
     @Override

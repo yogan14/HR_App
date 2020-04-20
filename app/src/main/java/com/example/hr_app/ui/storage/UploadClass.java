@@ -1,7 +1,10 @@
-package com.example.hr_app.ui;
+package com.example.hr_app.ui.storage;
 
 import com.google.firebase.database.Exclude;
 
+/**
+ * the class of the files
+ */
 public class UploadClass {
     private String name;
     private String url;
@@ -12,7 +15,7 @@ public class UploadClass {
         //empty constructor needed
     }
 
-    public UploadClass(String name, String url) {
+    UploadClass(String name, String url) {
         if (name.trim().equals("")) {
             name = "No name";
         }
@@ -37,12 +40,12 @@ public class UploadClass {
     }
 
     @Exclude
-    public String getKey() {
+    String getKey() {
         return key;
     }
 
     @Exclude
-    public void setKey(String key) {
+    void setKey(String key) {
         this.key = key;
     }
 }

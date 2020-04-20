@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -46,28 +45,13 @@
         android:layout_marginEnd="50dp"
         android:autofillHints=""
         android:ems="10"
+        android:enabled="false"
+        android:focusable="false"
         android:hint="@string/mail_field"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/service_field"
-        android:focusable="false"
-        android:enabled="false" />
-
-    <EditText
-        android:id="@+id/password_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="50dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/password_field"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mail_field" />
+        app:layout_constraintTop_toBottomOf="@+id/service_field" />
 
     <Button
         android:id="@+id/update_button"
@@ -75,25 +59,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="250dp"
-        android:onClick="updatePerson"
         android:text="@string/update_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.347"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_field" />
+        app:layout_constraintTop_toBottomOf="@+id/mail_field" />
 
     <Button
         android:id="@+id/delete_button"
         android:layout_width="113dp"
         android:layout_height="50dp"
         android:layout_marginStart="250dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="50dp"
-        android:onClick="deletePerson"
         android:text="@string/delete_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_field" />
+        app:layout_constraintTop_toBottomOf="@+id/mail_field" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * The Live data of absence for our database
+ */
 public class AbsenceLiveData extends LiveData<AbsencesEntity> {
     private final DatabaseReference reference;
     private final AbsenceLiveData.ValueListener listener = new AbsenceLiveData.ValueListener();

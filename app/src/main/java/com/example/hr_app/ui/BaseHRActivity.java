@@ -7,11 +7,10 @@ import androidx.annotation.NonNull;
 
 import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
-import com.example.hr_app.database.entity.CollaboratorEntity;
 
 import com.example.hr_app.ui.mgmt.LoginActivity;
 import com.example.hr_app.ui.mgmt.SettingsActivity;
-import com.example.hr_app.viewmodel.collaborator.CollaboratorViewModel;
+import com.example.hr_app.ui.storage.StorageActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -20,14 +19,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -56,9 +53,6 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        String mail = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
 
                 //if the user is an HR member, display the HR burger menu, else, display the normal menu
                 if(((BaseApp)this.getApplication()).getIsHR()) {
@@ -182,8 +176,12 @@ public class BaseHRActivity extends AppCompatActivity implements NavigationView.
      */
     public void logout() {
         ((BaseApp) this.getApplication()).setTheMail("Nobody connected");
+
+        FirebaseAuth.getInstance().signOut();
+
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+
     }
 
     /**

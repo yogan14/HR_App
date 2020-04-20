@@ -30,7 +30,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
     private TextView tvName, tvService, tvMail, tvPassword;
     private Toast toast;
-    private String mailCollaborator, name, service, password;
+    private String idCollaborator, name, service, mailCollaborator;
     private CollaboratorViewModel viewModel;
     private CollaboratorListViewModel vm;
     private CollaboratorEntity oneCollaborator;
@@ -62,7 +62,7 @@ public class ModifyPersonActivity extends BaseHRActivity {
     }
 
     public void setDisplay(){
-        mailCollaborator = ((BaseApp)this.getApplication()).getMailCollaborator();
+        idCollaborator = ((BaseApp)this.getApplication()).getIdCollaborator();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language","English"));
@@ -73,12 +73,12 @@ public class ModifyPersonActivity extends BaseHRActivity {
         tvPassword = findViewById(R.id.password_field);
 
         Button update = findViewById(R.id.update_button);
-        update.setOnClickListener(view -> update(tvName.getText().toString(), tvService.getText().toString(), tvPassword.getText().toString()));
+        update.setOnClickListener(view -> update(tvName.getText().toString(), tvService.getText().toString()));
 
         Button delete = findViewById(R.id.delete_button);
         delete.setOnClickListener(view -> deleteButton());
 
-        CollaboratorViewModel.Factory factory = new CollaboratorViewModel.Factory(getApplication(), mailCollaborator);
+        CollaboratorViewModel.Factory factory = new CollaboratorViewModel.Factory(getApplication(), idCollaborator);
         viewModel = ViewModelProviders.of(this,factory).get(CollaboratorViewModel.class);
 
         viewModel.getOneCollaborator().observe(this, collaborator ->  {
@@ -90,6 +90,8 @@ public class ModifyPersonActivity extends BaseHRActivity {
 
         CollaboratorListViewModel.Factory factory2 = new CollaboratorListViewModel.Factory(getApplication());
         vm = ViewModelProviders.of(this, factory2).get(CollaboratorListViewModel.class);
+
+
     }
 
     /**
@@ -98,25 +100,22 @@ public class ModifyPersonActivity extends BaseHRActivity {
     private void findData() {
         name = oneCollaborator.getName();
         service = oneCollaborator.getService();
-        password = oneCollaborator.getPassword();
+        mailCollaborator = oneCollaborator.getEmail();
 
         tvName.setText(name);
         tvService.setText(service);
         tvMail.setText(mailCollaborator);
-        tvPassword.setText(password);
     }
 
     /**
      * verify the fields, and if all is ok, modify the collaborator in the database
      * @param newName - the content of the name field
      * @param newService - the content of the service field
-     * @param newPassword - the content of the password field
      */
-    private void update(String newName, String newService, String newPassword) {
+    private void update(String newName, String newService) {
 
         tvName.setError(null);
         tvService.setError(null);
-        tvPassword.setError(null);
 
         View focusView = null;
 
@@ -136,22 +135,6 @@ public class ModifyPersonActivity extends BaseHRActivity {
                 focusView = tvService;
 
                 error = true;
-            } else {
-                if (TextUtils.isEmpty(newPassword)) {
-                    tvPassword.setError(getString(R.string.empty_field));
-                    tvPassword.setText("");
-                    focusView = tvPassword;
-
-                    error = true;
-                } else {
-                    if (newPassword.length() < 5) {
-                        tvPassword.setError(getString(R.string.error_password));
-                        tvPassword.setText("");
-                        focusView = tvPassword;
-
-                        error = true;
-                    }
-                }
             }
         }
 
@@ -167,12 +150,8 @@ public class ModifyPersonActivity extends BaseHRActivity {
             if(!service.equals(newService)){
                 oneCollaborator.setService(newService);
             }
-            if(!password.equals(newPassword)) {
-                oneCollaborator.setPassword(newPassword);
-            }
 
             //modify the collaborator in the database
-
             vm.update(oneCollaborator, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
@@ -217,18 +196,21 @@ public class ModifyPersonActivity extends BaseHRActivity {
         if (response) {
             if(type.equals("update")) {
                 toast = Toast.makeText(this, (getString(R.string.collaborator_updated)), Toast.LENGTH_LONG);
+                toast.show();
+
+                Intent intent = new Intent(ModifyPersonActivity.this, CollaboratorsActivity.class);
+                startActivity(intent);
             } else {
                 toast = Toast.makeText(this, (getString(R.string.collaborator_deleted)), Toast.LENGTH_LONG);
-            }
-            toast.show();
+                toast.show();
 
-            Intent intent = new Intent(ModifyPersonActivity.this, CollaboratorsActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(ModifyPersonActivity.this, CollaboratorsActivity.class);
+                startActivity(intent);
+            }
+
         } else {
             toast = Toast.makeText(this, (getString(R.string.error)), Toast.LENGTH_LONG);
             toast.show();
-            Intent intent = new Intent(ModifyPersonActivity.this, CollaboratorsActivity.class);
-            startActivity(intent);
         }
     }
 

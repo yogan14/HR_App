@@ -14,11 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hr_app.R;
-import com.example.hr_app.ui.UploadClass;
+import com.example.hr_app.ui.storage.UploadClass;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * ImageAdapter
+ * Adapter for the images
+ */
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
     private Context context;
     private List<UploadClass> uploads;
@@ -57,7 +61,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     /**
      * Number of items
-     * @return
      */
     @Override
     public int getItemCount() {
@@ -68,9 +71,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
      * Our view holder
      */
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
-        public TextView imageName;
-        public ImageView image;
-        public ImageViewHolder(@NonNull View itemView) {
+        private TextView imageName;
+        private ImageView image;
+        private ImageViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageName = itemView.findViewById(R.id.text_name);
@@ -85,6 +88,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
         }
 
+        /**
+         * create the menu when long click
+         * @param menu - the menu
+         * @param v - the view
+         * @param menuInfo - the box
+         */
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select action");
@@ -92,6 +101,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             delete.setOnMenuItemClickListener(this);
         }
 
+        /**
+         * the behaviour of the menu
+         * @param item - the selected option
+         */
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             if(listener!=null){

@@ -1,9 +1,6 @@
 package com.example.hr_app.database.repository;
 
-import android.app.Application;
 import androidx.lifecycle.LiveData;
-
-import com.example.hr_app.BaseApp;
 
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.database.firebase.AbsenceListLiveData;

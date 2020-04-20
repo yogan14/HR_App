@@ -1,8 +1,6 @@
-package com.example.hr_app.ui;
+package com.example.hr_app.ui.storage;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.hr_app.R;
 import com.example.hr_app.adapter.ImageAdapter;
+import com.example.hr_app.ui.BaseHRActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -102,12 +101,9 @@ public class ListPicActivity extends BaseHRActivity implements ImageAdapter.OnIt
         String key = select.getKey();
 
         StorageReference imageRef = storage.getReferenceFromUrl(select.getUrl());
-        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                ref.child(key).removeValue();
-                Toast.makeText(ListPicActivity.this, "Image deleted", Toast.LENGTH_SHORT).show();
-            }
+        imageRef.delete().addOnSuccessListener(aVoid -> {
+            ref.child(key).removeValue();
+            Toast.makeText(ListPicActivity.this, "Image deleted", Toast.LENGTH_SHORT).show();
         });
     }
 

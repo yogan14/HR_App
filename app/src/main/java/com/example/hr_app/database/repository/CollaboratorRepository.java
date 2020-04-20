@@ -59,6 +59,11 @@ public class CollaboratorRepository {
         return new CollaboratorListLiveData(reference);
     }
 
+    /**
+     * insert the collaborator in the authentication
+     * @param collaborator - the collaborator to add
+     * @param callback - callback
+     */
     public void register(final CollaboratorEntity collaborator, final OnAsyncEventListener callback) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(
                 collaborator.getEmail(),
@@ -78,7 +83,7 @@ public class CollaboratorRepository {
      * @param collaborator - collaborator to add
      * @param callback - callback
      */
-    public void insert(final CollaboratorEntity collaborator, OnAsyncEventListener callback) {
+    private void insert(final CollaboratorEntity collaborator, OnAsyncEventListener callback) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Collaborators");
         String key = reference.push().getKey();
@@ -132,6 +137,12 @@ public class CollaboratorRepository {
                     });
     }
 
+    /**
+     * the connexion to the db
+     * @param email - the login
+     * @param password - the password
+     * @param listener - the listener
+     */
     public void signIn(final String email, final String password,
                        final OnCompleteListener<AuthResult> listener) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)

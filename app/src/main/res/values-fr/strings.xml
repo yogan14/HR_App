@@ -58,6 +58,10 @@
     <string name="newcollabo">Nouveau/elle collaborateur/trice !</string>
     <string name="hello">Dites bonjour à</string>
     <string name="from">du</string>
+    <string name="choose_button">Choix fichier</string>
+    <string name="file_name">entrer un nom</string>
+    <string name="upload">télécharger</string>
+    <string name="show_upload">fichiers téléchargés</string>
 
     <string-array name="cause_of_absence">
         <item>Maladie</item>

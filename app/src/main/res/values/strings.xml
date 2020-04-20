@@ -58,6 +58,10 @@
     <string name="newcollabo">New collaborator !</string>
     <string name="hello">Say hello to</string>
     <string name="from">from</string>
+    <string name="choose_button">Choose file</string>
+    <string name="file_name">enter file name</string>
+    <string name="upload">upload</string>
+    <string name="show_upload">Show uploads</string>
 
 
     <string-array name="cause_of_absence">

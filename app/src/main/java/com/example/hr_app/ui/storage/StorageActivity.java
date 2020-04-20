@@ -1,9 +1,7 @@
-package com.example.hr_app.ui;
+package com.example.hr_app.ui.storage;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -20,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hr_app.R;
+import com.example.hr_app.ui.BaseHRActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -67,37 +66,22 @@ public class StorageActivity extends BaseHRActivity {
         image = findViewById(R.id.image_upload);
         bar = findViewById(R.id.progress_bar);
 
-        /**
-         * Get the references of our database and storage
-         */
+        //Get the references of our database and storage
         storageRef = FirebaseStorage.getInstance().getReference("uploads");
         dbref = FirebaseDatabase.getInstance().getReference("uploads");
 
-        choose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFileChooser();
+        choose.setOnClickListener(v -> openFileChooser());
+
+        upload.setOnClickListener(v -> {
+            //This doesn't allow the spam of the upload button
+            if (uploadTask != null && uploadTask.isInProgress()) {
+                Toast.makeText(StorageActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
+            } else {
+                uploadMethod();
             }
         });
 
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //This doesn't allow the spam of the upload button
-                if (uploadTask != null && uploadTask.isInProgress()) {
-                    Toast.makeText(StorageActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
-                } else {
-                    uploadMethod();
-                }
-            }
-        });
-
-        show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openImages();
-            }
-        });
+        show.setOnClickListener(v -> openImages());
     }
 
     /**
@@ -141,40 +125,31 @@ public class StorageActivity extends BaseHRActivity {
         if (imageUri != null) {
             StorageReference fileRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
-            uploadTask = fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    //the bar will be set to 0 after 0.5 second
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            bar.setProgress(0);
-                        }
-                    }, 500);
+            //animation of the bar
+            uploadTask = fileRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+                //the bar will be set to 0 after 0.5 second
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        bar.setProgress(0);
+                    }
+                }, 500);
 
-                    Toast.makeText(StorageActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(StorageActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
 
-                    Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while(!urlTask.isSuccessful());
-                    Uri downloadUrl = urlTask.getResult();
+                Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                while(!urlTask.isSuccessful());
+                Uri downloadUrl = urlTask.getResult();
 
-                    UploadClass uploadClass = new UploadClass(fileName.getText().toString().trim(),downloadUrl.toString());
-                    String uploadID = dbref.push().getKey();
-                    dbref.child(uploadID).setValue(uploadClass);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(StorageActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                //animation of the bar
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    bar.setProgress((int) progress);
-                }
+                UploadClass uploadClass = new UploadClass(fileName.getText().toString().trim(),downloadUrl.toString());
+                String uploadID = dbref.push().getKey();
+                dbref.child(uploadID).setValue(uploadClass);
+            }).addOnFailureListener(e -> {
+                Toast.makeText(StorageActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }).addOnProgressListener(taskSnapshot -> {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                bar.setProgress((int) progress);
             });
         } else {
             Toast.makeText(this, "no file detected", Toast.LENGTH_SHORT).show();

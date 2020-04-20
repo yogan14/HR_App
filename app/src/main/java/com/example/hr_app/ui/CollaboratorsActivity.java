@@ -39,14 +39,14 @@ public class CollaboratorsActivity extends BaseHRActivity {
     /**
      * onCreate
      * On the creation of the activity
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
-        /**
-         * Get the layout from the xml file
-         */
+
+         //Get the layout from the xml file
         getLayoutInflater().inflate(R.layout.activity_collaborators, frameLayout);
         setDisplay();
 
@@ -64,9 +64,8 @@ public class CollaboratorsActivity extends BaseHRActivity {
     }
 
     public void setDisplay(){
-        /**
-         * Creation of the button and the recycler view and set the relative settings
-         */
+        //Creation of the button and the recycler view and set the relative settings
+
         addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(view -> add());
 
@@ -82,9 +81,7 @@ public class CollaboratorsActivity extends BaseHRActivity {
                 LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        /**
-         * Creation of the list of collaborators and the relative adapter
-         */
+        //Creation of the list of collaborators and the relative adapter
         collaborators = new ArrayList<>();
         adapter = new ListAdapter<>(new RecyclerViewItemClickListener() {
             /**
@@ -96,7 +93,7 @@ public class CollaboratorsActivity extends BaseHRActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Intent intent = new Intent(CollaboratorsActivity.this, ModifyPersonActivity.class);
-                ((BaseApp) getApplication()).setMailCollaborator(collaborators.get(position).getId());
+                ((BaseApp) getApplication()).setIdCollaborator(collaborators.get(position).getId());
                 startActivity(intent);
             }
 
@@ -106,9 +103,7 @@ public class CollaboratorsActivity extends BaseHRActivity {
             }
         });
 
-        /**
-         * Filling the list
-         */
+        //Filling the list
         CollaboratorListViewModel.Factory factory = new CollaboratorListViewModel.Factory(getApplication());
         viewModel = ViewModelProviders.of(this,factory).get(CollaboratorListViewModel.class);
 

@@ -4,8 +4,6 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -13,8 +11,6 @@ import com.example.hr_app.BaseApp;
 import com.example.hr_app.database.entity.AbsencesEntity;
 import com.example.hr_app.database.repository.AbsencesRepository;
 import com.example.hr_app.util.OnAsyncEventListener;
-
-import java.util.List;
 
 public class IUDAbsencesViewModel extends AndroidViewModel {
     /**
@@ -28,7 +24,7 @@ public class IUDAbsencesViewModel extends AndroidViewModel {
      * @param application our application
      * @param absencesRepository the absence repository
      */
-    public IUDAbsencesViewModel(@NonNull Application application,
+    private IUDAbsencesViewModel(@NonNull Application application,
                                            AbsencesRepository absencesRepository) {
         super(application);
 
@@ -59,15 +55,29 @@ public class IUDAbsencesViewModel extends AndroidViewModel {
         }
     }
 
-
+    /**
+     * Method which insert absence in the db
+     * @param absences - the absence to add
+     * @param callback - the callback
+     */
     public void insert(AbsencesEntity absences, OnAsyncEventListener callback) {
         ((BaseApp) getApplication()).getAbsenceRepository().insert(absences, callback);
     }
 
+    /**
+     * Method which update absence in the db
+     * @param absences - the absence to update
+     * @param callback - the callback
+     */
     public void update(AbsencesEntity absences, OnAsyncEventListener callback) {
-        repository.update(absences, callback);
+        ((BaseApp) getApplication()).getAbsenceRepository().update(absences, callback);
     }
 
+    /**
+     * Method which delete the absence in the db
+     * @param absences - the absence to delete
+     * @param callback - the callback
+     */
     public void delete(AbsencesEntity absences, OnAsyncEventListener callback) {
         ((BaseApp) getApplication()).getAbsenceRepository().delete(absences, callback);
     }

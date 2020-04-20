@@ -1,6 +1,5 @@
 package com.example.hr_app.ui;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,16 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProviders;
-import com.example.hr_app.BaseApp;
 import com.example.hr_app.R;
 import com.example.hr_app.database.entity.CollaboratorEntity;
 import com.example.hr_app.util.OnAsyncEventListener;
 import com.example.hr_app.viewmodel.collaborator.CollaboratorListViewModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
@@ -34,7 +28,6 @@ import java.util.Locale;
 public class AddPersonActivity extends BaseHRActivity {
 
     private Button bAdd;
-    private NotificationManagerCompat notificationManagerCompat;
     private TextView tvName, tvService, tvMail, tvPassword;
 
     private String name, service, mail, password;
@@ -45,7 +38,7 @@ public class AddPersonActivity extends BaseHRActivity {
      * onCreate
      * Create the activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState - the instance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +46,6 @@ public class AddPersonActivity extends BaseHRActivity {
         getLayoutInflater().inflate(R.layout.activity_addperson, frameLayout);
         
         navigationView.setCheckedItem(position);
-        notificationManagerCompat = NotificationManagerCompat.from(this);
         setDisplay();
     }
 
@@ -139,7 +131,7 @@ public class AddPersonActivity extends BaseHRActivity {
 
                             error = true;
                         } else {
-                            if (password.length() < 5) {
+                            if (password.length() < 6) {
                                 tvPassword.setError(getString(R.string.error_password));
                                 tvPassword.setText("");
                                 focusView = tvPassword;
@@ -156,48 +148,16 @@ public class AddPersonActivity extends BaseHRActivity {
         if (error) {
             focusView.requestFocus();
         } else {
-            switch(service){
-                case "HR":
-                    Notification notif = new NotificationCompat.Builder(this, BaseApp.CHANNEL_1)
-                            .setSmallIcon(R.drawable.ic_person_black_24dp)
-                            .setContentTitle(getString(R.string.newcollabo))
-                            .setContentText(getString(R.string.hello) + " " + name + " " + getString(R.string.from)+ " " + service + " service.")
-                            .setPriority(NotificationCompat.PRIORITY_LOW)
-                            .build();
-
-
-                    notificationManagerCompat.notify(1,notif);
-                    break;
-                case "IT":
-                    Notification notif2 = new NotificationCompat.Builder(this, BaseApp.CHANNEL_2)
-                            .setSmallIcon(R.drawable.ic_computer_black_24dp)
-                            .setContentTitle(getString(R.string.newcollabo))
-                            .setContentText(getString(R.string.hello) + " " + name + " " + getString(R.string.from)+ " " + service + " service.")
-                            .setPriority(NotificationCompat.PRIORITY_LOW)
-                            .build();
-
-
-                    notificationManagerCompat.notify(2,notif2);
-                    break;
-                case "Accounting":
-                    Notification notif3 = new NotificationCompat.Builder(this, BaseApp.CHANNEL_3)
-                            .setSmallIcon(R.drawable.ic_account_balance_black_24dp)
-                            .setContentTitle(getString(R.string.newcollabo))
-                            .setContentText(getString(R.string.hello) + " " + name + " " + getString(R.string.from)+ " " + service + " service.")
-                            .setPriority(NotificationCompat.PRIORITY_LOW)
-                            .build();
-
-
-                    notificationManagerCompat.notify(3,notif3);
-            }
-
 
             //add collaborator in the database
             CollaboratorEntity collaborator = new CollaboratorEntity(name, service, mail, password);
 
+
             viewModel.insert(collaborator, new OnAsyncEventListener() {
                 @Override
-                public void onSuccess() { setResponse(true); }
+                public void onSuccess() {
+                    setResponse(true);
+                }
 
                 @Override
                 public void onFailure(Exception e) {
