@@ -182,8 +182,8 @@ public class AddPersonActivity extends BaseHRActivity {
         if (response) {
             Toast toast = Toast.makeText(this, (getString(R.string.collaborator_created)), Toast.LENGTH_LONG);
             toast.show();
-            Intent intent = new Intent(AddPersonActivity.this, CollaboratorsActivity.class);
-            startActivity(intent);
+
+            logout();
         } else {
             //if the mail already exist in the database, request focus and tell the error
             tvMail.setError(getString(R.string.error_used_email));

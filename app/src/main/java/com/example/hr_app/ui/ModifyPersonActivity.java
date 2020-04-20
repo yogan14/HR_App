@@ -198,14 +198,13 @@ public class ModifyPersonActivity extends BaseHRActivity {
                 toast = Toast.makeText(this, (getString(R.string.collaborator_updated)), Toast.LENGTH_LONG);
                 toast.show();
 
-                Intent intent = new Intent(ModifyPersonActivity.this, CollaboratorsActivity.class);
-                startActivity(intent);
+                logout();
+
             } else {
                 toast = Toast.makeText(this, (getString(R.string.collaborator_deleted)), Toast.LENGTH_LONG);
                 toast.show();
 
-                Intent intent = new Intent(ModifyPersonActivity.this, CollaboratorsActivity.class);
-                startActivity(intent);
+                logout();
             }
 
         } else {
