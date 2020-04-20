@@ -79,8 +79,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setLanguage(sharedPreferences.getString("pref_language","English"));
 
-        Button delete = findViewById(R.id.delete_button);
-        delete.setOnClickListener(view -> deleteButton());
+
 
         OneAbsenceViewModel.Factory factory = new OneAbsenceViewModel.Factory(getApplication(), absenceID);
         viewModel = ViewModelProviders.of(this,factory).get(OneAbsenceViewModel.class);
@@ -95,6 +94,8 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
         IUDAbsencesViewModel.Factory factory2 = new IUDAbsencesViewModel.Factory(getApplication());
         vm = ViewModelProviders.of(this, factory2).get(IUDAbsencesViewModel.class);
 
+        Button delete = findViewById(R.id.delete_button);
+        delete.setOnClickListener(view -> deleteButton());
     }
 
     /**
@@ -221,7 +222,7 @@ public class ModifyRequestAbsenceActivity extends BaseHRActivity {
 
             //modify the database
 
-            vm.update(absence, new OnAsyncEventListener() {
+            this.vm.update(absence, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
                     setResponse(true, "update");

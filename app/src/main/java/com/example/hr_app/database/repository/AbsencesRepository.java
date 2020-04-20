@@ -113,6 +113,8 @@ public class AbsencesRepository {
      * @param callback - callback
      */
     public void delete(final AbsencesEntity absence, OnAsyncEventListener callback) {
+      String test =  FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         FirebaseDatabase.getInstance()
                 .getReference("Absences")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

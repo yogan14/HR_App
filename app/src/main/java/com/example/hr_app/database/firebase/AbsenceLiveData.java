@@ -15,7 +15,7 @@ public class AbsenceLiveData extends LiveData<AbsencesEntity> {
 
     public AbsenceLiveData(DatabaseReference ref){
         reference = ref;
-        id = ref.getParent().getKey();
+        id = ref.getKey();
     }
 
 
@@ -26,10 +26,13 @@ public class AbsenceLiveData extends LiveData<AbsencesEntity> {
     private class ValueListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 AbsencesEntity entity = dataSnapshot.getValue(AbsencesEntity.class);
-                entity.setIdAbsence(dataSnapshot.getKey());
-                entity.setEmail(id);
-                setValue(entity);
+                if(entity!=null){
+                    entity.setIdAbsence(dataSnapshot.getKey());
+                    setValue(entity);
+                }
+
         }
 
         @Override
